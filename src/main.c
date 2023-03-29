@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:51:24 by ichiro            #+#    #+#             */
-/*   Updated: 2023/03/29 17:01:20 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/03/30 01:45:15 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,55 +35,125 @@ void	hook(void *param)
 		g_img->instances[0].x += 5;
 }
 
-void drawline(mlx_image_t *g_img, int x0, int y0, int x1, int y1)
+void	iso(int *x, int *y, int z)
 {
-	int dx, dy, p, x, y;
+	double	angle;
 
-	dx = x1 - x0;
-	dy = y1 - y0;
-	
-	x = x0;
-	y = y0;
-	if (dx >= dy)
-	{
-		p = 2 * dy - dx;
-		
-		while(x < x1)
-		{
-			if(p >= 0)
-			{
-				mlx_put_pixel(g_img, x, y, 0xffffff);
-				y = y + 1;
-				p = p + 2 * dy -2 * dx;
-			}
-			else
-			{
-				mlx_put_pixel(g_img, x, y, 0xffffff);
-				p = p + 2 * dy;
-			}
-			x = x + 1;
-		}
-	}
-	else
-	{
-		p = 2 * dx - dy;
-		while(y < y1)
-		{
-			if(p >= 0)
-			{
-				mlx_put_pixel(g_img, x, y, 0xffffff);
-				x = x + 1;
-				p = p + 2 * dx -2 * dy;
-			}
-			else
-			{
-				mlx_put_pixel(g_img, x, y, 0xffffff);
-				p = p + 2 * dx;
-			}
-			y = y + 1;
-		}
-	}
+	angle = 0.8;
+	*x = (*x - *y) * cos(.8);
+	*y = (*x + *y) * sin(.8) - z;
 }
+
+void drawline(t_fdf *data, int x1, int y1, int x2, int y2)
+{
+	int	z;
+	int	z1;
+	int	mul;
+
+	z = data->map[y1][x1];
+	z1 = data->map[y2][x2];
+
+	mul = 30;
+
+	x1 *= mul;
+	y1 *= mul;
+	x2 *= mul;
+	y2 *= mul;
+
+	iso(&x1, &y1, z);
+	iso(&x2, &y2, z1);
+	x1 += 300;
+	y1 += 300;
+	x2 += 300;
+	y2 += 300;
+	
+	int dx = abs(x2 - x1);
+    int dy = abs(y2 - y1);
+    int sx = (x1 < x2) ? 1 : -1;
+    int sy = (y1 < y2) ? 1 : -1;
+    int err = dx - dy;
+
+    while (1) {
+        mlx_put_pixel(data->g_img, x1, y1, 0xffffff);
+        if (x1 == x2 && y1 == y2) break;
+        int e2 = 2 * err;
+        if (e2 > -dy) {
+            err -= dy;
+            x1 += sx;
+        }
+        if (e2 < dx) {
+            err += dx;
+            y1 += sy;
+        }
+    }
+}
+
+// void drawline(t_fdf *data, int x, int y, int x1, int y1)
+// {
+// 	int	dx; 
+// 	int	dy; 
+// 	int	p; 
+// 	int	z; 
+// 	int	z1;
+// 	int	mul;
+
+// 	z = data->map[y][x];
+// 	z1 = data->map[y1][x1];
+
+// 	mul = 30;
+
+// 	x *= mul;
+// 	y *= mul;
+// 	x1 *= mul;
+// 	y1 *= mul;
+
+// 	iso(&x, &y, z);
+// 	iso(&x1, &y1, z1);
+// 	x += 300;
+// 	y += 300;
+// 	x1 += 300;
+// 	y1 += 300;
+// 	dx = x1 - x;
+// 	dy = y1 - y;
+// 	if (dx >= dy)
+// 	{
+// 		p = 2 * dy - dx;
+// 		while (x < x1)
+// 		{
+// 			if (p >= 0)
+// 			{
+// 				mlx_put_pixel(data->g_img, x, y, 0xffffff);
+// 				y = y + 1;
+// 				p = p + 2 * dy -2 * dx;
+// 			}
+// 			else
+// 			{
+// 				mlx_put_pixel(data->g_img, x, y, 0xffffff);
+// 				p = p + 2 * dy;
+// 			}
+// 			x = x + 1;
+// 		}
+// 	}
+// 	else
+// 	{
+// 		p = 2 * dx - dy;
+// 		while (y < y1)
+// 		{
+// 			if (p >= 0)
+// 			{
+// 				mlx_put_pixel(data->g_img, x, y, 0xffffff);
+// 				x = x + 1;
+// 				p = p + 2 * dx -2 * dy;
+// 			}
+// 			else
+// 			{
+// 				mlx_put_pixel(data->g_img, x, y, 0xffffff);
+// 				p = p + 2 * dx;
+// 			}
+// 			y = y + 1;
+// 		}
+// 	}
+// }
 
 void	draw_grid(t_fdf *data)
 {
@@ -97,9 +167,9 @@ void	draw_grid(t_fdf *data)
 		while (x < data->width)
 		{
 			if (x < data->width - 1)
-				drawline(data->g_img, x * 500, y * 500, (x + 1) * 500, y * 500);
+				drawline(data, x, y, (x + 1), y);
 			if (y < data->height - 1)
-				drawline(data->g_img, x * 500, y * 500, x * 500, (y + 1) * 500);
+				drawline(data, x, y, x, (y + 1));
 			x++;
 		}
 		y++;
@@ -139,7 +209,7 @@ int	main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 
 	read_map(data, argv[1]);
-	// print_map(data);
+	print_map(data);
 	data->g_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(data->mlx, data->g_img, 0, 0);
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+         #
+#    By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 00:51:40 by ichiro            #+#    #+#              #
-#    Updated: 2023/03/29 13:58:19 by imisumi          ###   ########.fr        #
+#    Updated: 2023/03/29 23:37:43 by ichiro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ HEADER = includes/fdf.h
 
 CFLAGS = -g -I include
 
-LFLAGS = -lglfw3 -framework Cocoa -framework OpenGl -framework IOKit
+LFLAGS = -lglfw -framework Cocoa -framework OpenGl -framework IOKit
 
 cc = gcc 
 # -Wall -Werror -Wextra
