@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:51:24 by ichiro            #+#    #+#             */
-/*   Updated: 2023/03/29 13:51:42 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/03/29 17:01:20 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,49 @@ void drawline(mlx_image_t *g_img, int x0, int y0, int x1, int y1)
 	}
 }
 
+void	draw_grid(t_fdf *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < data->height)
+	{
+		x = 0;
+		while (x < data->width)
+		{
+			if (x < data->width - 1)
+				drawline(data->g_img, x * 500, y * 500, (x + 1) * 500, y * 500);
+			if (y < data->height - 1)
+				drawline(data->g_img, x * 500, y * 500, x * 500, (y + 1) * 500);
+			x++;
+		}
+		y++;
+	}
+	// mlx_put_pixel(g_img, x, data->height, 0xffffff);
+}
+
+void	print_map(t_fdf *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	printf("width = %d\n", data->width);
+	printf("height = %d\n", data->height);
+	while (i < data->height)
+	{
+		j = 0;
+		while (j < data->width)
+		{
+			printf("%3d", data->map[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+}
+
 int	main(int argc, char *argv[])
 {
 	t_fdf	*data;
@@ -94,13 +137,18 @@ int	main(int argc, char *argv[])
 	data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!data->mlx)
 		exit(EXIT_FAILURE);
+
+	read_map(data, argv[1]);
+	// print_map(data);
 	data->g_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(data->mlx, data->g_img, 0, 0);
 
-	drawline(data->g_img, 10, 10, 100, 15);
-	drawline(data->g_img, 10, 10, 15, 100);
-	drawline(data->g_img, 100, 15, 500, 500);
-	drawline(data->g_img, 15, 100, 500, 500);
+	draw_grid(data);
+
+	// drawline(data->g_img, 10, 10, 100, 15);
+	// drawline(data->g_img, 10, 10, 15, 100);
+	// drawline(data->g_img, 100, 15, 500, 500);
+	// drawline(data->g_img, 15, 100, 500, 500);
 
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);

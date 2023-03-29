@@ -6,7 +6,7 @@
 #    By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 00:51:40 by ichiro            #+#    #+#              #
-#    Updated: 2023/03/29 12:14:51 by imisumi          ###   ########.fr        #
+#    Updated: 2023/03/29 13:58:19 by imisumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC_DIR = src
 
 INC := -I $(INCLUDE_DIR)
 
-SRCS = main.c draw.c
+SRCS = main.c draw.c read_map.c
 
 OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 

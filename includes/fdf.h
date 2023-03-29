@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/03/29 13:48:27 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/03/29 14:11:28 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ typedef struct s_fdf
 }	t_fdf;
 
 // void	draw(float x, float y, float x1, float y1, mlx_image_t *g_img);
+
+void	read_map(t_fdf *data, char *filename);
 
 #endif

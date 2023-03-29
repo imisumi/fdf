@@ -2,6 +2,7 @@
 	"files.associations": {
 		"*.rmd": "markdown",
 		"mlx42.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"ios": "c"
 	}
 }
