@@ -1,47 +1,34 @@
-#include <mlx.h>
+#include <stdio.h>
 
-#define WIDTH 640
-#define HEIGHT 480
-
-typedef struct    s_vec3 {
-    float    x;
-    float    y;
-    float    z;
-}                t_vec3;
-
-void draw_line(void mlx, voidwin, t_vec3 p1, t_vec3 p2)
-{
-    mlx_pixel_put(mlx, win, p1.x, p1.y, 0xFFFFFF);
-    mlx_pixel_put(mlx, win, p2.x, p2.y, 0xFFFFFF);
-}
-
-void draw_cube(void mlx, voidwin)
-{
-    t_vec3 vertices[8] = {
-        {-1, -1, -1}, {1, -1, -1}, {-1, 1, -1}, {1, 1, -1},
-        {-1, -1, 1}, {1, -1, 1}, {-1, 1, 1}, {1, 1, 1}
-    };
-    int edges[12][2] = {
-        {0, 1}, {0, 2}, {0, 4}, {1, 3}, {1, 5}, {2, 3},
-        {2, 6}, {3, 7}, {4, 5}, {4, 6}, {5, 7}, {6, 7}
-    };
-    int i;
-    for (i = 0; i < 12; i++) {
-        int v1 = edges[i][0];
-        int v2 = edges[i][1];
-        t_vec3 p1 = vertices[v1];
-        t_vec3 p2 = vertices[v2];
-        draw_line(mlx, win, p1, p2);
+// Function to calculate a gradient between two RGB colors
+void generateGradient(int startColor[], int endColor[], int steps) {
+    // Calculate the difference between the start and end colors
+    int diff[3];
+    for (int i = 0; i < 3; i++) {
+        diff[i] = endColor[i] - startColor[i];
+    }
+    
+    // Generate the gradient by interpolating between the start and end colors
+    for (int i = 0; i < steps; i++) {
+        // Calculate the RGB components for the current step
+        int currentColor[3];
+        for (int j = 0; j < 3; j++) {
+            currentColor[j] = startColor[j] + (diff[j] * i / steps);
+        }
+        
+        // Print the RGB color code for the current step
+        printf("RGB(%d, %d, %d)\n", currentColor[0], currentColor[1], currentColor[2]);
     }
 }
 
-int main(void)
-{
-    void mlx;
-    voidwin;
-    mlx = mlx_init();
-    win = mlx_new_window(mlx, WIDTH, HEIGHT, "Cube");
-    draw_cube(mlx, win);
-    mlx_loop(mlx);
+// Example usage
+int main() {
+    // Define the start and end colors
+    int startColor[] = {255, 0, 0};  // Red
+    int endColor[] = {0, 0, 255};    // Blue
+    
+    // Generate the gradient between the start and end colors in 1000 steps
+    generateGradient(startColor, endColor, 1000);
+    
     return 0;
 }

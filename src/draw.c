@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:16:48 by imisumi           #+#    #+#             */
-/*   Updated: 2023/03/30 21:17:35 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/03/31 17:54:06 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,26 @@
 #include <stdio.h>
 #define PI 3.14159265
 
-void	rotate(t_vec3 *point, float x, float y, float z)
-{
-	float	rad;
-
-	// x = 1;
-	// y = 1;
-	// z = 1;
-	rad = 0;
-	// printf("z = %f\n", point->y);
-
-	rad = x;
-	point->y = cos(rad) * point->y - sin(rad) * point->z;
-	point->z = sin(rad) * point->y + cos(rad) * point->z;
-
-	rad = y;
-	point->x = cos(rad) * point->x + sin(rad) * point->z;
-	point->z = sin(rad) * point->x + cos(rad) * point->z;
-
-	rad = z;
-	point->x = cos(rad) * point->x - sin(rad) * point->y;
-	point->z = sin(rad) * point->x + cos(rad) * point->y;
-
-}
-
 void	iso(t_fdf *data, int *x, int *y, int z)
 {
 	double	angle;
 	angle = 0.8;
+	printf("angle1 = %f\n", data->angle1);
+	printf("angle2 = %f\n", data->angle2);
 	*x = (*x - *y) * cos(data->angle1);
 	*y = (*x + *y) * sin(data->angle2) - z;
 }
+
+// void iso(t_fdf *data, int *x, int *y, int z)
+// {
+//     double angle;
+//     angle = 0.8;
+// 	// data->angle2 = -PI / 2;
+//     printf("angle1 = %f\n", data->angle1);
+//     printf("angle2 = %f\n", data->angle2);
+//     *x = (*x - *y);
+//     *y = (*x + *y) * sin(data->angle2) - z;
+// }
 
 void drawline(t_fdf *data, int x1, int y1, int x2, int y2)
 {

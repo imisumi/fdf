@@ -4,6 +4,7 @@
 #define HEIGHT 1080
 
 
+
 void	ft_hook(void *param)
 {
 	t_fdf	*data;
@@ -13,33 +14,6 @@ void	ft_hook(void *param)
 		mlx_close_window(data->mlx);
 	// if (mlx_is_key_down(mlx, MLX_KEY_1))
 	// 	mlx_close_window(mlx);
-}
-
-// void	k_hook(mlx_key_data_t k, void *tmp)
-
-// void	move_grid(mlx_key_data key, void *param)
-// {
-// 	printf("%d\n", key);
-// }
-// -----------------------------------------------------------------------------
-void	loops(t_fdf *data)
-{
-	printf("z = %f\n", data->points[0].x);
-	printf("y = %f\n", data->points[0].y);
-	printf("z = %f\n", data->points[0].z);
-	for (int i = 0; i < 8; i++)
-	{
-		data->points[i].x -= data->c.x;
-		data->points[i].y -= data->c.y;
-		data->points[i].z -= data->c.z;
-		rotate(&data->points[i], 0.006, 0.003, 0.012);
-		data->points[i].x += data->c.x;
-		data->points[i].y += data->c.y;
-		data->points[i].z += data->c.z;
-		mlx_put_pixel(data->image, data->points[i].x, data->points[i].y, 0xffffff);
-	}
-	for (int i = 0; i < 8; i++)
-		mlx_put_pixel(data->image, data->points[i].x, data->points[i].y, 0xffffff);
 }
 
 void	key_hook(mlx_key_data_t key, void *param)
@@ -61,45 +35,54 @@ void	key_hook(mlx_key_data_t key, void *param)
 	if (mlx_is_key_down(data->mlx, 87))
 		data->angle1 += 0.1;
 	if (mlx_is_key_down(data->mlx, 65))
+	{
 		data->angle2 -= 0.1;
+		// data->angle2 = PI;
+	}
 	if (mlx_is_key_down(data->mlx, 83))
+	{
 		data->angle2 += 0.1;
+		// data->angle2 = PI / 2;
+	}
 	ft_memset(data->image->pixels, 0, sizeof(int) \
 		* data->image->width * data->image->height);
+	fill_image(data);
 	draw_grid(data);
 }
 
-void	ft_loops(mlx_key_data_t key, void *param)
+int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
-	t_fdf	*data;
-
-	data = param;
-	printf("%d\n", key.key);
-	if (mlx_is_key_down(data->mlx, 32))
-		loops(data);
-	ft_memset(data->image->pixels, 0, sizeof(int) \
-		* data->image->width * data->image->height);
-	loops(data);
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void draw_cube(t_fdf *data)
+void	fill_image(t_fdf *data)
 {
-    t_vec3 vertices[8] = {
-        {-1, -1, -1}, {1, -1, -1}, {-1, 1, -1}, {1, 1, -1},
-        {-1, -1, 1}, {1, -1, 1}, {-1, 1, 1}, {1, 1, 1}
-    };
-    int edges[12][2] = {
-        {0, 1}, {0, 2}, {0, 4}, {1, 3}, {1, 5}, {2, 3},
-        {2, 6}, {3, 7}, {4, 5}, {4, 6}, {5, 7}, {6, 7}
-    };
-    int i;
-    for (i = 0; i < 12; i++) {
-        int v1 = edges[i][0];
-        int v2 = edges[i][1];
-        t_vec3 p1 = vertices[v1];
-        t_vec3 p2 = vertices[v2];
-        drawline(data, p1.x, p1.y, p2.x, p2.y);
-    }
+	int	i;
+	int	j;
+	int32_t	color;
+	int startColor[] = {205, 92, 92};
+	int endColor[] = {100, 149, 237};
+	int diff[3];
+	for (int g = 0; g < 3; g++)
+		diff[g] = endColor[g] - startColor[g];
+	color = ft_pixel(159, 226, 191, 255);
+	i = 0;
+	while (i < HEIGHT)
+	{
+		j = 0;
+		int currentColor[3];
+		for (int g = 0; g < 3; g++)
+			currentColor[g] = startColor[g] + (diff[g] * i / HEIGHT);
+		// printf("RGB(%d, %d, %d)\n", currentColor[0], currentColor[1], currentColor[2]);
+		color = ft_pixel(currentColor[0], currentColor[1], currentColor[2], 255);
+		while (j < WIDTH)
+		{
+			mlx_put_pixel(data->image, j, i, color);
+			j++;
+		}
+		i++;
+	}
+	// printf("%x\n", ft_pixel(12, 118, 199, 255));
 }
 
 int32_t	main(int32_t argc, char *argv[])
@@ -122,66 +105,17 @@ int32_t	main(int32_t argc, char *argv[])
 		mlx_close_window(data->mlx);
 		return (EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
+	if (mlx_image_to_window(data->mlx, data->image, 0, 0 == -1))
 	{
 		mlx_close_window(data->mlx);
 		return (EXIT_FAILURE);
 	}
-	// int	add = 300;
-	// int	ad = 300;
-	// data->points[0].x = (100 + add);
-	// data->points[0].y = (100 + add);
-	// data->points[0].z = (100 + add);
-
-	// data->points[1].x = (200 + add);
-	// data->points[1].y = (100 + add);
-	// data->points[1].z = (100 + add);
-
-	// data->points[2].x = (200 + add);
-	// data->points[2].y = (200 + add);
-	// data->points[2].z = (100 + add);
-
-	// data->points[3].x = (100 + add);
-	// data->points[3].y = (200 + add);
-	// data->points[3].z = (100 + add);
-
-	// data->points[4].x = (100 + ad);
-	// data->points[4].y = (100 + ad);
-	// data->points[4].z = (200 + ad);
-
-	// data->points[5].x = (200 + ad);
-	// data->points[5].y = (100 + ad);
-	// data->points[5].z = (200 + ad);
-
-	// data->points[6].x = (200 + ad);
-	// data->points[6].y = (200 + ad);
-	// data->points[6].z = (200 + ad);
-
-	// data->points[7].x = (100 + ad);
-	// data->points[7].y = (200 + ad);
-	// data->points[7].z = (200 + ad);
-
-
-	// data->c.x = 0;
-	// data->c.y = 0;
-	// data->c.z = 0;
-
-	// for (int i = 0; i < 8; i++)
-	// {
-	// 	data->c.x += data->points[i].x;
-	// 	data->c.y += data->points[i].y;
-	// 	data->c.z += data->points[i].z;
-	// }
-	// data->c.x /= 8;
-	// data->c.y /= 8;
-	// data->c.z /= 8;
-
+	fill_image(data);
 	draw_grid(data);
-	draw_cube(data);
-	// mlx_put_pixel(data->image, 100, 1.5, 0xffffff);
-	// mlx_loop_hook(data->mlx, move_grid, data->mlx);
+
+	
+
 	mlx_key_hook(data->mlx, key_hook, data);
-	// mlx_key_hook(data->mlx, ft_loops, data);
 	mlx_loop_hook(data->mlx, ft_hook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
