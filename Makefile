@@ -6,7 +6,7 @@
 #    By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 00:51:40 by ichiro            #+#    #+#              #
-#    Updated: 2023/04/11 15:25:01 by imisumi          ###   ########.fr        #
+#    Updated: 2023/04/11 16:43:31 by imisumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,11 @@ $(NAME): $(MLX) $(LIBFT) $(OBJS)
 
 run: all
 	./fdf test.txt
+	
+git:
+	git add .
+	git commit -m "update"
+	git push
 
 clean:
 	@rm -rf $(OBJS_DIR)

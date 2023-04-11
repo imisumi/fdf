@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/11 16:10:46 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/11 16:23:46 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ typedef struct s_draw
 	int	e2;
 }	t_draw;
 
+typedef struct s_move
+{
+	float	x;
+	float	y;
+	float	z;
+}	t_move;
+
 typedef struct s_fdf
 {
 	int			width;
@@ -64,6 +71,7 @@ typedef struct s_fdf
 	float		angle;
 	int			**map;
 	t_vec3		**grid;
+	t_move		move;
 
 	mlx_t		*mlx;
 	mlx_image_t	*g_img;

@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/11 16:17:59 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/11 16:26:15 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,18 @@ void	key_hook(mlx_key_data_t key, void *param)
 	// y = 0;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
-		data->angle += 1;
-		rotate_loop(&data, data->angle);
-		printf("%f\n", data->angle);
-		printf("%f\n", data->grid[0][0].y);
+		// data->move.x += 1;
+		// move_vec3_map(&data, data->move.x, 0);
+		// rotate_loop(&data, data->angle);
+		// printf("%f\n", data->angle);
+		// printf("%f\n", data->grid[0][0].y);
+		
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-		data->xshift -= 20;
+	{
+		data->move.x -= 1;
+		move_vec3_map(&data, data->move.x, 0);
+	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
 		data->yshift += 20;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
@@ -102,7 +107,8 @@ void	key_hook(mlx_key_data_t key, void *param)
 	ft_memset(data->image->pixels, 0, sizeof(int) \
 		* data->image->width * data->image->height);
 	fill_image(data);
-	draw_grid(data);
+	// draw_grid(data);
+	draw_point_grid(data);
 }
 
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
@@ -152,6 +158,9 @@ int32_t	main(int32_t argc, char *argv[])
 	printf("%f\n", data->grid[0][0].x);
 	// printf("%d\n", data->grid[0][0]);
 	data->angle = 0;
+	data->move.x = 0;
+	data->move.y = 0;
+	data->move.z = 0;
 	// printf("%f ", data->grid[y][x].x);
 	// printf("%f ", data->grid[y][x].y);
 	// printf("%f ", data->grid[2][1].z);
