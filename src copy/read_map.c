@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:12:36 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/11 14:27:51 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/03/30 16:08:54 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,11 @@ void	read_map(t_fdf *data, char *filename)
 
 	data->height = get_height(filename);
 	data->width = get_width(filename);
-	printf("width = %d\n", data->width);
-	printf("height = %d\n", data->height);
-	data->map = ft_calloc(sizeof(int *), data->height);
+	data->map = malloc(sizeof(int *) * data->height);
 	i = 0;
-	while (i < data->height)
+	while (i <= data->height)
 	{
-		data->map[i] = ft_calloc(sizeof(int), data->width);
+		data->map[i] = malloc(sizeof(int) * data->width);
 		i++;
 	}
 	fd = open(filename, O_RDONLY);

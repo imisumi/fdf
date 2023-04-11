@@ -3,6 +3,7 @@
 		"*.rmd": "markdown",
 		"mlx42.h": "c",
 		"stdlib.h": "c",
-		"ios": "c"
+		"ios": "c",
+		"fdf.h": "c"
 	}
 }

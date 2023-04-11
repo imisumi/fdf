@@ -6,7 +6,7 @@
 #    By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 00:51:40 by ichiro            #+#    #+#              #
-#    Updated: 2023/03/31 14:56:26 by imisumi          ###   ########.fr        #
+#    Updated: 2023/04/11 15:25:01 by imisumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC_DIR = src
 
 INC := -I $(INCLUDE_DIR)
 
-SRCS = tester.c print.c read_map.c draw.c
+SRCS = main.c print.c read_map.c draw.c vector.c
 
 OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 
@@ -41,11 +41,16 @@ $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c
 
 $(MLX):
 
+mlx : 
+
 $(LIBFT):
 	@$(MAKE) -C lib/libft
 
 $(NAME): $(MLX) $(LIBFT) $(OBJS)
 	@$(cc) $(CFLAGS) $(INC) -I $^ -o $(NAME) $(LFLAGS)
+
+run: all
+	./fdf test.txt
 
 clean:
 	@rm -rf $(OBJS_DIR)
