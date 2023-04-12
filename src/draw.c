@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:16:48 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/11 16:19:10 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/11 21:08:04 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	draw_rect(t_fdf *data, int x, int y, int width, int height, uint32_t color)
 		{
 			int	cx = x + i;
 			int	cy = y + j;
-			printf("%d, %d\n", cy, cx);
+			// printf("%d, %d\n", cy, cx);
 			mlx_put_pixel(data->image, cx, cy, color);
 			// mlx_put_pixel(data->image, data->grid[y][x].x, data->grid[y][x].y, 0xffffff);
 			// color_buffer[(WIDTH * cy) + cx] = color;
@@ -112,8 +112,11 @@ void	draw_point_grid(t_fdf *data)
 		x = 0;
 		while (x < data->width)
 		{
+			draw_rect(data, data->projected_point[y][x].x, data->projected_point[y][x].y, 2, 2, 0xffffff);
 			draw_rect(data, data->grid[y][x].x, data->grid[y][x].y, 2, 2, 0xffffff);
 			// mlx_put_pixel(data->image, data->grid[y][x].x, data->grid[y][x].y, 0xffffff);
+			printf("%f, %f\n", data->grid[y][x].x, data->grid[y][x].y);
+			printf("%f, %f\n", data->projected_point[y][x].y, data->projected_point[y][x].y);
 			x++;
 		}
 		y++;

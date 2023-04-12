@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/11 16:26:15 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/11 22:09:52 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,75 @@
 
 #define WIDTH 1080
 #define HEIGHT 1080
+
+float	fov_factor = 128;
+
+// t_vec2	project(t_vec3 point)
+// {
+// 	t_vec2	projected_point = {
+// 		.x = (fov_factor * point.x) / point.z,
+// 		.y = (fov_factor * point.y) / point.z
+// 		};
+
+// 	return (projected_point);
+// }
+
+void	project_points(t_fdf **d)
+{
+	t_fdf	*data;
+
+	data = *d;
+	int	x = 0;
+	int	y = 0;
+
+	while (y < data->height)
+	{
+		x = 0;
+		while (x < data->width)
+		{
+			data->projected_point[y][x].x = (fov_factor * data->grid[y][x].x) / data->grid[y][x].z;
+			data->projected_point[y][x].y = (fov_factor * data->grid[y][x].y) / data->grid[y][x].z;
+			// printf("%f, %f, %f\n", fov_factor, data->grid[y][x].x, data->grid[y][x].z);
+			// return ;
+			x++;
+		}
+		y++;
+	}
+
+}
+
+void	vec3_to_vec2(t_fdf **d)
+{
+	t_fdf	*data;
+
+	data = *d;
+	// data->grid
+	
+
+	int	x = 0;
+	int	y = 0;
+
+	// printf("%d\n", data-)
+	while (y < data->height)
+	{
+		x = 0;
+		while (x < data->width)
+		{
+			data->projected_point[y][x].x = data->grid[y][x].x;
+			data->projected_point[y][x].y = data->grid[y][x].y;
+			// printf("X ");
+			// data->projected_point[y][x].x = 100;
+			// project(&data->grid[y][x]);
+			x++;
+		}
+		// printf("\n");
+		y++;
+	}
+	// printf("%f\n", vec3->x);
+	// printf("%f\n", data->grid[0][0].x);
+	// printf("%f\n", data->projected_point[0][0].x);
+	
+}
 
 void	ft_hook(void *param)
 {
@@ -26,37 +95,13 @@ void	ft_hook(void *param)
 	// 	mlx_close_window(mlx);
 }
 
-// void	key_hook(mlx_key_data_t key, void *param)
-// {
-// 	t_fdf	*data;
-
-// 	data = param;
-// 	// printf("%d\n", key.key);
-// 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-// 		data->xshift += 20;
-// 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-// 		data->xshift -= 20;
-// 	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
-// 		data->yshift += 20;
-// 	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
-// 		data->yshift -= 20;
-// 	if (mlx_is_key_down(data->mlx, 81))
-// 		data->angle1 -= 0.1;
-// 	if (mlx_is_key_down(data->mlx, 87))
-// 		data->angle1 += 0.1;
-// 	ft_memset(data->image->pixels, 0, sizeof(int) \
-// 		* data->image->width * data->image->height);
-// 	fill_image(data);
-// 	draw_grid(data);
-// }
-
 void	rotate_loop(t_fdf **d, float angle)
 {
 	int	x;
 	int y;
 	t_fdf	*data;
 
-	printf("hey\n");
+	// printf("hey\n");
 	data = *d;
 	y = 0;
 	while (y < data->height)
@@ -76,7 +121,7 @@ void	rotate_loop(t_fdf **d, float angle)
 void	key_hook(mlx_key_data_t key, void *param)
 {
 	t_fdf	*data;
-	float		y;
+	// float		y;
 
 	// data = param;
 	data = param;
@@ -84,8 +129,10 @@ void	key_hook(mlx_key_data_t key, void *param)
 	// y = 0;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
-		// data->move.x += 1;
+		data->move.x = 0;
+		data->move.x += 10;
 		// move_vec3_map(&data, data->move.x, 0);
+		adjust_vec3(&data, data->move.x, 0);
 		// rotate_loop(&data, data->angle);
 		// printf("%f\n", data->angle);
 		// printf("%f\n", data->grid[0][0].y);
@@ -93,8 +140,8 @@ void	key_hook(mlx_key_data_t key, void *param)
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
-		data->move.x -= 1;
-		move_vec3_map(&data, data->move.x, 0);
+		// data->move.x -= 1;
+		// move_vec3_map(&data, data->move.x, 0);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
 		data->yshift += 20;
@@ -104,8 +151,11 @@ void	key_hook(mlx_key_data_t key, void *param)
 		data->angle1 -= 0.1;
 	if (mlx_is_key_down(data->mlx, 87))
 		data->angle1 += 0.1;
-	ft_memset(data->image->pixels, 0, sizeof(int) \
-		* data->image->width * data->image->height);
+	// ft_memset(data->image->pixels, 0, sizeof(int) \
+	// 	* data->image->width * data->image->height);
+	// vec3_to_vec2(&data);
+	project_points(&data);
+
 	fill_image(data);
 	// draw_grid(data);
 	draw_point_grid(data);
@@ -182,7 +232,7 @@ int32_t	main(int32_t argc, char *argv[])
 	fill_image(data);
 	// drawline(data, 100, 100, 400, 500);
 	// draw_grid(data);
-	draw_point_grid(data);
+	// draw_point_grid(data);
 
 	
 	mlx_key_hook(data->mlx, key_hook, data);

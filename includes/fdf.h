@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/11 16:23:46 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/11 20:45:06 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 # include <stdbool.h>
 
 # define PI 3.14159265
+
+typedef struct s_vec2
+{
+	float	x;
+	float	y;
+}	t_vec2;
 
 typedef struct s_vec3
 {
@@ -70,6 +76,7 @@ typedef struct s_fdf
 	double		angle2;
 	float		angle;
 	int			**map;
+	t_vec2		**projected_point;
 	t_vec3		**grid;
 	t_move		move;
 
@@ -96,5 +103,6 @@ void	map_to_vec3(t_fdf **d);
 t_vec3	vec3_rotate_x(t_vec3 v, float angle);
 t_vec3	vec3_rotate_y(t_vec3 v, float angle);
 t_vec3	vec3_rotate_z(t_vec3 v, float angle);
+void	adjust_vec3(t_fdf **d, float move_x, float move_y);
 
 #endif

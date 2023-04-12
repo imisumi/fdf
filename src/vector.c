@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:21:45 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/11 15:54:04 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/11 21:10:55 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,29 @@ t_vec3 vec3_rotate_z(t_vec3 v, float angle)
 	return (rotate_vector);
 }
 
+void	adjust_vec3(t_fdf **d, float move_x, float move_y)
+{
+	t_fdf	*data;
+	int		x;
+	int		y;
+	int		z;
+
+	data = *d;
+	y = 0;
+	while (y < data->height)
+	{
+		x = 0;
+		while (x < data->width)
+		{
+			if (move_x > 0)
+				data->grid[y][x].x += move_x;
+			// data->grid[y][x].y += move_y;
+			x++;
+		}
+		y++;
+	}
+}
+
 void	move_vec3_map(t_fdf **d, float move_x, float move_y)
 {
 	t_fdf	*data;
@@ -53,8 +76,8 @@ void	move_vec3_map(t_fdf **d, float move_x, float move_y)
 
 	data = *d;
 	y = 0;
-	printf("%f\n", move_x);
-	printf("%f\n", move_y);
+	// printf("%f\n", move_x);
+	// printf("%f\n", move_y);
 	while (y < data->height)
 	{
 		x = 0;
@@ -67,7 +90,7 @@ void	move_vec3_map(t_fdf **d, float move_x, float move_y)
 			// printf("%f ", data->grid[y][x].z);
 			x++;
 		}
-		printf("\n");
+		// printf("\n");
 		y++;
 	}
 }
@@ -113,14 +136,16 @@ void	map_to_vec3(t_fdf **d)
 	// printf("%d\n", data->width);
 	// printf("%d\n", data->height);
 	data->grid = ft_calloc(sizeof(t_vec3 *), data->height + 1);
+	data->projected_point = ft_calloc(sizeof(t_vec2 *), data->height + 1);
 	y = 0;
 	while (y < data->height)
 	{
 		x = 0;
 		data->grid[y] = ft_calloc(sizeof(t_vec3), data->width + 1);
+		data->projected_point[y] = ft_calloc(sizeof(t_vec2), data->width + 1);
 		while (x < data->width)
 		{
-			z = data->map[y][x];
+			z = data->map[y][x] + 1;
 			data->grid[y][x].x = x;
 			data->grid[y][x].y = y;
 			data->grid[y][x].z = z;
