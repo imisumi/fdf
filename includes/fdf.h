@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/12 16:41:21 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/13 15:57:07 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ t_vec3 vec3_add(t_vec3 a, t_vec3 b);
 
 // 3Dcube.c
 void	draw_map(t_fdf **d);
+void	draw_map1(t_fdf **d);
 void	draw_cube(t_fdf **d);
 
 #endif

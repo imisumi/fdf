@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/12 16:49:07 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/13 18:54:01 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,20 @@ void	ft_hook(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
 
-	fill_image(data);
-	draw_map(&data);
+	// fill_image(data);
+	// draw_map(&data);
 	
 	// return ;
 	
 	data->rotation.x += 0.01;
-	data->rotation.y += 0.02;
-	data->rotation.z += 0.03;
+	data->rotation.y += 0.01;
+	data->rotation.z += 0.01;
 
-	return ;
+	// data->rotation.x = 0;
+	// data->rotation.y = 120;
+	// data->rotation.z = 0;
+
+	// return ;
 
 	fill_image(data);
 	draw_cube(&data);
@@ -71,6 +75,11 @@ void	key_hook(mlx_key_data_t key, void *param)
 	data = param;
 	// printf("%d\n", key.key);
 	// y = 0;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(data->mlx);
+
+	return ;
+		
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
 	}
@@ -141,8 +150,8 @@ int32_t	main(int32_t argc, char *argv[])
 	data = ft_calloc(sizeof(t_fdf), 1);
 	read_map(data, argv[1]);
 	map_to_vec3(&data);
-	scale_vec3_map(&data, 50);
-	move_vec3_map(&data, 400, 400);
+	// scale_vec3_map(&data, 50);
+	// move_vec3_map(&data, 400, 400);
 	printf("%f\n", data->grid[0][0].x);
 	// printf("%d\n", data->grid[0][0]);
 	data->angle = 0;
@@ -177,10 +186,16 @@ int32_t	main(int32_t argc, char *argv[])
 	// draw_cube(&data);
 	// draw_map(&data);
 
-	
+	fill_image(data);
+	draw_map(&data);
+	// draw_map1(&data);
+
 	// mlx_key_hook(data->mlx, key_hook, data);
-	// mlx_key_hook(data->mlx, key_hook, data);
+	mlx_key_hook(data->mlx, key_hook, data);
+
+
 	mlx_loop_hook(data->mlx, ft_hook, data);
+
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 	return (EXIT_SUCCESS);

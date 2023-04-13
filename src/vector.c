@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:21:45 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/12 16:40:47 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/13 17:11:47 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 t_vec3 vec3_add(t_vec3 a, t_vec3 b)
 {
-    t_vec3 result;
-    result.x = a.x + b.x;
-    result.y = a.y + b.y;
-    result.z = a.z + b.z;
-    return result;
+	t_vec3 result;
+	result.x = a.x + b.x;
+	result.y = a.y + b.y;
+	result.z = a.z + b.z;
+	return result;
 }
 
 t_vec3 vec3_sub(t_vec3 a, t_vec3 b)
 {
-    t_vec3 result;
-    result.x = a.x - b.x;
-    result.y = a.y - b.y;
-    result.z = a.z - b.z;
-    return result;
+	t_vec3 result;
+	result.x = a.x - b.x;
+	result.y = a.y - b.y;
+	result.z = a.z - b.z;
+	return result;
 }
 
 
@@ -164,16 +164,18 @@ void	map_to_vec3(t_fdf **d)
 		data->projected_point[y] = ft_calloc(sizeof(t_vec2), data->width + 1);
 		while (x < data->width)
 		{
-			z = data->map[y][x] + 1;
+			z = data->map[y][x];
 			data->grid[y][x].x = x;
 			data->grid[y][x].y = y;
 			data->grid[y][x].z = z;
-			// printf("%f ", data->grid[y][x].x);
+			// printf("%f %f %f", data->grid[y][x].x, data->grid[y][x].y, data->grid[y][x].z);
 			// printf("%f ", data->grid[y][x].y);
 			// printf("%d ", z);
+			// printf("\t");
 			x++;
 		}
 		// printf("\n");
 		y++;
 	}
+	// exit (0);
 }
