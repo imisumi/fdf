@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+         #
+#    By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 00:51:40 by ichiro            #+#    #+#              #
-#    Updated: 2023/04/12 15:28:12 by imisumi          ###   ########.fr        #
+#    Updated: 2023/04/15 00:34:09 by ichiro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ HEADER = includes/fdf.h
 
 CFLAGS = -g -I include
 
-LFLAGS = -lglfw3 -framework Cocoa -framework OpenGl -framework IOKit
+LFLAGS = -lglfw -framework Cocoa -framework OpenGl -framework IOKit
 
 cc = gcc 
 # -Wall -Werror -Wextra
@@ -29,7 +29,7 @@ SRC_DIR = src
 
 INC := -I $(INCLUDE_DIR)
 
-SRCS = main.c print.c read_map.c draw.c vector.c 3Dcube.c
+SRCS = main.c print.c read_map.c draw.c vector.c 3Dcube.c ft_font.c menu.c
 
 OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 

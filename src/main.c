@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/13 18:54:01 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/15 16:34:58 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-#define WIDTH 1080
-#define HEIGHT 1080
-
+mlx_image_t	*temp_img;
 // float	fov_factor = 640;
 // t_vec3	camera_position = {0, 0, -5};
 
@@ -38,58 +35,60 @@ void	vec3_to_vec2(t_fdf **d)
 	}
 }
 
-void	ft_hook(void *param)
+void	cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, void *param)
 {
 	t_fdf	*data;
 
 	data = param;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(data->mlx);
 
-	// fill_image(data);
-	// draw_map(&data);
-	
-	// return ;
-	
-	data->rotation.x += 0.01;
-	data->rotation.y += 0.01;
-	data->rotation.z += 0.01;
-
-	// data->rotation.x = 0;
-	// data->rotation.y = 120;
-	// data->rotation.z = 0;
-
-	// return ;
-
-	fill_image(data);
-	draw_cube(&data);
+	// printf("hi\n");
+	int32_t	x;
+	int32_t	y;
+	mlx_get_mouse_pos(data->mlx, &x, &y);
+	if (x > 50 && y > 50 && x < 100 & y < 100)
+		data->rotation.z = 0;
+	printf("%d, %d\n", x, y);
+	// printf("%d\n", button);
 }
 
+// void	cursor_hook(mouse_key_t key, void *param)
+// {
+// 	printf("hi\n");
+
+// 	printf("");
+// }
 
 void	key_hook(mlx_key_data_t key, void *param)
 {
 	t_fdf	*data;
-	// float		y;
 
-	// data = param;
 	data = param;
-	// printf("%d\n", key.key);
-	// y = 0;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(data->mlx);
 
+	// Rotate X
+	if (mlx_is_key_down(data->mlx, MLX_KEY_UP) && mlx_is_key_down(data->mlx, MLX_KEY_X))
+		data->rotation.x += 5.0f;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN) && mlx_is_key_down(data->mlx, MLX_KEY_X))
+		data->rotation.x -= 5.0f;
+	// Rotate Y
+	if (mlx_is_key_down(data->mlx, MLX_KEY_UP) && mlx_is_key_down(data->mlx, MLX_KEY_Y))
+		data->rotation.y += 5.0f;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN) && mlx_is_key_down(data->mlx, MLX_KEY_Y))
+		data->rotation.y -= 5.0f;
+	// Rotate Z
+	if (mlx_is_key_down(data->mlx, MLX_KEY_UP) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
+		data->rotation.z += 5.0f;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
+		data->rotation.z -= 5.0f;
+
+	
 	return ;
-		
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-	{
-	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
 	{
 		data->rotation.x += 5;
-		printf("%f\n", data->rotation.x);
+		// printf("%f\n", data->rotation.x);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
 		data->yshift -= 20;
@@ -107,6 +106,48 @@ void	key_hook(mlx_key_data_t key, void *param)
 	// draw_grid(data);
 	// draw_point_grid(data);
 }
+
+void	ft_loop_hook(void *param)
+{
+	t_fdf	*data;
+
+	data = param;
+	
+	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(data->mlx);
+	// mlx_key_hook(data->mlx, key_hook, data);
+
+
+	// data->rotation.x += 0.01;
+	// data->rotation.y += 0.01;
+	// data->rotation.z += 0.01;
+
+
+	fill_image(data);
+	draw_map(&data);
+	draw_rect(data, 0, 0, 300, HEIGHT, 0x616161);
+	// ft_mlx_put_string(data, "Test", 100, 100);
+	draw_menu(&data);
+	return ;
+	// printf("The string is: %s\n", str);
+	
+	// return ;
+	
+	// data->rotation.x += 0.01;
+	// data->rotation.y += 0.01;
+	// data->rotation.z += 0.01;
+
+	// data->rotation.x = 0;
+	// data->rotation.y = 120;
+	// data->rotation.z = 0;
+
+	// return ;
+
+	// fill_image(data);
+	// draw_cube(&data);
+}
+
+
 
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
@@ -192,9 +233,13 @@ int32_t	main(int32_t argc, char *argv[])
 
 	// mlx_key_hook(data->mlx, key_hook, data);
 	mlx_key_hook(data->mlx, key_hook, data);
+	// mlx_cursor_hook(data->mlx, cursor_hook, data);
+	// mlx_mouse_hook(data->mlx, mlx_get_mouse_pos, data);
+	// mlx_cursor_hook(data->mlx, cursor_hook, data);
+	mlx_mouse_hook(data->mlx, cursor_hook, data);
 
 
-	mlx_loop_hook(data->mlx, ft_hook, data);
+	mlx_loop_hook(data->mlx, ft_loop_hook, data);
 
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);

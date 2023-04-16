@@ -4,6 +4,10 @@
 		"mlx42.h": "c",
 		"stdlib.h": "c",
 		"ios": "c",
-		"fdf.h": "c"
+		"fdf.h": "c",
+		"string": "c",
+		"filesystem": "c",
+		"iosfwd": "c",
+		"mlx42_int.h": "c"
 	}
 }

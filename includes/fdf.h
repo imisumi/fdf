@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/13 15:57:07 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/14 23:37:15 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/includes/libft.h"
+# include "font.h"
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -22,8 +23,12 @@
 # include <memory.h>
 # include <math.h>
 # include <stdbool.h>
+# include <limits.h>
+# include <ctype.h>
 
 # define PI 3.14159265
+#define WIDTH 1580
+#define HEIGHT 1080
 
 typedef struct s_vec2
 {
@@ -92,6 +97,7 @@ typedef struct s_fdf
 	t_move		move;
 
 	mlx_t		*mlx;
+	mlx_image_t	*string;
 	mlx_image_t	*g_img;
 	mlx_image_t	*image;
 }	t_fdf;
@@ -123,5 +129,16 @@ t_vec3 vec3_add(t_vec3 a, t_vec3 b);
 void	draw_map(t_fdf **d);
 void	draw_map1(t_fdf **d);
 void	draw_cube(t_fdf **d);
+
+
+
+// font.c
+static void ft_mlx_draw_char(t_fdf *data, int32_t texoffset, int32_t imgoffset, int x , int y);
+const mlx_texture_t* ft_mlx_get_font(void);
+int32_t ft_mlx_get_texoffset(char c);
+void	ft_mlx_put_string(t_fdf *data, const char* str, int32_t x, int32_t y);
+
+// Menu.c
+void	draw_menu(t_fdf **d);
 
 #endif

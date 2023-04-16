@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:16:48 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/13 18:24:13 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/14 15:51:58 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-#include <math.h>
-#include <limits.h>
-#include <stdio.h>
-#define PI 3.14159265
 
 void	iso(t_fdf *data, int *x, int *y, int z)
 {

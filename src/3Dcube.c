@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   3Dcube.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:26:32 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/13 18:54:40 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/15 16:03:15 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-#define WIDTH 1080
-#define HEIGHT 1080
 
 float	fov_factor = 500;
 t_vec3	camera_position = {0, 0, -10};
@@ -35,7 +32,7 @@ void	connect_points(t_fdf *data, t_vec2 *point)
 	// int	m = + (WIDTH / 2);
 	for (int i = 0; i < 8; i++) {
 		point[i].x += (WIDTH / 2);
-		point[i].y += (WIDTH / 2);
+		point[i].y += (HEIGHT / 2);
 	}
 	drawline(data, point[0].x, point[0].y, point[1].x, point[1].y);
 	drawline(data, point[0].x, point[0].y, point[3].x, point[3].y);
@@ -74,7 +71,7 @@ void	draw_cube(t_fdf **d)
 		{ 1, -1, -1}	// vertex 7
 	};
 	// update
-	printf("update - %f\n", data->rotation.x);
+	// printf("update - %f\n", data->rotation.x);
 	for (int i = 0; i < 8; i++)
 	{
 		t_vec3	point = cube_points[i];
@@ -140,7 +137,7 @@ void	draw_map(t_fdf **d)
 	transformed_map = copy_vec3_2d(data);
 
 	//	sets the vec3 as its origin
-	t_vec3 translation = {2, 2, 2};
+	t_vec3 translation = {2, 2, 0};
 
 	int	y = 0;
 	int	x = 0;
@@ -164,6 +161,7 @@ void	draw_map(t_fdf **d)
 	t_vec2	**projected_points;
 	projected_points = ft_calloc(sizeof(t_vec2 *), data->height + 1);
 	y = 0;
+	// printf("%f\n", data->rotation.x);
 	while (y < data->height)
 	{
 		x = 0;
@@ -230,9 +228,9 @@ void	draw_map(t_fdf **d)
 			if (y < data->height - 1)
 			{
 				drawline(data,
-				projected_points[y][x].x + (HEIGHT / 2),
+				projected_points[y][x].x + (WIDTH / 2),
 				projected_points[y][x].y + (HEIGHT / 2),
-				projected_points[y + 1][x].x + (HEIGHT / 2),
+				projected_points[y + 1][x].x + (WIDTH / 2),
 				projected_points[y + 1][x].y + (HEIGHT / 2)
 				);
 			}

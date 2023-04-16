@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:21:45 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/13 17:11:47 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/15 00:07:39 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_vec3 vec3_sub(t_vec3 a, t_vec3 b)
 
 t_vec3 vec3_rotate_x(t_vec3 v, float angle)
 {
+	angle *= (PI / 180);
+
 	t_vec3	rotate_vector = {
 		v.x,
 		v.y * cos(angle) - v.z * sin(angle),
@@ -43,6 +45,8 @@ t_vec3 vec3_rotate_x(t_vec3 v, float angle)
 
 t_vec3 vec3_rotate_y(t_vec3 v, float angle)
 {
+	angle *= (PI / 180);
+
 	// printf("hey\n");
 	t_vec3	rotate_vector = {
 		v.x * cos(angle) - v.z * sin(angle),
@@ -53,8 +57,20 @@ t_vec3 vec3_rotate_y(t_vec3 v, float angle)
 	return (rotate_vector);
 }
 
+// t_vec3 vec3_rotate_z(t_vec3 v, float angle)
+// {
+// 	t_vec3	rotate_vector = {
+// 		v.x * cos(angle) - v.y * sin(angle),
+// 		v.x * sin(angle) + v.y * cos(angle),
+// 		v.z
+// 	};
+// 	return (rotate_vector);
+// }
+
 t_vec3 vec3_rotate_z(t_vec3 v, float angle)
 {
+	angle *= (PI / 180);
+
 	t_vec3	rotate_vector = {
 		v.x * cos(angle) - v.y * sin(angle),
 		v.x * sin(angle) + v.y * cos(angle),
