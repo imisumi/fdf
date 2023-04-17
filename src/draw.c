@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:16:48 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/14 15:51:58 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/17 17:46:52 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+void	ft_mlx_put_pixel(t_fdf *data, int x, int y, uint32_t color)
+{
+	if (x >=0 && x < WIDTH && y >=0 && y < HEIGHT)
+		mlx_put_pixel(data->image, x, y, color);
+}
 
 void	iso(t_fdf *data, int *x, int *y, int z)
 {
@@ -33,7 +39,8 @@ void drawline(t_fdf *data, int x1, int y1, int x2, int y2)
 	draw.err = draw.dx - draw.dy;
 	while (1)
 	{
-		mlx_put_pixel(data->image, x1, y1, 0xffffff);
+		// mlx_put_pixel(data->image, x1, y1, 0xffffff);
+		ft_mlx_put_pixel(data, x1, y1, 0xffffff);
 		if (x1 == x2 && y1 == y2)
 			break ;
 		draw.e2 = 2 * draw.err;
@@ -79,7 +86,10 @@ void	draw_rect(t_fdf *data, int x, int y, int width, int height, uint32_t color)
 			int	cx = x + i;
 			int	cy = y + j;
 			// printf("%d, %d\n", cy, cx);
-			mlx_put_pixel(data->image, cx, cy, color);
+			// mlx_put_pixel(data->image, cx, cy, color);
+			ft_mlx_put_pixel(data, cx, cy, color);
+
+			
 			// mlx_put_pixel(data->image, data->grid[y][x].x, data->grid[y][x].y, 0xffffff);
 			// color_buffer[(WIDTH * cy) + cx] = color;
 		}
@@ -115,23 +125,15 @@ void	draw_grid(t_fdf *data)
 
 	y = 0;
 
-	while (y < data->height)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < data->width)
+		while (x < WIDTH)
 		{
-			if (x < data->width - 1)
-			{
-				drawline(data, data->grid[y][x].x, data->grid[y][x].y, data->grid[y][x + 1].x, data->grid[y][x].y);
-			}
-			// return ;
-			if (y < data->height - 1)
-			{
-				drawline(data, data->grid[y][x].x, data->grid[y][x].y, data->grid[y][x].x, data->grid[y + 1][x].y);
-			}
-			// return ;
-			x++;
+			drawline(data, x, y, x, WIDTH);
+			x += 20;
 		}
-		y++;
+		drawline(data, 0, y, WIDTH, y);
+		y += 20;
 	}
 }

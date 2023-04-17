@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/15 16:34:58 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/17 17:56:43 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	vec3_to_vec2(t_fdf **d)
 	}
 }
 
-void	cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, void *param)
+void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, void *param)
 {
 	t_fdf	*data;
 
@@ -44,11 +44,40 @@ void	cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, void 
 	// printf("hi\n");
 	int32_t	x;
 	int32_t	y;
+	// printf
 	mlx_get_mouse_pos(data->mlx, &x, &y);
-	if (x > 50 && y > 50 && x < 100 & y < 100)
-		data->rotation.z = 0;
-	printf("%d, %d\n", x, y);
-	// printf("%d\n", button);
+	if (action == 0)
+	{
+		if (x > 50 && y > 50 && x < 100 & y < 100)
+			data->rotation.z = 0;
+		printf("%d, %d\n", x, y);
+		if (x > 50 && y > 450 && x < 178 & y < 470)
+		{
+			data->perspective = true;
+			data->parallel = false;
+			data->isometric = false;
+			printf("Perspective\n");
+		}
+		else if (x > 50 && y > 485 && x < 145 & y < 500)
+		{
+			data->perspective = false;
+			data->parallel = true;
+			data->isometric = false;
+			printf("Parallel\n");
+		}
+		else if (x > 50 && y > 516 && x < 147 & y < 528)
+		{
+			data->perspective = false;
+			data->parallel = false;
+			data->isometric = true;
+			printf("Isometric\n");
+		}
+	}
+
+	// Perspective mode
+	
+	
+	printf("%d\n", action);
 }
 
 // void	cursor_hook(mouse_key_t key, void *param)
@@ -63,6 +92,8 @@ void	key_hook(mlx_key_data_t key, void *param)
 	t_fdf	*data;
 
 	data = param;
+
+	// printf("%d\n", key);
 
 	// Rotate X
 	if (mlx_is_key_down(data->mlx, MLX_KEY_UP) && mlx_is_key_down(data->mlx, MLX_KEY_X))
@@ -79,32 +110,56 @@ void	key_hook(mlx_key_data_t key, void *param)
 		data->rotation.z += 5.0f;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
 		data->rotation.z -= 5.0f;
+		
+	// Camera x
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) && mlx_is_key_down(data->mlx, MLX_KEY_X))
+		data->camera.x += 1.0f;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT) && mlx_is_key_down(data->mlx, MLX_KEY_X))
+		data->camera.x -= 1.0f;
+	// Rotate Y
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) && mlx_is_key_down(data->mlx, MLX_KEY_Y))
+		data->camera.y += 1.0f;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT) && mlx_is_key_down(data->mlx, MLX_KEY_Y))
+		data->camera.y -= 1.0f;
+	// Rotate Z
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
+		data->camera.z += 1.0f;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
+		data->camera.z -= 1.0f;
 
-	
+	// Scale
+	if (mlx_is_key_down(data->mlx, 61))
+	{
+		if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
+			data->scale += 50.0f;
+		else
+			data->scale += 10.0f;
+	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_MINUS))
+	{
+		if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
+			data->scale -= 50.0f;
+		else
+			data->scale -= 10.0f;
+	}
+
+	// origin
+	if (mlx_is_key_down(data->mlx, MLX_KEY_MINUS) && mlx_is_key_down(data->mlx, MLX_KEY_X))
+		data->origin.x += 1.0f;
+	if (mlx_is_key_down(data->mlx, 61) && mlx_is_key_down(data->mlx, MLX_KEY_X))
+		data->origin.x -= 1.0f;
+	// Rotate Y
+	if (mlx_is_key_down(data->mlx, MLX_KEY_MINUS) && mlx_is_key_down(data->mlx, MLX_KEY_Y))
+		data->origin.y += 1.0f;
+	if (mlx_is_key_down(data->mlx, 61) && mlx_is_key_down(data->mlx, MLX_KEY_Y))
+		data->origin.y -= 1.0f;
+	// Rotate Z
+	if (mlx_is_key_down(data->mlx, MLX_KEY_MINUS) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
+		data->origin.z += 1.0f;
+	if (mlx_is_key_down(data->mlx, 61) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
+		data->origin.z -= 1.0f;
+
 	return ;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-	{
-	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
-	{
-		data->rotation.x += 5;
-		// printf("%f\n", data->rotation.x);
-	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
-		data->yshift -= 20;
-	if (mlx_is_key_down(data->mlx, 81))
-		data->angle1 -= 0.1;
-	if (mlx_is_key_down(data->mlx, 87))
-		data->angle1 += 0.1;
-	// vec3_to_vec2(&data);
-	// project_points(&data);
-
-	// fill_image(data);
-	// draw_cube(&data);
-	// draw_map(&data);
-	
-	// draw_grid(data);
-	// draw_point_grid(data);
 }
 
 void	ft_loop_hook(void *param)
@@ -124,27 +179,13 @@ void	ft_loop_hook(void *param)
 
 
 	fill_image(data);
+	// draw_grid(data);
 	draw_map(&data);
+	// draw_cube(&data);
 	draw_rect(data, 0, 0, 300, HEIGHT, 0x616161);
 	// ft_mlx_put_string(data, "Test", 100, 100);
 	draw_menu(&data);
 	return ;
-	// printf("The string is: %s\n", str);
-	
-	// return ;
-	
-	// data->rotation.x += 0.01;
-	// data->rotation.y += 0.01;
-	// data->rotation.z += 0.01;
-
-	// data->rotation.x = 0;
-	// data->rotation.y = 120;
-	// data->rotation.z = 0;
-
-	// return ;
-
-	// fill_image(data);
-	// draw_cube(&data);
 }
 
 
@@ -191,10 +232,7 @@ int32_t	main(int32_t argc, char *argv[])
 	data = ft_calloc(sizeof(t_fdf), 1);
 	read_map(data, argv[1]);
 	map_to_vec3(&data);
-	// scale_vec3_map(&data, 50);
-	// move_vec3_map(&data, 400, 400);
-	printf("%f\n", data->grid[0][0].x);
-	// printf("%d\n", data->grid[0][0]);
+
 	data->angle = 0;
 	data->move.x = 0;
 	data->move.y = 0;
@@ -202,10 +240,18 @@ int32_t	main(int32_t argc, char *argv[])
 	data->rotation.x = 0;
 	data->rotation.y = 0;
 	data->rotation.z = 0;
-	// printf("%f ", data->grid[y][x].x);
-	// printf("%f ", data->grid[y][x].y);
-	// printf("%f ", data->grid[2][1].z);
-	// return 0;
+	data->camera.x = 0;
+	data->camera.y = 0;
+	data->camera.z = 20;
+	data->scale = 500.0f;
+	data->origin.x = (float)data->width / 2;
+	data->origin.y = (float)data->height / 2;
+	data->origin.z = 0;
+
+	data->perspective = false;
+	data->parallel = false;
+	data->isometric = true;
+
 	data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!data->mlx)
 		return (EXIT_FAILURE);
@@ -236,7 +282,7 @@ int32_t	main(int32_t argc, char *argv[])
 	// mlx_cursor_hook(data->mlx, cursor_hook, data);
 	// mlx_mouse_hook(data->mlx, mlx_get_mouse_pos, data);
 	// mlx_cursor_hook(data->mlx, cursor_hook, data);
-	mlx_mouse_hook(data->mlx, cursor_hook, data);
+	mlx_mouse_hook(data->mlx, ft_cursor_hook, data);
 
 
 	mlx_loop_hook(data->mlx, ft_loop_hook, data);

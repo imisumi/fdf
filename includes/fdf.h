@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/14 23:37:15 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/17 17:30:10 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@
 # define PI 3.14159265
 #define WIDTH 1580
 #define HEIGHT 1080
+
+typedef struct s_button
+{
+	int	x1;
+	int	y1;
+	int	x2;
+	int	y2;
+}	t_button;
 
 typedef struct s_vec2
 {
@@ -81,20 +89,23 @@ typedef struct s_fdf
 {
 	int			width;
 	int			height;
-	int			scale;
 	int			xshift;
 	int			yshift;
 	double		angle1;
 	double		angle2;
 	float		angle;
 	int			**map;
-	// float		rotation_x;
-	// float		rotation_y;
-	// float		rotation_z;
 	t_vec3		rotation;
 	t_vec2		**projected_point;
 	t_vec3		**grid;
+	t_vec3		camera;
 	t_move		move;
+	t_vec3		origin;
+	float		scale;
+
+	bool		perspective;
+	bool		parallel;
+	bool		isometric;
 
 	mlx_t		*mlx;
 	mlx_image_t	*string;
@@ -140,5 +151,8 @@ void	ft_mlx_put_string(t_fdf *data, const char* str, int32_t x, int32_t y);
 
 // Menu.c
 void	draw_menu(t_fdf **d);
+
+// transform.c
+void	move_map(t_fdf **d, float num, char side);
 
 #endif

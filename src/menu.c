@@ -3,14 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   menu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:02:01 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/15 16:33:48 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/17 16:24:16 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+// void	menu_location(t_fdf **d, int x_offset, int y_offset)
+// {
+// 	t_fdf	*data;
+
+// 	data = *d;
+// 	ft_mlx_put_string(data, "Location", 0 + x_offset, 0 + y_offset);
+// 	char str[64];
+// 	sprintf(str, "X	%.2f", data->move.x);
+// 	ft_mlx_put_string(data, str, 0 + x_offset, 20 + y_offset);
+// 	sprintf(str, "Y	%.2f", data->move.y);
+// 	ft_mlx_put_string(data, str, 0 + x_offset, 40 + y_offset);
+// 	sprintf(str, "Z	%.2f", data->move.z);
+// 	ft_mlx_put_string(data, str, 0 + x_offset, 60 + y_offset);
+// }
+
+void	menu_location(t_fdf **d, int x_offset, int y_offset)
+{
+	t_fdf	*data;
+
+	data = *d;
+	ft_mlx_put_string(data, "Camera", 0 + x_offset, 0 + y_offset);
+	char str[64];
+	sprintf(str, "X	%.2f", data->camera.x);
+	ft_mlx_put_string(data, str, 0 + x_offset, 20 + y_offset);
+	sprintf(str, "Y	%.2f", data->camera.y);
+	ft_mlx_put_string(data, str, 0 + x_offset, 40 + y_offset);
+	sprintf(str, "Z	%.2f", data->camera.z);
+	ft_mlx_put_string(data, str, 0 + x_offset, 60 + y_offset);
+}
 
 void	menu_rotation(t_fdf **d, int x_offset, int y_offset)
 {
@@ -27,10 +57,51 @@ void	menu_rotation(t_fdf **d, int x_offset, int y_offset)
 	ft_mlx_put_string(data, str, 0 + x_offset, 60 + y_offset);
 }
 
+void	menu_scale(t_fdf **d, int x_offset, int y_offset)
+{
+	t_fdf	*data;
+
+	data = *d;
+	ft_mlx_put_string(data, "Scale", 0 + x_offset, 0 + y_offset);
+	char str[64];
+	sprintf(str, "%.2f", data->scale);
+	ft_mlx_put_string(data, str, 0 + x_offset, 20 + y_offset);
+}
+
+void	menu_origin(t_fdf **d, int x_offset, int y_offset)
+{
+	t_fdf	*data;
+
+	data = *d;
+	ft_mlx_put_string(data, "Origin", 0 + x_offset, 0 + y_offset);
+	char str[64];
+	sprintf(str, "X	%.2f", data->origin.x);
+	ft_mlx_put_string(data, str, 0 + x_offset, 20 + y_offset);
+	sprintf(str, "Y	%.2f", data->origin.y);
+	ft_mlx_put_string(data, str, 0 + x_offset, 40 + y_offset);
+	sprintf(str, "Z	%.2f", data->origin.z);
+	ft_mlx_put_string(data, str, 0 + x_offset, 60 + y_offset);
+}
+
+void	menu_view(t_fdf **d, int x_offset, int y_offset)
+{
+	t_fdf	*data;
+
+	data = *d;
+	ft_mlx_put_string(data, "[Perspective]", 0 + x_offset, 0 + y_offset);
+	ft_mlx_put_string(data, "[Parallel]", 0 + x_offset, 30 + y_offset);
+	ft_mlx_put_string(data, "[Isometic]", 0 + x_offset, 60 + y_offset);
+
+}
+
 void	draw_menu(t_fdf **d)
 {
 	t_fdf	*data;
 
 	data = *d;
-	menu_rotation(&data, 50, 50);
+	menu_location(&data, 50, 50);
+	menu_rotation(&data, 50, 150);
+	menu_scale(&data, 50, 250);
+	menu_origin(&data, 50, 350);
+	menu_view(&data, 50, 450);
 }

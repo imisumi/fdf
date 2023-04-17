@@ -3,27 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   3Dcube.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:26:32 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/15 16:03:15 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/17 17:28:23 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
 float	fov_factor = 500;
-t_vec3	camera_position = {0, 0, -10};
-// float	fov_factor = 640;
-// t_vec3	camera_position = {0, 0, -5};
 
-t_vec2	project_cube(t_vec3 point)
+t_vec2	project_cube(t_fdf *data, t_vec3 point)
 {
 	t_vec2	projected_point = {
-		.x = (fov_factor * point.x) / point.z,
-		.y = (fov_factor * point.y) / point.z
+		.x = (data->scale * point.x) / point.z,
+		.y = (data->scale * point.y) / point.z
 		};
 
+	return (projected_point);
+}
+
+t_vec2	perspective_projection(t_fdf *data, t_vec3 point)
+{
+	t_vec2	projected_point = {
+		.x = (data->scale * point.x) / point.z,
+		.y = (data->scale * point.y) / point.z
+		};
+	return (projected_point);
+}
+
+t_vec2	parallel_projection(t_fdf *data, t_vec3 point)
+{
+	t_vec2	projected_point = {
+		.x = (data->scale * point.x) / 20.0f,
+		.y = (data->scale * point.y) / 20.0f
+		};
+	return (projected_point);
+}
+
+t_vec2	isometric_projection(t_fdf *data, t_vec3 point)
+{
+	t_vec2	projected_point = {
+		.x = (point.x - point.y) * cos(M_PI / 6),
+		.y = (point.x + point.y) * sin(M_PI / 6) - point.z
+	};
+
+	projected_point.x *= data->scale / 20;
+	projected_point.y *= data->scale / 20;
+
+	projected_point.y += data->scale;
 	return (projected_point);
 }
 
@@ -80,9 +109,9 @@ void	draw_cube(t_fdf **d)
 		transformed_point = vec3_rotate_y(transformed_point, data->rotation.y);
 		transformed_point = vec3_rotate_z(transformed_point, data->rotation.z);
 
-		transformed_point.z -= camera_position.z;
+		transformed_point.z += data->camera.z;
 
-		t_vec2	projected_point = project_cube(transformed_point);
+		t_vec2	projected_point = project_cube(data, transformed_point);
 		projected_points[i] = projected_point;
 	}
 	// render
@@ -147,7 +176,7 @@ void	draw_map(t_fdf **d)
 		while (x < data->width)
 		{
 			t_vec3 point = transformed_map[y][x];
-			point = vec3_sub(point, translation);
+			point = vec3_sub(point, data->origin);
 			transformed_map[y][x] = point;
 			// printf("%-5.1f ", transformed_map[y][x].y);
 			x++;
@@ -174,15 +203,23 @@ void	draw_map(t_fdf **d)
 			transformed_point = vec3_rotate_y(transformed_point, data->rotation.y);
 			transformed_point = vec3_rotate_z(transformed_point, data->rotation.z);
 
-			transformed_point.z -= camera_position.z;
+			transformed_point.z += data->camera.z;
 
-			t_vec2	projected_point = project_cube(transformed_point);
+			transformed_point.x += data->camera.x;
+			transformed_point.y += data->camera.y;
+
+			t_vec2	projected_point;
+			if (data->perspective == true)
+				projected_point = perspective_projection(data, transformed_point);
+			else if (data->parallel == true)
+				projected_point = parallel_projection(data, transformed_point);
+			else if (data->isometric == true)
+			{
+				projected_point = isometric_projection(data, transformed_point);
+			}
 			projected_points[y][x] = projected_point;
 			x++;
-			// break ;
 		}
-		// break ;
-		// printf("\n");
 		y++;
 	}
 
