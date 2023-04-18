@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/17 17:30:10 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/18 02:01:02 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/includes/libft.h"
 # include "font.h"
+# include "colors.h"
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -154,5 +155,10 @@ void	draw_menu(t_fdf **d);
 
 // transform.c
 void	move_map(t_fdf **d, float num, char side);
+
+int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+
+uint32_t	color_picker(t_fdf **d, int x_offset, int y_offset);
+
 
 #endif

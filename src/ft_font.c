@@ -6,7 +6,7 @@
 /*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard          #+#    #+#             */
-/*   Updated: 2023/04/15 00:37:03 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/18 03:01:34 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void ft_mlx_draw_char(t_fdf *data, int32_t texoffset, int32_t imgoffset, 
 			uint8_t blue = *(pixelx + pixel_offset + 2);
 			
 			uint8_t alpha = *(pixelx + pixel_offset + 3);
-			if (alpha != 0)
+			if (alpha > 0)
 				mlx_put_pixel(data->image, x_pos + x_ofset, y_pos + yy, ((red << 24) | (green << 16) | (blue << 8) | alpha));
 			// printf("%d\n", x_pos);
 			// mlx_put_pixel(data->image, x_pos + 100, y_pos + 100, 0xf9f9f9);

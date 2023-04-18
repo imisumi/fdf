@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:02:01 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/17 16:24:16 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/18 03:16:47 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,14 @@ void	draw_menu(t_fdf **d)
 	t_fdf	*data;
 
 	data = *d;
-	menu_location(&data, 50, 50);
-	menu_rotation(&data, 50, 150);
-	menu_scale(&data, 50, 250);
-	menu_origin(&data, 50, 350);
-	menu_view(&data, 50, 450);
+	ft_mlx_put_string(data, "*********************", 5, 5);
+	ft_mlx_put_string(data, "***	FDF	-	imisumi	***", 5, 25);
+	ft_mlx_put_string(data, "*********************", 5, 45);
+	ft_mlx_put_string(data, "[	]", 5, 65);
+	ft_mlx_put_string(data, "[X]", 5, 85);
+	menu_location(&data, 50, 150);
+	menu_rotation(&data, 50, 250);
+	menu_scale(&data, 50, 350);
+	menu_origin(&data, 50, 450);
+	menu_view(&data, 50, 550);
 }

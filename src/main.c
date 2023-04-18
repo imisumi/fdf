@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/17 17:56:43 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/18 02:24:52 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 			printf("Isometric\n");
 		}
 	}
-
+	// color_picker(&data, 300, 300);
 	// Perspective mode
 	
 	
@@ -159,6 +159,11 @@ void	key_hook(mlx_key_data_t key, void *param)
 	if (mlx_is_key_down(data->mlx, 61) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
 		data->origin.z -= 1.0f;
 
+
+
+
+
+	// color_picker(&data, 300, 300);
 	return ;
 }
 
@@ -183,8 +188,13 @@ void	ft_loop_hook(void *param)
 	draw_map(&data);
 	// draw_cube(&data);
 	draw_rect(data, 0, 0, 300, HEIGHT, 0x616161);
+	// mlx_put
 	// ft_mlx_put_string(data, "Test", 100, 100);
 	draw_menu(&data);
+	color_picker(&data, 300, 300);
+	uint32_t color = ft_pixel(0, 0, 51, 255);
+	printf("color = %d\n", color);
+	// draw_rect(data, 400, 400, 500, 500, -13421569);
 	return ;
 }
 
