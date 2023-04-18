@@ -6,7 +6,7 @@
 /*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/18 02:24:52 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/18 20:14:43 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 			data->isometric = true;
 			printf("Isometric\n");
 		}
+		// init_color_picker(&data, x, y);
 	}
 	// color_picker(&data, 300, 300);
 	// Perspective mode
@@ -79,13 +80,6 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 	
 	printf("%d\n", action);
 }
-
-// void	cursor_hook(mouse_key_t key, void *param)
-// {
-// 	printf("hi\n");
-
-// 	printf("");
-// }
 
 void	key_hook(mlx_key_data_t key, void *param)
 {
@@ -191,9 +185,10 @@ void	ft_loop_hook(void *param)
 	// mlx_put
 	// ft_mlx_put_string(data, "Test", 100, 100);
 	draw_menu(&data);
-	color_picker(&data, 300, 300);
-	uint32_t color = ft_pixel(0, 0, 51, 255);
-	printf("color = %d\n", color);
+	// init_color_picker(&data, 500, 500);
+	render_color_picker(data);
+	uint32_t color = ft_pixel(33, 33, 33, 255);
+	// printf("color = %d\n", color);
 	// draw_rect(data, 400, 400, 500, 500, -13421569);
 	return ;
 }
@@ -276,25 +271,16 @@ int32_t	main(int32_t argc, char *argv[])
 		mlx_close_window(data->mlx);
 		return (EXIT_FAILURE);
 	}
-	// fill_image(data);
-	// drawline(data, 100, 100, 400, 500);
-	// draw_grid(data);
-	// draw_point_grid(data);
-	// draw_cube(&data);
-	// draw_map(&data);
 
-	fill_image(data);
-	draw_map(&data);
+
+	// fill_image(data);
+	// draw_map(&data);
 	// draw_map1(&data);
 
 	// mlx_key_hook(data->mlx, key_hook, data);
+	
 	mlx_key_hook(data->mlx, key_hook, data);
-	// mlx_cursor_hook(data->mlx, cursor_hook, data);
-	// mlx_mouse_hook(data->mlx, mlx_get_mouse_pos, data);
-	// mlx_cursor_hook(data->mlx, cursor_hook, data);
 	mlx_mouse_hook(data->mlx, ft_cursor_hook, data);
-
-
 	mlx_loop_hook(data->mlx, ft_loop_hook, data);
 
 	mlx_loop(data->mlx);

@@ -12,6 +12,7 @@
 		"array": "c",
 		"iterator": "c",
 		"string_view": "c",
-		"vector": "c"
+		"vector": "c",
+		"stdio.h": "c"
 	}
 }

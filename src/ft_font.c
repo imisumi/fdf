@@ -6,24 +6,12 @@
 /*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard          #+#    #+#             */
-/*   Updated: 2023/04/18 03:01:34 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/18 22:25:16 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/font.h"
-//= Private =//
 
-/**
- * Does the actual copying of pixels form the atlas buffer to the
- * image buffer.
- * 
- * Skips any non-printable characters.
- * 
- * @param image The image to draw on.
- * @param texture The font_atlas.
- * @param texoffset The character texture X offset.
- * @param imgoffset The image X offset.
- */
 static void ft_mlx_draw_char(t_fdf *data, int32_t texoffset, int32_t imgoffset, int32_t x_ofset, int32_t yy)
 {
 	if (texoffset < 0)
@@ -74,17 +62,13 @@ int32_t ft_mlx_get_texoffset(char c)
 
 void ft_mlx_put_string(t_fdf *data, const char* str, int x, int y)
 {
-	// MLX_NONNULL(mlx);
-	// MLX_NONNULL(str);
+	int32_t imgoffset;
 
+	imgoffset = 0;
 	const size_t len = strlen(str);
 	if (len > MLX_MAX_STRING)
-	{
-		// mlx_error(MLX_STRTOOBIG);
 		return ;
-	}
 	// Draw the text itself
-	int32_t imgoffset = 0;
 	for (size_t i = 0; i < len; i++, imgoffset += FONT_WIDTH)
 		ft_mlx_draw_char(data, ft_mlx_get_texoffset(str[i]), imgoffset, x, y);
 }

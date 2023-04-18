@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:16:48 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/17 17:46:52 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/18 21:47:28 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,65 +18,33 @@ void	ft_mlx_put_pixel(t_fdf *data, int x, int y, uint32_t color)
 		mlx_put_pixel(data->image, x, y, color);
 }
 
-void	iso(t_fdf *data, int *x, int *y, int z)
-{
-	double	angle;
-	angle = 0.8;
-	// printf("angle1 = %f\n", data->angle1);
-	// printf("angle2 = %f\n", data->angle2);
-	*x = (*x - *y) * cos(data->angle1);
-	*y = (*x + *y) * sin(data->angle2) - z;
-}
-
 void drawline(t_fdf *data, int x1, int y1, int x2, int y2)
 {
 	t_draw	draw;
 
-	draw.dx = abs(x2 - x1);
-	draw.dy = abs(y2 - y1);
-	draw.sx = (x1 < x2) ? 1 : -1;
-	draw.sy = (y1 < y2) ? 1 : -1;
-	draw.err = draw.dx - draw.dy;
+	draw.delta_x = abs(x2 - x1);
+	draw.delta_y = abs(y2 - y1);
+	draw.sign_x = (x1 < x2) ? 1 : -1;
+	draw.sign_y = (y1 < y2) ? 1 : -1;
+	draw.err = draw.delta_x - draw.delta_y;
 	while (1)
 	{
-		// mlx_put_pixel(data->image, x1, y1, 0xffffff);
 		ft_mlx_put_pixel(data, x1, y1, 0xffffff);
 		if (x1 == x2 && y1 == y2)
 			break ;
 		draw.e2 = 2 * draw.err;
-		if (draw.e2 > -draw.dy)
+		if (draw.e2 > -draw.delta_y)
 		{
-			draw.err -= draw.dy;
-			x1 += draw.sx;
+			draw.err -= draw.delta_y;
+			x1 += draw.sign_x;
 		}
-		if (draw.e2 < draw.dx)
+		if (draw.e2 < draw.delta_x)
 		{
-			draw.err += draw.dx;
-			y1 += draw.sy;
+			draw.err += draw.delta_x;
+			y1 += draw.sign_y;
 		}
 	}
 }
-
-// void	draw_grid(t_fdf *data)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	y = 0;
-// 	while (y < data->height)
-// 	{
-// 		x = 0;
-// 		while (x < data->width)
-// 		{
-// 			if (x < data->width - 1)
-// 				drawline(data, x, y, (x + 1), y);
-// 			if (y < data->height - 1)
-// 				drawline(data, x, y, x, (y + 1));
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
 
 void	draw_rect(t_fdf *data, int x, int y, int width, int height, uint32_t color)
 {
@@ -93,29 +61,6 @@ void	draw_rect(t_fdf *data, int x, int y, int width, int height, uint32_t color)
 			// mlx_put_pixel(data->image, data->grid[y][x].x, data->grid[y][x].y, 0xffffff);
 			// color_buffer[(WIDTH * cy) + cx] = color;
 		}
-}
-
-void	draw_point_grid(t_fdf *data)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-
-	while (y < data->height)
-	{
-		x = 0;
-		while (x < data->width)
-		{
-			draw_rect(data, data->projected_point[y][x].x, data->projected_point[y][x].y, 2, 2, 0xffffff);
-			draw_rect(data, data->grid[y][x].x, data->grid[y][x].y, 2, 2, 0xffffff);
-			// mlx_put_pixel(data->image, data->grid[y][x].x, data->grid[y][x].y, 0xffffff);
-			printf("%f, %f\n", data->grid[y][x].x, data->grid[y][x].y);
-			printf("%f, %f\n", data->projected_point[y][x].y, data->projected_point[y][x].y);
-			x++;
-		}
-		y++;
-	}
 }
 
 void	draw_grid(t_fdf *data)

@@ -6,7 +6,7 @@
 /*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/18 02:25:01 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/18 22:33:33 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,20 @@
 # define CHARCOAL		858993663
 # define WHITE			-1
 
+typedef struct s_picker
+{
+	int	i;
+	int	j;
+	int	size;
+	int	spacing;
+	int	x_start;
+	int	y_start;
+	int	border;
+	int	outline;
+	
+}	t_picker;
 
-
-
+void	render_color_picker(t_fdf *data);
+void	init_color_picker(t_fdf **d, int x_offset, int y_offset);
 
 #endif
