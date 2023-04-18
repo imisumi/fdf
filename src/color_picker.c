@@ -6,7 +6,7 @@
 /*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 00:44:47 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/18 22:45:53 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/18 23:11:11 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,36 @@ void	render_color_picker(t_fdf *data)
 	}
 }
 
-t_rect	set_rect_value(int x, int y, int w, int h, uint32_t c)
+// t_rect	set_rect_value(int x, int y, int w, int h, uint32_t c)
+// {
+// 	t_rect	rect;
+
+// 	rect.x = x;
+// 	rect.y = y;
+// 	rect.width = w;
+// 	rect.height = h;
+// 	rect.color = c;
+// 	return (rect);
+// }
+
+t_rect	set_rect_value(t_picker p, int x_offset, int y_offset, int first)
 {
 	t_rect	rect;
 
-	rect.x = x;
-	rect.y = y;
-	rect.width = w;
-	rect.height = h;
-	rect.color = c;
+	if (first == 1)
+	{
+		rect.x = x_offset - p.outline;
+		rect.y = y_offset - p.outline;
+		rect.width = p.border;
+		rect.height = p.border;
+		rect.color = 555819519;
+		return (rect);
+	}
+	rect.x = p.x_start + x_offset;
+	rect.y = p.y_start + y_offset;
+	rect.width = p.size;
+	rect.height = p.size;
+	rect.color = current_color((p.i * 4) + p.j);
 	return (rect);
 }
 
@@ -75,8 +96,7 @@ void	init_color_picker(t_fdf **d, int x_offset, int y_offset)
 	p.spacing = 3;
 	p.outline = 3;
 	p.border = (p.size * 4) + (p.spacing * 4) + p.outline;
-	data->color_picker[0] = set_rect_value(x_offset - p.outline, \
-		y_offset - p.outline, p.border, p.border, 555819519);
+	data->color_picker[0] = set_rect_value(p, x_offset, y_offset, 1);
 	p.i = 0;
 	p.y_start = 0;
 	while (p.i < 4)
@@ -85,7 +105,8 @@ void	init_color_picker(t_fdf **d, int x_offset, int y_offset)
 		p.x_start = 0;
 		while (p.j < 4)
 		{
-			data->color_picker[(p.i * 4) + p.j + 1] = set_rect_value(p.x_start + x_offset, p.y_start + y_offset, p.size, p.size, current_color((p.i * 4) + p.j));
+			data->color_picker[(p.i * 4) + p.j + 1] = set_rect_value(p, \
+				x_offset, y_offset, 0);
 			p.x_start += (p.size + p.spacing);
 			p.j++;
 		}

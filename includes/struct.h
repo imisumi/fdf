@@ -6,7 +6,7 @@
 /*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/18 22:43:39 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/18 23:24:30 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_fdf
 	t_vec3		origin;
 	float		scale;
 
+	t_rect		menu_button[13];
 	t_rect		color_picker[17];
 
 	bool		perspective;

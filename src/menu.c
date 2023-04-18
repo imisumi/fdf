@@ -6,7 +6,7 @@
 /*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:02:01 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/18 20:32:21 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/18 23:20:44 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,19 @@ void	menu_view(t_fdf **d, int x_offset, int y_offset)
 	t_fdf	*data;
 
 	data = *d;
-	ft_mlx_put_string(data, "[	]	Perspective", 0 + x_offset, 0 + y_offset);
-	ft_mlx_put_string(data, "[	]	Parallel", 0 + x_offset, 20 + y_offset);
-	ft_mlx_put_string(data, "[	]	Isometic", 0 + x_offset, 40 + y_offset);
+	ft_mlx_put_string(data, "View", 0 + x_offset, 0 + y_offset);
+	if (data->perspective == true)
+		ft_mlx_put_string(data, "[X]	Perspective", 0 + x_offset, 25 + y_offset);
+	else
+		ft_mlx_put_string(data, "[	]	Perspective", 0 + x_offset, 25 + y_offset);
+	if (data->parallel == true)
+		ft_mlx_put_string(data, "[X]	Parallel", 0 + x_offset, 45 + y_offset);
+	else
+		ft_mlx_put_string(data, "[	]	Parallel", 0 + x_offset, 45 + y_offset);
+	if (data->isometric == true)
+		ft_mlx_put_string(data, "[X]	Isometic", 0 + x_offset, 65 + y_offset);
+	else
+		ft_mlx_put_string(data, "[	]	Isometic", 0 + x_offset, 65 + y_offset);
 
 }
 
@@ -105,9 +115,9 @@ void	draw_menu(t_fdf **d)
 	ft_mlx_put_string(data, "*********************", 20, 60);
 	// ft_mlx_put_string(data, "[	]", 5, 65);
 	// ft_mlx_put_string(data, "[X]", 5, 85);
-	menu_location(&data, 50, 150);
-	menu_rotation(&data, 50, 250);
-	menu_origin(&data, 50, 350);
-	menu_scale(&data, 50, 450);
-	menu_view(&data, 50, 550);
+	menu_location(&data, 20, 150);
+	menu_rotation(&data, 20, 250);
+	menu_origin(&data, 20, 350);
+	menu_scale(&data, 20, 450);
+	menu_view(&data, 20, 510);
 }
