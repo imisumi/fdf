@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:16:48 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/18 21:47:28 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/19 15:55:19 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,41 @@ void	draw_rect(t_fdf *data, int x, int y, int width, int height, uint32_t color)
 			
 			// mlx_put_pixel(data->image, data->grid[y][x].x, data->grid[y][x].y, 0xffffff);
 			// color_buffer[(WIDTH * cy) + cx] = color;
+		}
+}
+
+void	draw_rect_2(t_fdf *data, t_rect rect)
+{
+	for (int i = 0; i < rect.width; i++)
+		for (int j = 0; j < rect.height; j++)
+		{
+			int	cx = rect.x + i;
+			int	cy = rect.y + j;
+			// printf("%d, %d\n", cy, cx);
+			// mlx_put_pixel(data->image, cx, cy, color);
+			ft_mlx_put_pixel(data, cx, cy, rect.color);
+
+			
+			// mlx_put_pixel(data->image, data->grid[y][x].x, data->grid[y][x].y, 0xffffff);
+			// color_buffer[(WIDTH * cy) + cx] = color;
+		}
+}
+
+void	draw_rect_outline(t_fdf *data, t_rect rect, int thickness, uint32_t color)
+{
+	for (int i = 0; i < rect.width; i++)
+		for (int j = 0; j < rect.height; j++)
+		{
+			int	cx = rect.x + i;
+			int	cy = rect.y + j;
+			if (cx < rect.x + thickness)
+				ft_mlx_put_pixel(data, cx, cy, color);
+			if (cx >= rect.x + rect.width - thickness)
+				ft_mlx_put_pixel(data, cx, cy, color);
+			if (cy < rect.y + thickness)
+				ft_mlx_put_pixel(data, cx, cy, color);
+			if (cy >= rect.y + rect.height - thickness)
+				ft_mlx_put_pixel(data, cx, cy, color);
 		}
 }
 

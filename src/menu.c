@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:02:01 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/18 23:20:44 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/19 14:01:55 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ void	menu_scale(t_fdf **d, int x_offset, int y_offset)
 	char str[64];
 	ft_mlx_put_string(data, "Scale", 0 + x_offset, 0 + y_offset);
 	sprintf(str, "[	]	%.2f", data->scale);
+	if (data->scale != 500)
+		sprintf(str, "[R]	%.2f", data->scale);
+	else
+		sprintf(str, "[	]	%.2f", data->scale);
 	ft_mlx_put_string(data, str, 0 + x_offset, 25 + y_offset);
 }
 
@@ -89,7 +93,7 @@ void	menu_view(t_fdf **d, int x_offset, int y_offset)
 	t_fdf	*data;
 
 	data = *d;
-	ft_mlx_put_string(data, "View", 0 + x_offset, 0 + y_offset);
+	ft_mlx_put_string(data, "Projection", 0 + x_offset, 0 + y_offset);
 	if (data->perspective == true)
 		ft_mlx_put_string(data, "[X]	Perspective", 0 + x_offset, 25 + y_offset);
 	else
@@ -105,19 +109,34 @@ void	menu_view(t_fdf **d, int x_offset, int y_offset)
 
 }
 
+void	menu_colors(t_fdf **d, int x_offset, int y_offset)
+{
+	t_fdf	*data;
+
+	data = *d;
+	char str[64];
+	ft_mlx_put_string(data, "Colors", 0 + x_offset, 0 + y_offset);
+	sprintf(str, "[	]	%.2f", data->scale);
+	// sprintf(str, "Menu%.", data->scale);
+	ft_mlx_put_string(data, "[	]	Menu", 0 + x_offset, 25 + y_offset);
+	ft_mlx_put_string(data, "[	]	[	]	Grid", 0 + x_offset, 45 + y_offset);
+	ft_mlx_put_string(data, "[	]	[	]	Background", 0 + x_offset, 65 + y_offset);
+}
+
 void	draw_menu(t_fdf **d)
 {
 	t_fdf	*data;
 
 	data = *d;
-	ft_mlx_put_string(data, "*********************", 20, 20);
-	ft_mlx_put_string(data, "***	FDF	-	imisumi	***", 20, 40);
-	ft_mlx_put_string(data, "*********************", 20, 60);
+	ft_mlx_put_string(data, "*********************", 30, 20);
+	ft_mlx_put_string(data, "***	FDF	-	imisumi	***", 30, 40);
+	ft_mlx_put_string(data, "*********************", 30, 60);
 	// ft_mlx_put_string(data, "[	]", 5, 65);
 	// ft_mlx_put_string(data, "[X]", 5, 85);
-	menu_location(&data, 20, 150);
-	menu_rotation(&data, 20, 250);
-	menu_origin(&data, 20, 350);
-	menu_scale(&data, 20, 450);
-	menu_view(&data, 20, 510);
+	menu_location(&data, 40, 120);
+	menu_rotation(&data, 40, 220);
+	menu_origin(&data, 40, 320);
+	menu_scale(&data, 40, 420);
+	menu_view(&data, 40, 480);
+	menu_colors(&data, 40, 580);
 }

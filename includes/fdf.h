@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/18 22:31:33 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/19 17:00:39 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,9 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 // void	init_color_picker(t_fdf **d, int x_offset, int y_offset);
 // void	render_color_picker(t_fdf *data);
 
+// int	is_button_clicked(t_fdf *data, int x, int y, int i);
+void	what_collor_is_clicked(t_fdf **d, int x, int y);
+void	draw_rect_outline(t_fdf *data, t_rect rect, int thickness, uint32_t color);
+uint8_t	*int_32_to_8(uint32_t color);
 
 #endif
