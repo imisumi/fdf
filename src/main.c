@@ -6,7 +6,7 @@
 /*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/19 00:01:24 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/19 02:27:05 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,12 +213,6 @@ void	ft_loop_hook(void *param)
 	
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
-	// mlx_key_hook(data->mlx, key_hook, data);
-
-
-	// data->rotation.x += 0.01;
-	// data->rotation.y += 0.01;
-	// data->rotation.z += 0.01;
 
 
 	fill_image(data);
@@ -226,8 +220,7 @@ void	ft_loop_hook(void *param)
 	draw_map(&data);
 	// draw_cube(&data);
 	draw_rect(data, 0, 0, 300, HEIGHT, 0x616161);
-	// mlx_put
-	// ft_mlx_put_string(data, "Test", 100, 100);
+
 	draw_menu(&data);
 	// init_color_picker(&data, 500, 500);
 	// render_color_picker(data);
@@ -269,7 +262,7 @@ void	fill_image(t_fdf *data)
 		color = ft_pixel(currentColor[0], currentColor[1], currentColor[2], 255);
 		while (j < WIDTH)
 		{
-			mlx_put_pixel(data->image, j, i, color);
+			ft_mlx_put_pixel(data, j, i, color);
 			j++;
 		}
 		i++;
