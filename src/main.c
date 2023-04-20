@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/19 17:14:41 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/20 03:50:44 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,62 @@ void	set_button_pos(t_fdf **d)
 	t_fdf	*data;
 
 	data = *d;
-	data->menu_button[9].x = 43;
-	data->menu_button[9].y = 449;
-	data->menu_button[9].width = 24;
-	data->menu_button[9].height = 15;
+	// temp menu color
+	data->menu_button[0].x = 0;
+	data->menu_button[0].y = 0;
+	data->menu_button[0].width = 270;
+	data->menu_button[0].height = HEIGHT;
+
+
+
+
+
 	
 	data->menu_button[10].x = 43;
-	data->menu_button[10].y = 509;
+	data->menu_button[10].y = 449;
 	data->menu_button[10].width = 24;
 	data->menu_button[10].height = 15;
-
+	
 	data->menu_button[11].x = 43;
-	data->menu_button[11].y = 529;
+	data->menu_button[11].y = 509;
 	data->menu_button[11].width = 24;
 	data->menu_button[11].height = 15;
 
 	data->menu_button[12].x = 43;
-	data->menu_button[12].y = 549;
+	data->menu_button[12].y = 529;
 	data->menu_button[12].width = 24;
 	data->menu_button[12].height = 15;
 
 	data->menu_button[13].x = 43;
-	data->menu_button[13].y = 609;
+	data->menu_button[13].y = 549;
 	data->menu_button[13].width = 24;
 	data->menu_button[13].height = 15;
+
+	// menu color picker
+	data->menu_button[14].x = 43;
+	data->menu_button[14].y = 609;
+	data->menu_button[14].width = 24;
+	data->menu_button[14].height = 15;
+
+	data->menu_button[15].x = 43;
+	data->menu_button[15].y = 629;
+	data->menu_button[15].width = 24;
+	data->menu_button[15].height = 15;
+
+	data->menu_button[16].x = 83;
+	data->menu_button[16].y = 629;
+	data->menu_button[16].width = 24;
+	data->menu_button[16].height = 15;
+
+	data->menu_button[17].x = 43;
+	data->menu_button[17].y = 649;
+	data->menu_button[17].width = 24;
+	data->menu_button[17].height = 15;
+
+	data->menu_button[18].x = 83;
+	data->menu_button[18].y = 649;
+	data->menu_button[18].width = 24;
+	data->menu_button[18].height = 15;
 }
 
 // bool	is_button_clicked(t_fdf *data, int x, int y, int i)
@@ -109,48 +141,79 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 		{
 			data->color_picker[0].active = false;
 		}
-		what_collor_is_clicked(&data, x, y);
+		what_collor_is_clicked(&data, x, y, data->button);
 		return ;
 	}
 	if (action == 0)
 	{
-		if (is_menu_button_clicked(data, x, y, 9) == true)
+		if (is_menu_button_clicked(data, x, y, 10) == true)
 		{
 			data->scale = 500;
 		}
-		if (is_menu_button_clicked(data, x, y, 10) == true)
+		if (is_menu_button_clicked(data, x, y, 11) == true)
 		{
 			data->perspective = true;
 			data->parallel = false;
 			data->isometric = false;
 			printf("Perspective\n");
 		}
-		if (is_menu_button_clicked(data, x, y, 11) == true)
+		if (is_menu_button_clicked(data, x, y, 12) == true)
 		{
 			data->perspective = false;
 			data->parallel = true;
 			data->isometric = false;
 			printf("Parallel\n");
 		}
-		if (is_menu_button_clicked(data, x, y, 12) == true)
-		{
-			data->perspective = false;
-			data->parallel = false;
-			data->isometric = true;
-			printf("Isometric\n");
-		}
-		if (is_menu_button_clicked(data, x, y, 12) == true)
-		{
-			data->perspective = false;
-			data->parallel = false;
-			data->isometric = true;
-			printf("Isometric\n");
-		}
 		if (is_menu_button_clicked(data, x, y, 13) == true)
 		{
+			data->perspective = false;
+			data->parallel = false;
+			data->isometric = true;
+			printf("Isometric\n");
+		}
+		// if (is_menu_button_clicked(data, x, y, 13) == true)
+		// {
+		// 	data->perspective = false;
+		// 	data->parallel = false;
+		// 	data->isometric = true;
+		// 	printf("Isometric\n");
+		// }
+		// menu color
+		if (is_menu_button_clicked(data, x, y, 14) == true)
+		{
 			init_color_picker(&data, x, y);
-			// what_collor_is_clicked(&data, x, y);
 			data->color_picker[0].active = true;
+			data->button = 0;
+		}
+		// grid colors
+		if (is_menu_button_clicked(data, x, y, 15) == true)
+		{
+			init_color_picker(&data, x, y);
+			data->color_picker[0].active = true;
+			data->button = 15;
+			
+		}
+		if (is_menu_button_clicked(data, x, y, 16) == true)
+		{
+			init_color_picker(&data, x, y);
+			data->color_picker[0].active = true;
+			data->button = 16;
+			
+		}
+		// background colors
+		if (is_menu_button_clicked(data, x, y, 17) == true)
+		{
+			init_color_picker(&data, x, y);
+			data->color_picker[0].active = true;
+			data->button = 17;
+			
+		}
+		if (is_menu_button_clicked(data, x, y, 18) == true)
+		{
+			init_color_picker(&data, x, y);
+			data->color_picker[0].active = true;
+			data->button = 18;
+			
 		}
 	}
 	
@@ -241,6 +304,40 @@ void	key_hook(mlx_key_data_t key, void *param)
 	return ;
 }
 
+void	draw_menu_color_select(t_fdf *data)
+{
+	draw_rect_2(data, data->menu_button[14]);
+	draw_rect_outline(data, data->menu_button[14], 2, BLACK);
+
+	draw_rect_2(data, data->menu_button[15]);
+	draw_rect_outline(data, data->menu_button[15], 2, BLACK);
+
+	draw_rect_2(data, data->menu_button[16]);
+	draw_rect_outline(data, data->menu_button[16], 2, BLACK);
+
+	draw_rect_2(data, data->menu_button[17]);
+	draw_rect_outline(data, data->menu_button[17], 2, BLACK);
+
+	draw_rect_2(data, data->menu_button[18]);
+	draw_rect_outline(data, data->menu_button[18], 2, BLACK);
+
+
+	// temp
+	draw_rect_outline(data, data->menu_button[1], 2, BLACK);
+	draw_rect_outline(data, data->menu_button[2], 2, BLACK);
+	draw_rect_outline(data, data->menu_button[3], 2, BLACK);
+	draw_rect_outline(data, data->menu_button[4], 2, BLACK);
+	draw_rect_outline(data, data->menu_button[5], 2, BLACK);
+	draw_rect_outline(data, data->menu_button[6], 2, BLACK);
+	draw_rect_outline(data, data->menu_button[7], 2, BLACK);
+	draw_rect_outline(data, data->menu_button[8], 2, BLACK);
+	draw_rect_outline(data, data->menu_button[9], 2, BLACK);
+	draw_rect_outline(data, data->menu_button[10], 2, BLACK);
+	draw_rect_outline(data, data->menu_button[11], 2, BLACK);
+	draw_rect_outline(data, data->menu_button[12], 2, BLACK);
+	draw_rect_outline(data, data->menu_button[13], 2, BLACK);
+}
+
 void	ft_loop_hook(void *param)
 {
 	t_fdf	*data;
@@ -251,18 +348,24 @@ void	ft_loop_hook(void *param)
 		mlx_close_window(data->mlx);
 
 
-	fill_image(data);
+	// fill_image(data);
+
+	fill_background(data);
 	// draw_grid(data);
 	draw_map(&data);
 	// draw_cube(&data);
 	// draw_rect(data, 0, 0, 300, HEIGHT, 0x616161);
-	draw_rect_2(data, data->menu);
+	
+	// menu cube
+	draw_rect_2(data, data->menu_button[0]);
+	// draw_rect_2(data, data->menu);
 
 	draw_menu(&data);
 
 	data->menu_button[13].color = data->menu.color;
-	draw_rect_2(data, data->menu_button[13]);
-	draw_rect_outline(data, data->menu_button[13], 2, BLACK);
+	
+	draw_menu_color_select(data);
+
 	if (data->color_picker[0].active == true)
 		render_color_picker(data);
 		
@@ -278,137 +381,6 @@ void	ft_loop_hook(void *param)
 	return ;
 }
 
-
-
-int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
-
-// void	fill_image(t_fdf *data)
-// {
-// 	int	i;
-// 	int	j;
-// 	int32_t	color;
-// 	int startColor[] = {205, 92, 92};
-// 	int endColor[] = {100, 149, 237};
-// 	int diff[3];
-// 	for (int g = 0; g < 3; g++)
-// 		diff[g] = endColor[g] - startColor[g];
-// 	color = ft_pixel(159, 226, 191, 255);
-// 	i = 0;
-// 	while (i < HEIGHT)
-// 	{
-// 		j = 0;
-// 		int currentColor[3];
-// 		for (int g = 0; g < 3; g++)
-// 			currentColor[g] = startColor[g] + (diff[g] * i / HEIGHT);
-// 		// printf("RGB(%d, %d, %d)\n", currentColor[0], currentColor[1], currentColor[2]);
-// 		color = ft_pixel(currentColor[0], currentColor[1], currentColor[2], 255);
-// 		while (j < WIDTH)
-// 		{
-// 			ft_mlx_put_pixel(data, j, i, color);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	// printf("%x\n", ft_pixel(12, 118, 199, 255));
-// }
-
-// void fill_image(t_fdf *data) {
-//     int i, j;
-//     uint32_t startColor = ORANGE;
-//     uint32_t endColor = ORANGE;
-//     uint8_t startColorComponents[4];
-//     uint8_t endColorComponents[4];
-// 	uint32_t gradient_collor;
-//     uint32_t diff[4];
-
-//     startColorComponents[0] = (startColor >> 24); // alpha
-//     startColorComponents[1] = (startColor >> 16); // red
-//     startColorComponents[2] = (startColor >> 8);  // green
-//     startColorComponents[3] = startColor;         // blue
-
-//     endColorComponents[0] = (endColor >> 24); // alpha
-//     endColorComponents[1] = (endColor >> 16); // red
-//     endColorComponents[2] = (endColor >> 8);  // green
-//     endColorComponents[3] = endColor;         // blue
-
-
-//     // Compute the color difference for each color component
-//     for (int g = 0; g < 4; g++) {
-//         diff[g] = endColorComponents[g] - startColorComponents[g];
-//     }
-
-//     // Iterate over each pixel in the image
-//     for (i = 0; i < HEIGHT; i++) {
-//         uint8_t currentColorComponents[4];
-
-//         // Compute the current color for this row
-//         for (int g = 0; g < 4; g++) {
-//             currentColorComponents[g] = startColorComponents[g] + (diff[g] * i / HEIGHT);
-//         }
-
-//         // Combine the color components into a single uint32_t color value
-//         // uint32_t currentColor = (currentColorComponents[0] << 24) |
-//         //                         (currentColorComponents[1] << 16) |
-//         //                         (currentColorComponents[2] << 8) |
-//         //                         currentColorComponents[3];
-// 		gradient_collor = ft_pixel(currentColorComponents[0], currentColorComponents[1], currentColorComponents[2], currentColorComponents[3]);
-
-//         // Fill the row with the current color
-//         for (j = 0; j < WIDTH; j++) {
-//             ft_mlx_put_pixel(data, j, i, gradient_collor);
-//         }
-//     }
-// }
-
-void fill_image(t_fdf *data) {
-    int i, j;
-    uint32_t startColor = NAVY_BLUE;
-    uint32_t endColor = ORANGE;
-    uint8_t startColorComponents[4];
-    uint8_t endColorComponents[4];
-    uint32_t diff[4];
-
-    // Extract the color components for the start and end colors
-    startColorComponents[0] = (startColor >> 24) & 0xFF; // alpha
-    startColorComponents[1] = (startColor >> 16) & 0xFF; // red
-    startColorComponents[2] = (startColor >> 8) & 0xFF;  // green
-    startColorComponents[3] = startColor & 0xFF;         // blue
-
-    endColorComponents[0] = (endColor >> 24) & 0xFF; // alpha
-    endColorComponents[1] = (endColor >> 16) & 0xFF; // red
-    endColorComponents[2] = (endColor >> 8) & 0xFF;  // green
-    endColorComponents[3] = endColor & 0xFF;         // blue
-
-    // Compute the color difference for each color component
-    for (int g = 0; g < 4; g++) {
-        diff[g] = endColorComponents[g] - startColorComponents[g];
-    }
-
-    // Iterate over each pixel in the image
-    for (i = 0; i < HEIGHT; i++) {
-        uint8_t currentColorComponents[4];
-
-        // Compute the current color for this row
-        for (int g = 0; g < 4; g++) {
-            currentColorComponents[g] = startColorComponents[g] + (diff[g] * i / HEIGHT);
-        }
-
-        // Combine the color components into a single uint32_t color value
-        uint32_t currentColor = (currentColorComponents[0] << 24) |
-                                (currentColorComponents[1] << 16) |
-                                (currentColorComponents[2] << 8) |
-                                currentColorComponents[3];
-
-        // Fill the row with the current color
-        for (j = 0; j < WIDTH; j++) {
-            ft_mlx_put_pixel(data, j, i, currentColor);
-        }
-    }
-}
-
 int32_t	main(int32_t argc, char *argv[])
 {
 	t_fdf	*data;
@@ -422,6 +394,8 @@ int32_t	main(int32_t argc, char *argv[])
 	data->menu.width = 270;
 	data->menu.height = HEIGHT;
 	data->menu.color = OCEAN_BLUE;
+	data->menu_button[0].color = OCEAN_BLUE;
+	data->menu_button[14].color = data->menu_button[0].color;
 	data->text = ORANGE;
 
 	data->angle = 0;
@@ -449,7 +423,7 @@ int32_t	main(int32_t argc, char *argv[])
 	data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!data->mlx)
 		return (EXIT_FAILURE);
-	data->image = mlx_new_image(data->mlx, WIDTH * 3, HEIGHT * 3);
+	data->image = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->image)
 	{
 		mlx_close_window(data->mlx);
@@ -461,13 +435,6 @@ int32_t	main(int32_t argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 
-
-	// fill_image(data);
-	// draw_map(&data);
-	// draw_map1(&data);
-
-	// mlx_key_hook(data->mlx, key_hook, data);
-	
 	mlx_key_hook(data->mlx, key_hook, data);
 	mlx_mouse_hook(data->mlx, ft_cursor_hook, data);
 	mlx_loop_hook(data->mlx, ft_loop_hook, data);

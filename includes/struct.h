@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/19 16:24:23 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/20 03:11:48 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ typedef struct s_line
 typedef struct s_rgb
 {
 	int	rgba[4];
-	int	r;
-	int	g;
-	int	b;
-	int	a;
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
+	uint8_t	a;
 }	t_rgb;
 
 typedef struct s_draw
@@ -79,6 +79,7 @@ typedef struct s_move
 
 typedef struct s_fdf
 {
+	int			button;
 	int			width;
 	int			height;
 	int			xshift;
@@ -98,7 +99,7 @@ typedef struct s_fdf
 	uint32_t	text;
 
 	t_rect		menu;
-	t_rect		menu_button[20];
+	t_rect		menu_button[32];
 	t_rect		color_picker[17];
 
 	bool		perspective;

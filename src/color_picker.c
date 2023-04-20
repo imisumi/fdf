@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_picker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 00:44:47 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/19 16:22:00 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/20 03:44:15 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,51 +24,81 @@ bool	is_color_clicked(t_fdf *data, int x, int y, int i)
 	return (false);
 }
 
-void	what_collor_is_clicked(t_fdf **d, int x, int y)
+void	what_collor_is_clicked(t_fdf **d, int x, int y, int button)
 {
 	t_fdf	*data;
 
 	data = *d;
-	if (is_color_clicked(data, x, y, 1) == true)
-	{
-		data->menu.color = data->color_picker[1].color;
-		data->color_picker[13].active = true;
-	}
-	if (is_color_clicked(data, x, y, 2) == true)
-	{
-		data->menu.color = data->color_picker[2].color;
-		data->color_picker[13].active = true;
-	}
+	// if (button == 13)
+	// {
+	// 	if (is_color_clicked(data, x, y, 1) == true)
+	// 		data->menu.color = data->color_picker[1].color;
+	// 	if (is_color_clicked(data, x, y, 2) == true)
+	// 		data->menu.color = data->color_picker[2].color;
+	// 	if (is_color_clicked(data, x, y, 3) == true)
+	// 		data->menu.color = data->color_picker[3].color;
+	// 	if (is_color_clicked(data, x, y, 4) == true)
+	// 		data->menu.color = data->color_picker[4].color;
+	// 	if (is_color_clicked(data, x, y, 5) == true)
+	// 		data->menu.color = data->color_picker[5].color;
+	// 	if (is_color_clicked(data, x, y, 6) == true)
+	// 		data->menu.color = data->color_picker[6].color;
+	// 	if (is_color_clicked(data, x, y, 7) == true)
+	// 		data->menu.color = data->color_picker[7].color;
+	// 	if (is_color_clicked(data, x, y, 8) == true)
+	// 		data->menu.color = data->color_picker[8].color;
+	// 	if (is_color_clicked(data, x, y, 9) == true)
+	// 		data->menu.color = data->color_picker[9].color;
+	// 	if (is_color_clicked(data, x, y, 10) == true)
+	// 		data->menu.color = data->color_picker[10].color;
+	// 	if (is_color_clicked(data, x, y, 11) == true)
+	// 		data->menu.color = data->color_picker[11].color;
+	// 	if (is_color_clicked(data, x, y, 12) == true)
+	// 		data->menu.color = data->color_picker[12].color;
+	// 	if (is_color_clicked(data, x, y, 13) == true)
+	// 		data->menu.color = data->color_picker[13].color;
+	// 	if (is_color_clicked(data, x, y, 14) == true)
+	// 		data->menu.color = data->color_picker[14].color;
+	// 	if (is_color_clicked(data, x, y, 15) == true)
+	// 		data->menu.color = data->color_picker[15].color;
+	// 	if (is_color_clicked(data, x, y, 16) == true)
+	// 		data->menu.color = data->color_picker[16].color;
+	// }
 
-	
+	if (is_color_clicked(data, x, y, 1) == true)
+		data->menu_button[button].color = data->color_picker[1].color;
+	if (is_color_clicked(data, x, y, 2) == true)
+		data->menu_button[button].color = data->color_picker[2].color;
 	if (is_color_clicked(data, x, y, 3) == true)
-		data->menu.color = data->color_picker[3].color;
+		data->menu_button[button].color = data->color_picker[3].color;
 	if (is_color_clicked(data, x, y, 4) == true)
-		data->menu.color = data->color_picker[4].color;
+		data->menu_button[button].color = data->color_picker[4].color;
 	if (is_color_clicked(data, x, y, 5) == true)
-		data->menu.color = data->color_picker[5].color;
+		data->menu_button[button].color = data->color_picker[5].color;
 	if (is_color_clicked(data, x, y, 6) == true)
-		data->menu.color = data->color_picker[6].color;
+		data->menu_button[button].color = data->color_picker[6].color;
 	if (is_color_clicked(data, x, y, 7) == true)
-		data->menu.color = data->color_picker[7].color;
+		data->menu_button[button].color = data->color_picker[7].color;
 	if (is_color_clicked(data, x, y, 8) == true)
-		data->menu.color = data->color_picker[8].color;
+		data->menu_button[button].color = data->color_picker[8].color;
 	if (is_color_clicked(data, x, y, 9) == true)
-		data->menu.color = data->color_picker[9].color;
+		data->menu_button[button].color = data->color_picker[9].color;
 	if (is_color_clicked(data, x, y, 10) == true)
-		data->menu.color = data->color_picker[10].color;
+		data->menu_button[button].color = data->color_picker[10].color;
 	if (is_color_clicked(data, x, y, 11) == true)
-		data->menu.color = data->color_picker[11].color;
+		data->menu_button[button].color = data->color_picker[11].color;
 	if (is_color_clicked(data, x, y, 12) == true)
-		data->menu.color = data->color_picker[12].color;
+		data->menu_button[button].color = data->color_picker[12].color;
 	if (is_color_clicked(data, x, y, 13) == true)
-		data->menu.color = data->color_picker[13].color;
+		data->menu_button[button].color = data->color_picker[13].color;
 	if (is_color_clicked(data, x, y, 14) == true)
-		data->menu.color = data->color_picker[14].color;
+		data->menu_button[button].color = data->color_picker[14].color;
 	if (is_color_clicked(data, x, y, 15) == true)
-		data->menu.color = data->color_picker[15].color;
+		data->menu_button[button].color = data->color_picker[15].color;
 	if (is_color_clicked(data, x, y, 16) == true)
-		data->menu.color = data->color_picker[16].color;
+		data->menu_button[button].color = data->color_picker[16].color;
+	data->menu_button[14].color = data->menu_button[0].color;
+	data->color_picker[0].active = false;
 }
 
 uint32_t	current_color(int i)
