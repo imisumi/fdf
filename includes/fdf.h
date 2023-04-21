@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/20 19:19:24 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/21 17:57:15 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,13 @@ void	fill_background(t_fdf *data);
 // t_rgb	int32_to_rgb(uint32_t pixel_value);
 // uint32_t	hex_to_int32(int hex);
 
+t_rgb	hex_to_rgb(int hex);
+
 
 
 
 
 void	set_data_value(t_fdf **d);
+uint32_t	hexstr_to_int32(char *str);
 
 #endif

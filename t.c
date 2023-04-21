@@ -1,34 +1,48 @@
-#include <stdio.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <memory.h>
+# include <math.h>
+# include <stdbool.h>
+# include <limits.h>
+# include <ctype.h>
 
-// Function to calculate a gradient between two RGB colors
-void generateGradient(int startColor[], int endColor[], int steps) {
-    // Calculate the difference between the start and end colors
-    int diff[3];
-    for (int i = 0; i < 3; i++) {
-        diff[i] = endColor[i] - startColor[i];
-    }
-    
-    // Generate the gradient by interpolating between the start and end colors
-    for (int i = 0; i < steps; i++) {
-        // Calculate the RGB components for the current step
-        int currentColor[3];
-        for (int j = 0; j < 3; j++) {
-            currentColor[j] = startColor[j] + (diff[j] * i / steps);
-        }
+#include <stdio.h>
+#include <stdint.h>
+#include <string.h>
+
+uint32_t hexStringToUInt32(char* hexString)
+{
+    uint32_t result = 0;
+    size_t length = strlen(hexString);
+    int i;
         
-        // Print the RGB color code for the current step
-        printf("RGB(%d, %d, %d)\n", currentColor[0], currentColor[1], currentColor[2]);
+    for (i = 2; i < length; i++) {
+        char c = hexString[i];
+        int value;
+        
+        if (c >= '0' && c <= '9') {
+            value = c - '0';
+        } else if (c >= 'a' && c <= 'f') {
+            value = c - 'a' + 10;
+        } else if (c >= 'A' && c <= 'F') {
+            value = c - 'A' + 10;
+        } else {
+            // Invalid character in hex string
+            return 0;
+        }
+        printf("%d\n", value);
+        result = (result << 4) | value;
     }
+    result = (result << 4) | 15;
+    result = (result << 4) | 15;
+    return result;
 }
 
-// Example usage
-int main() {
-    // Define the start and end colors
-    int startColor[] = {255, 0, 0};  // Red
-    int endColor[] = {0, 0, 255};    // Blue
-    
-    // Generate the gradient between the start and end colors in 1000 steps
-    generateGradient(startColor, endColor, 1000);
-    
+int main()
+{
+    char* hexString = "0xFF0000";
+    uint32_t result = hexStringToUInt32(hexString);
+    printf("%d\n", result);
     return 0;
 }

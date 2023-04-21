@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_value.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/20 19:24:59 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/21 18:01:28 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	set_data_value(t_fdf **d)
 	data->text = ORANGE;
 
 	data->menu_button[17].color = SKY_BLUE;
-	data->menu_button[18].color = OCEAN_BLUE;
+	data->menu_button[18].color = NAVY_BLUE;
 	// data->menu_button[18].color = hex_to_int32(0xFF0000);
 
 	data->angle = 0;
