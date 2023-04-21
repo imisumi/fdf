@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3Dcube.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:26:32 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/17 17:28:23 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/20 16:58:11 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,79 +56,79 @@ t_vec2	isometric_projection(t_fdf *data, t_vec3 point)
 	return (projected_point);
 }
 
-void	connect_points(t_fdf *data, t_vec2 *point)
-{
-	// int	m = + (WIDTH / 2);
-	for (int i = 0; i < 8; i++) {
-		point[i].x += (WIDTH / 2);
-		point[i].y += (HEIGHT / 2);
-	}
-	drawline(data, point[0].x, point[0].y, point[1].x, point[1].y);
-	drawline(data, point[0].x, point[0].y, point[3].x, point[3].y);
-	drawline(data, point[0].x, point[0].y, point[4].x, point[4].y);
+// void	connect_points(t_fdf *data, t_vec2 *point)
+// {
+// 	// int	m = + (WIDTH / 2);
+// 	for (int i = 0; i < 8; i++) {
+// 		point[i].x += (WIDTH / 2);
+// 		point[i].y += (HEIGHT / 2);
+// 	}
+// 	drawline(data, point[0].x, point[0].y, point[1].x, point[1].y);
+// 	drawline(data, point[0].x, point[0].y, point[3].x, point[3].y);
+// 	drawline(data, point[0].x, point[0].y, point[4].x, point[4].y);
 
-	drawline(data, point[6].x, point[6].y, point[2].x, point[2].y);
-	drawline(data, point[6].x, point[6].y, point[5].x, point[5].y);
-	drawline(data, point[6].x, point[6].y, point[7].x, point[7].y);
+// 	drawline(data, point[6].x, point[6].y, point[2].x, point[2].y);
+// 	drawline(data, point[6].x, point[6].y, point[5].x, point[5].y);
+// 	drawline(data, point[6].x, point[6].y, point[7].x, point[7].y);
 
-	drawline(data, point[1].x, point[1].y, point[2].x, point[2].y);
-	drawline(data, point[1].x, point[1].y, point[5].x, point[5].y);
+// 	drawline(data, point[1].x, point[1].y, point[2].x, point[2].y);
+// 	drawline(data, point[1].x, point[1].y, point[5].x, point[5].y);
 
-	drawline(data, point[4].x, point[4].y, point[5].x, point[5].y);
-	drawline(data, point[4].x, point[4].y, point[7].x, point[7].y);
+// 	drawline(data, point[4].x, point[4].y, point[5].x, point[5].y);
+// 	drawline(data, point[4].x, point[4].y, point[7].x, point[7].y);
 
-	drawline(data, point[2].x, point[2].y, point[3].x, point[3].y);
+// 	drawline(data, point[2].x, point[2].y, point[3].x, point[3].y);
 	
-	drawline(data, point[3].x, point[3].y, point[7].x, point[7].y);
-}
+// 	drawline(data, point[3].x, point[3].y, point[7].x, point[7].y);
+// }
 
 
 
-void	draw_cube(t_fdf **d)
-{
-	t_fdf	*data;
-	data = *d;
-	t_vec2	projected_points[8];
-	t_vec3 cube_points[8] = {
-		{ 1,  1,  1},	// vertex 0
-		{-1,  1,  1},	// vertex 1
-		{-1, -1,  1},	// vertex 2
-		{ 1, -1,  1},	// vertex 3
-		{ 1,  1, -1},	// vertex 4
-		{-1,  1, -1},	// vertex 5
-		{-1, -1, -1},	// vertex 6
-		{ 1, -1, -1}	// vertex 7
-	};
-	// update
-	// printf("update - %f\n", data->rotation.x);
-	for (int i = 0; i < 8; i++)
-	{
-		t_vec3	point = cube_points[i];
+// void	draw_cube(t_fdf **d)
+// {
+// 	t_fdf	*data;
+// 	data = *d;
+// 	t_vec2	projected_points[8];
+// 	t_vec3 cube_points[8] = {
+// 		{ 1,  1,  1},	// vertex 0
+// 		{-1,  1,  1},	// vertex 1
+// 		{-1, -1,  1},	// vertex 2
+// 		{ 1, -1,  1},	// vertex 3
+// 		{ 1,  1, -1},	// vertex 4
+// 		{-1,  1, -1},	// vertex 5
+// 		{-1, -1, -1},	// vertex 6
+// 		{ 1, -1, -1}	// vertex 7
+// 	};
+// 	// update
+// 	// printf("update - %f\n", data->rotation.x);
+// 	for (int i = 0; i < 8; i++)
+// 	{
+// 		t_vec3	point = cube_points[i];
 
-		t_vec3	transformed_point = vec3_rotate_x(point, data->rotation.x);
-		transformed_point = vec3_rotate_y(transformed_point, data->rotation.y);
-		transformed_point = vec3_rotate_z(transformed_point, data->rotation.z);
+// 		t_vec3	transformed_point = vec3_rotate_x(point, data->rotation.x);
+// 		transformed_point = vec3_rotate_y(transformed_point, data->rotation.y);
+// 		transformed_point = vec3_rotate_z(transformed_point, data->rotation.z);
 
-		transformed_point.z += data->camera.z;
+// 		transformed_point.z += data->camera.z;
 
-		t_vec2	projected_point = project_cube(data, transformed_point);
-		projected_points[i] = projected_point;
-	}
-	// render
-	for (int i = 0; i < 8; i++) {
-        t_vec2 projected_point = projected_points[i];
-        draw_rect(
-			data,
-            projected_point.x + (WIDTH / 2),
-            projected_point.y + (HEIGHT / 2),
-            2,
-            2,
-            0xFFFFFF00
-        );
-    }
-	// draw lines
-	connect_points(data, projected_points);
-}
+// 		t_vec2	projected_point = project_cube(data, transformed_point);
+// 		projected_points[i] = projected_point;
+// 	}
+// 	// render
+// 	for (int i = 0; i < 8; i++) {
+//         t_vec2 projected_point = projected_points[i];
+//         draw_rect(
+// 			data,
+//             projected_point.x + (WIDTH / 2),
+//             projected_point.y + (HEIGHT / 2),
+//             2,
+//             2,
+//             0xFFFFFF00
+//         );
+//     }
+// 	// draw lines
+// 	connect_points(data, projected_points);
+// }
 
 t_vec3	**copy_vec3_2d(t_fdf *data)
 {
@@ -247,29 +247,60 @@ void	draw_map(t_fdf **d)
 
 
 	// Connect all points forming a grid
+	// y = 0;
+	// while (y < data->height)
+	// {
+	// 	x = 0;
+	// 	while (x < data->width)
+	// 	{
+	// 		if (x < data->width - 1)
+	// 		{
+	// 			drawline(data,
+	// 			projected_points[y][x].x + (WIDTH / 2),
+	// 			projected_points[y][x].y + (HEIGHT / 2),
+	// 			projected_points[y][x + 1].x + (WIDTH / 2),
+	// 			projected_points[y][x + 1].y + (HEIGHT / 2)
+	// 			);
+	// 		}
+	// 		if (y < data->height - 1)
+	// 		{
+	// 			drawline(data,
+	// 			projected_points[y][x].x + (WIDTH / 2),
+	// 			projected_points[y][x].y + (HEIGHT / 2),
+	// 			projected_points[y + 1][x].x + (WIDTH / 2),
+	// 			projected_points[y + 1][x].y + (HEIGHT / 2)
+	// 			);
+	// 		}
+	// 		x++;
+	// 	}
+	// 	y++;
+	// }
+
+	t_line	line;
 	y = 0;
 	while (y < data->height)
 	{
 		x = 0;
 		while (x < data->width)
 		{
+			line.y1_c = y;
+			line.y2_c = y;
 			if (x < data->width - 1)
 			{
-				drawline(data,
-				projected_points[y][x].x + (WIDTH / 2),
-				projected_points[y][x].y + (HEIGHT / 2),
-				projected_points[y][x + 1].x + (WIDTH / 2),
-				projected_points[y][x + 1].y + (HEIGHT / 2)
-				);
+				line.x1 = projected_points[y][x].x + (WIDTH / 2);
+				line.y1 = projected_points[y][x].y + (HEIGHT / 2);
+				line.x2 = projected_points[y][x + 1].x + (WIDTH / 2);
+				line.y2 = projected_points[y][x + 1].y + (HEIGHT / 2);
+				drawline(data, line);
 			}
 			if (y < data->height - 1)
 			{
-				drawline(data,
-				projected_points[y][x].x + (WIDTH / 2),
-				projected_points[y][x].y + (HEIGHT / 2),
-				projected_points[y + 1][x].x + (WIDTH / 2),
-				projected_points[y + 1][x].y + (HEIGHT / 2)
-				);
+				line.x1 = projected_points[y][x].x + (WIDTH / 2);
+				line.y1 = projected_points[y][x].y + (HEIGHT / 2);
+				line.x2 = projected_points[y + 1][x].x + (WIDTH / 2);
+				line.y2 = projected_points[y + 1][x].y + (HEIGHT / 2);
+				line.y2_c = y + 1;
+				drawline(data, line);
 			}
 			x++;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:16:48 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/19 15:55:19 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/20 16:52:34 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,101 @@ void	ft_mlx_put_pixel(t_fdf *data, int x, int y, uint32_t color)
 		mlx_put_pixel(data->image, x, y, color);
 }
 
-void drawline(t_fdf *data, int x1, int y1, int x2, int y2)
+// void drawline(t_fdf *data, int x1, int y1, int x2, int y2)
+// {
+// 	t_draw	draw;
+
+// 	draw.delta_x = abs(x2 - x1);
+// 	draw.delta_y = abs(y2 - y1);
+// 	draw.sign_x = (x1 < x2) ? 1 : -1;
+// 	draw.sign_y = (y1 < y2) ? 1 : -1;
+// 	draw.err = draw.delta_x - draw.delta_y;
+// 	while (1)
+// 	{
+// 		ft_mlx_put_pixel(data, x1, y1, 0xffffff);
+// 		if (x1 == x2 && y1 == y2)
+// 			break ;
+// 		draw.e2 = 2 * draw.err;
+// 		if (draw.e2 > -draw.delta_y)
+// 		{
+// 			draw.err -= draw.delta_y;
+// 			x1 += draw.sign_x;
+// 		}
+// 		if (draw.e2 < draw.delta_x)
+// 		{
+// 			draw.err += draw.delta_x;
+// 			y1 += draw.sign_y;
+// 		}
+// 	}
+// }
+
+void drawline(t_fdf *data, t_line line)
 {
 	t_draw	draw;
+	int		i;
+	int		j;
+	int		diff[3];
+	t_rgb	p[3];
+	int32_t	color;
 
-	draw.delta_x = abs(x2 - x1);
-	draw.delta_y = abs(y2 - y1);
-	draw.sign_x = (x1 < x2) ? 1 : -1;
-	draw.sign_y = (y1 < y2) ? 1 : -1;
+	draw.delta_x = abs(line.x2 - line.x1);
+	draw.delta_y = abs(line.y2 - line.y1);
+	draw.sign_x = (line.x1 < line.x2) ? 1 : -1;
+	draw.sign_y = (line.y1 < line.y2) ? 1 : -1;
 	draw.err = draw.delta_x - draw.delta_y;
 	while (1)
 	{
-		ft_mlx_put_pixel(data, x1, y1, 0xffffff);
-		if (x1 == x2 && y1 == y2)
+		ft_mlx_put_pixel(data, line.x1, line.y1, 0xffffff);
+		if (line.x1 == line.x2 && line.y1 == line.y2)
 			break ;
 		draw.e2 = 2 * draw.err;
 		if (draw.e2 > -draw.delta_y)
 		{
 			draw.err -= draw.delta_y;
-			x1 += draw.sign_x;
+			line.x1 += draw.sign_x;
 		}
 		if (draw.e2 < draw.delta_x)
 		{
 			draw.err += draw.delta_x;
-			y1 += draw.sign_y;
+			line.y1 += draw.sign_y;
 		}
 	}
 }
+
+// void drawline(t_fdf *data, int x1, int y1, int x2, int y2)
+// {
+// 	t_draw	draw;
+// 	int		i;
+// 	int		j;
+// 	int		diff[3];
+// 	t_rgb	p[3];
+// 	int32_t	color;
+
+
+// 	draw.delta_x = abs(x2 - x1);
+// 	draw.delta_y = abs(y2 - y1);
+// 	draw.sign_x = (x1 < x2) ? 1 : -1;
+// 	draw.sign_y = (y1 < y2) ? 1 : -1;
+// 	draw.err = draw.delta_x - draw.delta_y;
+// 	printf("%d, %d\n", draw.delta_x, draw.delta_y);
+// 	while (1)
+// 	{
+// 		ft_mlx_put_pixel(data, x1, y1, 0xffffff);
+// 		if (x1 == x2 && y1 == y2)
+// 			break ;
+// 		draw.e2 = 2 * draw.err;
+// 		if (draw.e2 > -draw.delta_y)
+// 		{
+// 			draw.err -= draw.delta_y;
+// 			x1 += draw.sign_x;
+// 		}
+// 		if (draw.e2 < draw.delta_x)
+// 		{
+// 			draw.err += draw.delta_x;
+// 			y1 += draw.sign_y;
+// 		}
+// 	}
+// }
 
 void	draw_rect(t_fdf *data, int x, int y, int width, int height, uint32_t color)
 {
@@ -98,22 +166,22 @@ void	draw_rect_outline(t_fdf *data, t_rect rect, int thickness, uint32_t color)
 		}
 }
 
-void	draw_grid(t_fdf *data)
-{
-	int	x;
-	int	y;
+// void	draw_grid(t_fdf *data)
+// {
+// 	int	x;
+// 	int	y;
 
-	y = 0;
+// 	y = 0;
 
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			drawline(data, x, y, x, WIDTH);
-			x += 20;
-		}
-		drawline(data, 0, y, WIDTH, y);
-		y += 20;
-	}
-}
+// 	while (y < HEIGHT)
+// 	{
+// 		x = 0;
+// 		while (x < WIDTH)
+// 		{
+// 			drawline(data, x, y, x, WIDTH);
+// 			x += 20;
+// 		}
+// 		drawline(data, 0, y, WIDTH, y);
+// 		y += 20;
+// 	}
+// }

@@ -6,7 +6,7 @@
 /*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/20 03:50:44 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/20 19:26:57 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,19 +323,19 @@ void	draw_menu_color_select(t_fdf *data)
 
 
 	// temp
-	draw_rect_outline(data, data->menu_button[1], 2, BLACK);
-	draw_rect_outline(data, data->menu_button[2], 2, BLACK);
-	draw_rect_outline(data, data->menu_button[3], 2, BLACK);
-	draw_rect_outline(data, data->menu_button[4], 2, BLACK);
-	draw_rect_outline(data, data->menu_button[5], 2, BLACK);
-	draw_rect_outline(data, data->menu_button[6], 2, BLACK);
-	draw_rect_outline(data, data->menu_button[7], 2, BLACK);
-	draw_rect_outline(data, data->menu_button[8], 2, BLACK);
-	draw_rect_outline(data, data->menu_button[9], 2, BLACK);
-	draw_rect_outline(data, data->menu_button[10], 2, BLACK);
-	draw_rect_outline(data, data->menu_button[11], 2, BLACK);
-	draw_rect_outline(data, data->menu_button[12], 2, BLACK);
-	draw_rect_outline(data, data->menu_button[13], 2, BLACK);
+	// draw_rect_outline(data, data->menu_button[1], 2, BLACK);
+	// draw_rect_outline(data, data->menu_button[2], 2, BLACK);
+	// draw_rect_outline(data, data->menu_button[3], 2, BLACK);
+	// draw_rect_outline(data, data->menu_button[4], 2, BLACK);
+	// draw_rect_outline(data, data->menu_button[5], 2, BLACK);
+	// draw_rect_outline(data, data->menu_button[6], 2, BLACK);
+	// draw_rect_outline(data, data->menu_button[7], 2, BLACK);
+	// draw_rect_outline(data, data->menu_button[8], 2, BLACK);
+	// draw_rect_outline(data, data->menu_button[9], 2, BLACK);
+	// draw_rect_outline(data, data->menu_button[10], 2, BLACK);
+	// draw_rect_outline(data, data->menu_button[11], 2, BLACK);
+	// draw_rect_outline(data, data->menu_button[12], 2, BLACK);
+	// draw_rect_outline(data, data->menu_button[13], 2, BLACK);
 }
 
 void	ft_loop_hook(void *param)
@@ -386,38 +386,13 @@ int32_t	main(int32_t argc, char *argv[])
 	t_fdf	*data;
 
 	data = ft_calloc(sizeof(t_fdf), 1);
-	read_map(data, argv[1]);
+	if (read_map(data, argv[1]) == false)
+	{
+		exit (EXIT_FAILURE);
+	}
 	map_to_vec3(&data);
-	
-	data->menu.x = 0;
-	data->menu.y = 0;
-	data->menu.width = 270;
-	data->menu.height = HEIGHT;
-	data->menu.color = OCEAN_BLUE;
-	data->menu_button[0].color = OCEAN_BLUE;
-	data->menu_button[14].color = data->menu_button[0].color;
-	data->text = ORANGE;
+	set_data_value(&data);
 
-	data->angle = 0;
-	data->move.x = 0;
-	data->move.y = 0;
-	data->move.z = 0;
-	data->rotation.x = 0;
-	data->rotation.y = 0;
-	data->rotation.z = 0;
-	data->camera.x = 0;
-	data->camera.y = 0;
-	data->camera.z = 20;
-	data->scale = 500.0f;
-	data->origin.x = (float)data->width / 2;
-	data->origin.y = (float)data->height / 2;
-	data->origin.z = 0;
-
-	data->color_picker[0].active = false;
-
-	data->perspective = false;
-	data->parallel = false;
-	data->isometric = true;
 	set_button_pos(&data);
 
 	data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);

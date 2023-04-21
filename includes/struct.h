@@ -6,7 +6,7 @@
 /*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/20 03:11:48 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/20 18:44:23 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,22 @@ typedef struct s_vec3
 
 typedef struct s_line
 {
-	t_vec3	start;
-	t_vec3	end;
+	int	x1;
+	int	y1;
+	int	x2;
+	int	y2;
+	int	y1_c;
+	int	y2_c;
 }	t_line;
 
 typedef struct s_rgb
 {
-	int	rgba[4];
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-	uint8_t	a;
+	int			rgba[4];
+	uint8_t		r;
+	uint8_t		g;
+	uint8_t		b;
+	uint8_t		a;
+	uint32_t	color;
 }	t_rgb;
 
 typedef struct s_draw
@@ -87,7 +92,10 @@ typedef struct s_fdf
 	double		angle1;
 	double		angle2;
 	float		angle;
+
 	int			**map;
+	uint32_t	**map_colors;
+
 	t_vec3		rotation;
 	t_vec2		**projected_point;
 	t_vec3		**grid;
@@ -96,6 +104,8 @@ typedef struct s_fdf
 	t_vec3		origin;
 	float		scale;
 
+	t_rgb		*y_color;
+	
 	uint32_t	text;
 
 	t_rect		menu;

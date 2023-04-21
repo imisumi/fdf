@@ -6,7 +6,7 @@
 #    By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 00:51:40 by ichiro            #+#    #+#              #
-#    Updated: 2023/04/20 01:28:33 by ichiro           ###   ########.fr        #
+#    Updated: 2023/04/20 19:20:35 by ichiro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,20 @@ SRC_DIR = src
 
 INC := -I $(INCLUDE_DIR)
 
-SRCS = main.c print.c read_map.c draw.c vector.c 3Dcube.c ft_font.c menu.c transform.c color_picker.c color.c
-
+SRCS = main.c \
+		print.c \
+		read_map.c \
+		draw.c vector.c \
+		3Dcube.c \
+		ft_font.c \
+		menu.c \
+		transform.c \
+		color_picker.c \
+		color.c \
+		check_map.c \
+		convert_color.c \
+		set_value.c
+ 
 OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 
 all:  $(LIBFT) $(MLX) $(NAME)

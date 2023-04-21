@@ -6,11 +6,55 @@
 /*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:12:36 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/11 20:25:24 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/21 02:44:44 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+void	print_maps(t_fdf *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < data->height)
+	{
+		x = 0;
+		while (x < data->width)
+		{
+			printf("%d	", data->map_colors[y][x]);
+			x++;
+		}
+		printf("\n");
+		y++;
+	}
+}
+
+int	get_height(char *filename)
+{
+	int		i;
+	int		fd;
+	int		height;
+	char	*line;
+
+	height = 0;
+	fd = open(filename, O_RDONLY);
+	while (true)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		i = 0;
+		while (line [i] == ' ' || line [i] == '\n')
+			i++;
+		if (line[i] != '\0')
+			height++;
+		free(line);
+	}
+	close(fd);
+	return (height);
+}
 
 int	ft_wordcount(char *line, char c)
 {
@@ -32,97 +76,91 @@ int	ft_wordcount(char *line, char c)
 		}
 		i++;
 	}
-
 	return (count);
 }
 
-int	get_width(char *filename)
+void	free_double(char **str)
 {
+	int	i;
+
+	i = 0;
+	if (str)
+	{
+		while (str[i])
+		{
+			free(str[i]);
+			i++;
+		}
+		free(str);
+	}
+}
+
+void	fill_map(t_fdf *data, char *line, int i)
+{
+	int			j;
+	char		**nums;
+	char		**num_col;
+	uint32_t	colors;
+	
+	data->map[i] = ft_calloc(sizeof(int), data->width);
+	data->map_colors[i] = ft_calloc(sizeof(uint32_t), data->width);
+	nums = ft_split(line, ' ');
+	j = 0;
+	while (nums[j] && j < data->width)
+	{
+		num_col = ft_split(nums[j], ',');
+		printf("%s %s\n", num_col[0], num_col[1]);
+		data->map[i][j] = ft_atoi(num_col[0]);
+		if (num_col[1] != NULL)
+			data->map_colors[i][j] = ft_atoi(num_col[1]);
+		else
+			data->map_colors[i][j] = SKY_BLUE;
+		free_double(num_col);
+		free(nums[j]);
+		// exit (EXIT_FAILURE);
+		// exit(0);
+		j++;
+	}
+	free(nums);
+	// exit(0);
+}
+
+bool	read_map(t_fdf *data, char *filename)
+{
+	int		i;
 	int		fd;
 	int		width;
 	char	*line;
 
-	fd = open(filename, O_RDONLY);
-	line = get_next_line(fd);
-	if (!line)
-		return (0);
-	width = ft_wordcount(line, ' ');
-	free(line);
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		free(line);
-	}
-	close(fd);
-	return (width);
-}
-
-int	get_height(char *filename)
-{
-	int		fd;
-	int		height;
-	char	*line;
-
-	height = 0;
-	fd = open(filename, O_RDONLY);
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		if (line[0] != '\n')
-			height++;
-		free(line);
-	}
-	close(fd);
-	return (height);
-}
-
-void	fill_map(int *map, char *line)
-{
-	int		i;
-	char	**nums;
-
-	nums = ft_split(line, ' ');
-	i = 0;
-	while (nums[i])
-	{
-		map[i] = ft_atoi(nums[i]);
-		free(nums[i]);
-		i++;
-	}
-	free(nums);
-}
-
-void	read_map(t_fdf *data, char *filename)
-{
-	int		i;
-	int		fd;
-	char	*line;
-
 	data->height = get_height(filename);
-	data->width = get_width(filename);
-	printf("width = %d\n", data->width);
-	printf("height = %d\n", data->height);
 	data->map = ft_calloc(sizeof(int *), data->height);
+	data->map_colors = ft_calloc(sizeof(uint32_t *), data->height);
+	fd = open(filename, O_RDONLY);
+	if (!fd)
+		exit (EXIT_FAILURE);
+	width = -1;
 	i = 0;
 	while (i < data->height)
 	{
-		data->map[i] = ft_calloc(sizeof(int), data->width);
-		i++;
-	}
-	fd = open(filename, O_RDONLY);
-	i = 0;
-	while (1)
-	{
 		line = get_next_line(fd);
-		if (!line || line[0] == '\0' || line[0] == '\n')
+		if (!line)
 			break ;
-		fill_map(data->map[i], line);
+		data->width = ft_wordcount(line, ' ');
+		if (width == -1)
+			width = data->width;
+		if (width != data->width || data->width == 0)
+		{
+			printf("Invalid map\n");
+			exit (EXIT_FAILURE);
+		}
+		fill_map(data, line, i);
+		printf("hey\n");
 		free(line);
 		i++;
 	}
-	close(fd);
+	// data->height = get_height(filename);
+	printf("\nheigth = %d\n", data->height);
+	printf("width = %d\n\n\n", data->width);
+	print_maps(data);
+	return (false);
 }
