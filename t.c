@@ -31,7 +31,7 @@ uint32_t hexStringToUInt32(char* hexString)
             // Invalid character in hex string
             return 0;
         }
-        printf("%d\n", value);
+        // printf("%d\n", value);
         result = (result << 4) | value;
     }
     result = (result << 4) | 15;
@@ -43,6 +43,6 @@ int main()
 {
     char* hexString = "0xFF0000";
     uint32_t result = hexStringToUInt32(hexString);
-    printf("%d\n", result);
+    // printf("%d\n", result);
     return 0;
 }

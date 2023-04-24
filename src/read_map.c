@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:12:36 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/21 18:07:17 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/24 15:29:13 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	print_maps(t_fdf *data)
 		x = 0;
 		while (x < data->width)
 		{
-			printf("%d	", data->map_colors[y][x]);
+			// printf("%d	", data->map_colors[y][x]);
 			x++;
 		}
-		printf("\n");
+		// printf("\n");
 		y++;
 	}
 }
@@ -132,19 +132,15 @@ void	fill_map(t_fdf *data, char *line, int i)
 	while (nums[j] && j < data->width)
 	{
 		num_col = ft_split(nums[j], ',');
-		printf("%s %s\n", num_col[0], num_col[1]);
+		// printf("%s %s\n", num_col[0], num_col[1]);
 		data->map[i][j] = ft_atoi(num_col[0]);
-		data->map_colors[i][j] = SKY_BLUE;
+		data->map_colors[i][j] = WHITE;
 		if (num_col[1] != NULL)
 			data->map_colors[i][j] = hexstr_to_int32(num_col[1]);
 		free_double(num_col);
-		free(nums[j]);
-		// exit (EXIT_FAILURE);
-		// exit(0);
 		j++;
 	}
-	free(nums);
-	// exit(0);
+	free_double(nums);
 }
 
 bool	read_map(t_fdf *data, char *filename)
@@ -182,13 +178,15 @@ bool	read_map(t_fdf *data, char *filename)
 			exit (EXIT_FAILURE);
 		}
 		fill_map(data, line, i);
-		printf("hey\n");
+		// printf("hey\n");
 		free(line);
 		i++;
 	}
 	// data->height = get_height(filename);
-	printf("\nheigth = %d\n", data->height);
-	printf("width = %d\n\n\n", data->width);
-	print_maps(data);
-	return (false);
+	// printf("\nheigth = %d\n", data->height);
+	// printf("width = %d\n\n\n", data->width);
+
+
+	// print_maps(data);
+	return (true);
 }

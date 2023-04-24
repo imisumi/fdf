@@ -17,6 +17,7 @@
 		"__tree": "c",
 		"map": "c",
 		"ratio": "c",
-		"__locale": "c"
+		"__locale": "c",
+		"sstream": "c"
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:21:45 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/15 00:07:39 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/24 15:08:49 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void	map_to_vec3(t_fdf **d)
 	int		z;
 
 	data = *d;
-	print_map(data);
+	// print_map(data);
 	// return ;
 	// printf("%d\n", data->width);
 	// printf("%d\n", data->height);

@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/21 18:01:28 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/24 18:15:27 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	set_data_value(t_fdf **d)
 	data->scale = 500.0f;
 	data->origin.x = (float)data->width / 2;
 	data->origin.y = (float)data->height / 2;
-	data->origin.z = 0;
+	data->origin.z = 5;
 
 	data->color_picker[0].active = false;
 

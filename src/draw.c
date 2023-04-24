@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:16:48 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/20 16:52:34 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/24 18:36:04 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,109 @@ void	ft_mlx_put_pixel(t_fdf *data, int x, int y, uint32_t color)
 // 	}
 // }
 
-void drawline(t_fdf *data, t_line line)
+
+
+// void drawline(t_fdf *data, t_line line, uint32_t start, uint32_t end)
+// {
+// 	t_draw	draw;
+// 	int		i;
+// 	int		j;
+// 	int		diff[3];
+// 	t_rgb	p[3];
+// 	int32_t	color;
+
+// 	draw.delta_x = abs(line.x2 - line.x1);
+// 	draw.delta_y = abs(line.y2 - line.y1);
+// 	draw.sign_x = (line.x1 < line.x2) ? 1 : -1;
+// 	draw.sign_y = (line.y1 < line.y2) ? 1 : -1;
+// 	draw.err = draw.delta_x - draw.delta_y;
+// 	printf("%d\n", draw.delta_x);
+// 	printf("%d\n", draw.delta_y);
+// 	printf("%d\n", draw.sign_x);
+// 	printf("%d\n", draw.sign_y);
+// 	printf("%d\n", draw.err);
+// 	float	temp = (float)draw.delta_y / draw.delta_x;
+// 	float	k;
+// 	printf("%f\n", temp);
+// 	i = 0;
+// 	k = temp;
+// 	while (i < 100)
+// 	{
+// 		ft_mlx_put_pixel(data, line.x1, line.y1, 0xffffff);
+// 		if (line.x1 == line.x2 && line.y1 == line.y2)
+// 			break ;
+// 		if (draw.delta_x >= draw.delta_y)
+// 		{
+// 			line.x1 += 1;
+// 			line.y1 += k;
+// 			k += temp;
+// 		}
+// 		i++;
+// 	}
+// }
+
+// void	color_value(uint32_t start, uint32_t end)
+
+void drawline(t_fdf *data, t_line line, uint32_t start, uint32_t end)
+{
+	t_draw	draw;
+	int		i;
+	int		color_steps;
+
+	draw.delta_x = abs(line.x2 - line.x1);
+	draw.delta_y = abs(line.y2 - line.y1);
+	draw.sign_x = (line.x1 < line.x2) ? 1 : -1;
+	draw.sign_y = (line.y1 < line.y2) ? 1 : -1;
+	draw.err = draw.delta_x - draw.delta_y;
+	// printf("dx = %d\n", draw.delta_x);
+	// printf("dy = %d\n", draw.delta_y);
+	// printf("%d\n", draw.sign_x);
+	// printf("%d\n", draw.sign_y);
+	// printf("%d\n", draw.err);
+	int		diff[3];
+	t_rgb	p[3];
+	int32_t	color;
+	p[0] = int32_to_rgb(start);
+	p[1] = int32_to_rgb(end);
+	diff[0] = p[1].r - p[0].r;
+	diff[1] = p[1].g - p[0].g;
+	diff[2] = p[1].b - p[0].b;
+	i = 0;
+	color_steps = draw.delta_x;
+	if (draw.delta_x < draw.delta_y)
+		color_steps = draw.delta_y;
+	if (color_steps < 1)
+		color_steps = 1;
+	while (true)
+	{
+		p[2].r = p[0].r + (diff[0] * i / color_steps);
+		p[2].g = p[0].g + (diff[1] * i / color_steps);
+		p[2].b = p[0].b + (diff[2] * i / color_steps);
+		color = rgb_to_int32(p[2].r, p[2].g, p[2].b, 255);
+		// color = rgb_to_int32(255, 255, 0, 255);
+		// color = color_value();
+		ft_mlx_put_pixel(data, line.x1, line.y1, color);
+		if (line.x1 == line.x2 && line.y1 == line.y2)
+			break ;
+		draw.e2 = 2 * draw.err;
+		if (draw.e2 > -draw.delta_y)
+		{
+			draw.err -= draw.delta_y;
+			line.x1 += draw.sign_x;
+		}
+		if (draw.e2 < draw.delta_x)
+		{
+			draw.err += draw.delta_x;
+			line.y1 += draw.sign_y;
+		}
+		i++;
+	}
+	// j = (draw.delta_x < draw.delta_y) ? draw.delta_x : draw.delta_y;
+	// printf("i = %d, j = %d\n", i, j);
+}
+
+
+void draw_line(t_fdf *data, t_line line)
 {
 	t_draw	draw;
 	int		i;
@@ -60,7 +162,7 @@ void drawline(t_fdf *data, t_line line)
 	draw.sign_x = (line.x1 < line.x2) ? 1 : -1;
 	draw.sign_y = (line.y1 < line.y2) ? 1 : -1;
 	draw.err = draw.delta_x - draw.delta_y;
-	while (1)
+	while (true)
 	{
 		ft_mlx_put_pixel(data, line.x1, line.y1, 0xffffff);
 		if (line.x1 == line.x2 && line.y1 == line.y2)
@@ -78,6 +180,29 @@ void drawline(t_fdf *data, t_line line)
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // void drawline(t_fdf *data, int x1, int y1, int x2, int y2)
 // {

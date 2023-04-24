@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3Dcube.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:26:32 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/20 16:58:11 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/24 18:35:49 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,50 @@ t_vec2	project_cube(t_fdf *data, t_vec3 point)
 	return (projected_point);
 }
 
+// t_vec2	perspective_projection(t_fdf *data, t_vec3 point)
+// {
+// 	printf("%f\n", point.z);
+// 	t_vec2	projected_point = {
+// 		.x = (data->scale * point.x) / point.z,
+// 		.y = (data->scale * point.y) / point.z
+// 		};
+// 	return (projected_point);
+// }
+
+// t_vec2	parallel_projection(t_fdf *data, t_vec3 point)
+// {
+// 	t_vec2	projected_point = {
+// 		.x = (data->scale * point.x) / 20.0f,
+// 		.y = (data->scale * point.y) / 20.0f
+// 		};
+// 	return (projected_point);
+// }
+
 t_vec2	perspective_projection(t_fdf *data, t_vec3 point)
 {
+	// printf("%f\n", point.z);
 	t_vec2	projected_point = {
-		.x = (data->scale * point.x) / point.z,
-		.y = (data->scale * point.y) / point.z
+		.x = point.x / point.z,
+		.y = point.y / point.z
 		};
+	// t_vec2	projected_point = {
+	// 	.x = (point.x - point.y) / point.z,
+	// 	.y = (point.x + point.y) / point.z
+	// 	};
+	projected_point.x *= data->scale;
+	projected_point.y *= data->scale;
+	
 	return (projected_point);
 }
 
 t_vec2	parallel_projection(t_fdf *data, t_vec3 point)
 {
 	t_vec2	projected_point = {
-		.x = (data->scale * point.x) / 20.0f,
-		.y = (data->scale * point.y) / 20.0f
+		.x = point.x / 20.0f,
+		.y = point.y / 20.0f
 		};
+	projected_point.x *= data->scale;
+	projected_point.y *= data->scale;
 	return (projected_point);
 }
 
@@ -155,6 +184,38 @@ t_vec3	**copy_vec3_2d(t_fdf *data)
 
 #define GRID_POINTS (data->width * data->height)
 
+void	free_2d_vec2(t_vec2 **map)
+{
+	int	i;
+
+	i = 0;
+	if (map)
+	{
+		while (map[i])
+		{
+			free(map[i]);
+			i++;
+		}
+		free(map);
+	}
+}
+
+void	free_2d_vec3(t_vec3 **map)
+{
+	int	i;
+
+	i = 0;
+	if (map)
+	{
+		while (map[i])
+		{
+			free(map[i]);
+			i++;
+		}
+		free(map);
+	}
+}
+
 void	draw_map(t_fdf **d)
 {
 	t_fdf	*data = *d;
@@ -166,7 +227,7 @@ void	draw_map(t_fdf **d)
 	transformed_map = copy_vec3_2d(data);
 
 	//	sets the vec3 as its origin
-	t_vec3 translation = {2, 2, 0};
+	// t_vec3 translation = {WIDTH / 2, HEIGHT / 2, 0};
 
 	int	y = 0;
 	int	x = 0;
@@ -214,9 +275,7 @@ void	draw_map(t_fdf **d)
 			else if (data->parallel == true)
 				projected_point = parallel_projection(data, transformed_point);
 			else if (data->isometric == true)
-			{
 				projected_point = isometric_projection(data, transformed_point);
-			}
 			projected_points[y][x] = projected_point;
 			x++;
 		}
@@ -225,52 +284,21 @@ void	draw_map(t_fdf **d)
 
 
 	// Draws little squares on each point
-	y = 0;
-	while (y < data->height)
-	{
-		x = 0;
-		while (x < data->width)
-		{
-			draw_rect(
-				data,
-				projected_points[y][x].x + (WIDTH / 2),
-				projected_points[y][x].y + (HEIGHT / 2),
-				2,
-				2,
-				0xFFFFFF00
-			);
-			// printf("%-5.1f ", projected_points[y][x].y);
-			x++;
-		}
-		y++;
-	}
-
-
-	// Connect all points forming a grid
 	// y = 0;
 	// while (y < data->height)
 	// {
 	// 	x = 0;
 	// 	while (x < data->width)
 	// 	{
-	// 		if (x < data->width - 1)
-	// 		{
-	// 			drawline(data,
+	// 		draw_rect(
+	// 			data,
 	// 			projected_points[y][x].x + (WIDTH / 2),
 	// 			projected_points[y][x].y + (HEIGHT / 2),
-	// 			projected_points[y][x + 1].x + (WIDTH / 2),
-	// 			projected_points[y][x + 1].y + (HEIGHT / 2)
-	// 			);
-	// 		}
-	// 		if (y < data->height - 1)
-	// 		{
-	// 			drawline(data,
-	// 			projected_points[y][x].x + (WIDTH / 2),
-	// 			projected_points[y][x].y + (HEIGHT / 2),
-	// 			projected_points[y + 1][x].x + (WIDTH / 2),
-	// 			projected_points[y + 1][x].y + (HEIGHT / 2)
-	// 			);
-	// 		}
+	// 			2,
+	// 			2,
+	// 			0xFFFFFF00
+	// 		);
+	// 		// printf("%-5.1f ", projected_points[y][x].y);
 	// 		x++;
 	// 	}
 	// 	y++;
@@ -291,7 +319,7 @@ void	draw_map(t_fdf **d)
 				line.y1 = projected_points[y][x].y + (HEIGHT / 2);
 				line.x2 = projected_points[y][x + 1].x + (WIDTH / 2);
 				line.y2 = projected_points[y][x + 1].y + (HEIGHT / 2);
-				drawline(data, line);
+				drawline(data, line, data->map_colors[y][x], data->map_colors[y][x + 1]);
 			}
 			if (y < data->height - 1)
 			{
@@ -300,72 +328,45 @@ void	draw_map(t_fdf **d)
 				line.x2 = projected_points[y + 1][x].x + (WIDTH / 2);
 				line.y2 = projected_points[y + 1][x].y + (HEIGHT / 2);
 				line.y2_c = y + 1;
-				drawline(data, line);
+				drawline(data, line, data->map_colors[y][x], data->map_colors[y + 1][x]);
 			}
 			x++;
 		}
 		y++;
 	}
+
+
+
+	// t_line	line;
+	// y = 0;
+	// while (y < data->height)
+	// {
+	// 	x = 0;
+	// 	while (x < data->width)
+	// 	{
+	// 		line.y1_c = y;
+	// 		line.y2_c = y;
+	// 		if (x < data->width - 1)
+	// 		{
+	// 			line.x1 = projected_points[y][x].x + (WIDTH / 2);
+	// 			line.y1 = projected_points[y][x].y + (HEIGHT / 2);
+	// 			line.x2 = projected_points[y][x + 1].x + (WIDTH / 2);
+	// 			line.y2 = projected_points[y][x + 1].y + (HEIGHT / 2);
+	// 			draw_line(data, line);
+	// 		}
+	// 		if (y < data->height - 1)
+	// 		{
+	// 			line.x1 = projected_points[y][x].x + (WIDTH / 2);
+	// 			line.y1 = projected_points[y][x].y + (HEIGHT / 2);
+	// 			line.x2 = projected_points[y + 1][x].x + (WIDTH / 2);
+	// 			line.y2 = projected_points[y + 1][x].y + (HEIGHT / 2);
+	// 			line.y2_c = y + 1;
+	// 			draw_line(data, line);
+	// 		}
+	// 		x++;
+	// 	}
+	// 	y++;
+	// }
+	free_2d_vec2(projected_points);
+	free_2d_vec3(transformed_map);
 }
-
-// backup
-// #define GRID_POINTS 12
-// void	draw_map(t_fdf **d)
-// {
-// 	t_fdf	*data;
-// 	data = *d;
-// 	t_vec2	projected_points[GRID_POINTS];
-// 	t_vec3 cube_points[GRID_POINTS] = {
-// 		{ 0,  0,  0},	// vertex 0
-// 		{ 1,  0,  0},	// vertex 0
-// 		{ 2,  0,  0},	// vertex 0
-// 		{ 0,  1,  0},	// vertex 0
-// 		{ 1,  1,  1},	// vertex 0
-// 		{ 2,  1,  0},	// vertex 0
-// 		{ 0,  2,  0},	// vertex 0
-// 		{ 1,  2,  0},	// vertex 0
-// 		{ 2,  2,  0},	// vertex 0
-// 		{ 0,  3,  0},	// vertex 0
-// 		{ 1,  3,  0},	// vertex 0
-// 		{ 2,  3,  0},	// vertex 0
-// 	};
-// 	//	sets the midel on the grid as origin
-// 	// t_vec3 translation = {1, 1, 0};
-// 	t_vec3 translation = {1, 1, 1};
-// 	for (int i = 0; i < GRID_POINTS; i++)
-// 	{	
-// 		t_vec3 point = cube_points[i];
-// 		point = vec3_sub(point, translation);
-// 		cube_points[i] = point;
-// 		// printf("%f, %f, %f\n", cube_points[i].x, cube_points[i].y, cube_points[i].z);
-// 	}
-// 	// aply rotation to matrix
-// 	for (int i = 0; i < GRID_POINTS; i++)
-// 	{
-// 		t_vec3	point = cube_points[i];
-
-// 		t_vec3	transformed_point = vec3_rotate_x(point, data->rotation.x);
-// 		transformed_point = vec3_rotate_y(transformed_point, data->rotation.y);
-// 		transformed_point = vec3_rotate_z(transformed_point, data->rotation.z);
-
-// 		transformed_point.z -= camera_position.z;
-
-// 		t_vec2	projected_point = project_cube(transformed_point);
-// 		projected_points[i] = projected_point;
-// 		// printf("%f, %f\n", projected_points[i].x, projected_points[i].y);
-// 	}
-// 	for (int i = 0; i < GRID_POINTS; i++)
-// 	{
-// 		t_vec2 projected_point = projected_points[i];
-// 		printf("projected point = %f, %f\n", projected_point.x, projected_point.y);
-// 		draw_rect(
-// 			data,
-// 			projected_point.x + (WIDTH / 2),
-// 			projected_point.y + (HEIGHT / 2),
-// 			2,
-// 			2,
-// 			0xFFFFFF00
-// 		);
-		
-// 	}
-// }

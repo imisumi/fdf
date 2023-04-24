@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/20 19:26:57 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/24 16:41:46 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,17 +348,11 @@ void	ft_loop_hook(void *param)
 		mlx_close_window(data->mlx);
 
 
-	// fill_image(data);
 
 	fill_background(data);
-	// draw_grid(data);
 	draw_map(&data);
-	// draw_cube(&data);
-	// draw_rect(data, 0, 0, 300, HEIGHT, 0x616161);
 	
-	// menu cube
 	draw_rect_2(data, data->menu_button[0]);
-	// draw_rect_2(data, data->menu);
 
 	draw_menu(&data);
 
@@ -368,16 +362,6 @@ void	ft_loop_hook(void *param)
 
 	if (data->color_picker[0].active == true)
 		render_color_picker(data);
-		
-	// uint32_t color = ft_pixel(33, 33, 33, 255);
-	// if (data->color_picker[13].active == true)
-	// 	draw_rect(data, 0, 0, 50, 50, BRIGHT_RED);
-	// draw_rect(data, 0, 0, 50, 50, BRIGHT_RED);
-	// printf("color = %d\n", color);
-	// draw_rect(data, 23, 539, 24, 15, -13421569);
-
-	
-
 	return ;
 }
 
@@ -390,6 +374,8 @@ int32_t	main(int32_t argc, char *argv[])
 	{
 		exit (EXIT_FAILURE);
 	}
+	// system("leaks fdf");
+	// exit(EXIT_SUCCESS);
 	map_to_vec3(&data);
 	set_data_value(&data);
 
@@ -409,12 +395,22 @@ int32_t	main(int32_t argc, char *argv[])
 		mlx_close_window(data->mlx);
 		return (EXIT_FAILURE);
 	}
+	
+	// t_line line;
+	// line.x1 = 50;
+	// line.y1 = 50;
+	// line.x2 = 800;
+	// line.y2 = 500;
+	// drawline(data, line, 1, 1);
 
 	mlx_key_hook(data->mlx, key_hook, data);
 	mlx_mouse_hook(data->mlx, ft_cursor_hook, data);
 	mlx_loop_hook(data->mlx, ft_loop_hook, data);
 
 	mlx_loop(data->mlx);
+	system("leaks fdf");
 	mlx_terminate(data->mlx);
+	printf("end");
+	exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }
