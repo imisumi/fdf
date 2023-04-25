@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3Dcube.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:26:32 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/24 18:35:49 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/25 03:57:02 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ t_vec2	project_cube(t_fdf *data, t_vec3 point)
 	return (projected_point);
 }
 
-// t_vec2	perspective_projection(t_fdf *data, t_vec3 point)
-// {
-// 	printf("%f\n", point.z);
-// 	t_vec2	projected_point = {
-// 		.x = (data->scale * point.x) / point.z,
-// 		.y = (data->scale * point.y) / point.z
-// 		};
-// 	return (projected_point);
-// }
+t_vec2	perspective_projection(t_fdf *data, t_vec3 point)
+{
+	// printf("%f\n", point.z);
+	t_vec2	projected_point = {
+		.x = (data->scale * point.x) / point.z,
+		.y = (data->scale * point.y) / point.z
+		};
+	return (projected_point);
+}
 
 // t_vec2	parallel_projection(t_fdf *data, t_vec3 point)
 // {
@@ -43,31 +43,33 @@ t_vec2	project_cube(t_fdf *data, t_vec3 point)
 // 	return (projected_point);
 // }
 
-t_vec2	perspective_projection(t_fdf *data, t_vec3 point)
-{
-	// printf("%f\n", point.z);
-	t_vec2	projected_point = {
-		.x = point.x / point.z,
-		.y = point.y / point.z
-		};
-	// t_vec2	projected_point = {
-	// 	.x = (point.x - point.y) / point.z,
-	// 	.y = (point.x + point.y) / point.z
-	// 	};
-	projected_point.x *= data->scale;
-	projected_point.y *= data->scale;
-	
-	return (projected_point);
-}
+// t_vec2	perspective_projection(t_fdf *data, t_vec3 point)
+// {
+// 	printf("%f\n", point.z);
+// 	t_vec2	projected_point = {
+// 		.x = point.x / point.z,
+// 		.y = point.y / point.z
+// 		};
+// 	projected_point.x *= data->scale;
+// 	projected_point.y *= data->scale;
+// 	return (projected_point);
+// }
 
 t_vec2	parallel_projection(t_fdf *data, t_vec3 point)
 {
 	t_vec2	projected_point = {
-		.x = point.x / 20.0f,
-		.y = point.y / 20.0f
+		.x = point.x / (data->scale / 2),
+		.y = point.y / (data->scale / 2)
 		};
 	projected_point.x *= data->scale;
 	projected_point.y *= data->scale;
+	return (projected_point);
+	// t_vec2	projected_point = {
+	// 	.x = point.x,
+	// 	.y = point.y
+	// 	};
+	// projected_point.x *= data->scale;
+	// projected_point.y *= data->scale;
 	return (projected_point);
 }
 

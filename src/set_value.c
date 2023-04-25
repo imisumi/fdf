@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_value.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/24 18:15:27 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/25 03:53:14 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,20 @@ void	set_data_value(t_fdf **d)
 	data->rotation.z = 0;
 	data->camera.x = 0;
 	data->camera.y = 0;
-	data->camera.z = 20;
-	data->scale = 500.0f;
-	data->origin.x = (float)data->width / 2;
-	data->origin.y = (float)data->height / 2;
-	data->origin.z = 5;
+	data->camera.z = 500;
+	data->scale = 1000.00f;
+	// printf("%d\n", data->width);
+	data->origin.x = (float)(data->width - 1) / 2.00f;
+	data->origin.y = (float)(data->height - 1) / 2.00f;
+	// data->origin.x = 2.5f;
+	// data->origin.y = 2.5f;
+	data->origin.z = 0;
 
 	data->color_picker[0].active = false;
 
-	data->perspective = false;
+	data->perspective = true;
 	data->parallel = false;
-	data->isometric = true;
+	data->isometric = false;
 
 
 

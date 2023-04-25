@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:16:48 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/24 18:36:04 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/25 03:44:17 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void drawline(t_fdf *data, t_line line, uint32_t start, uint32_t end)
 		p[2].b = p[0].b + (diff[2] * i / color_steps);
 		color = rgb_to_int32(p[2].r, p[2].g, p[2].b, 255);
 		// color = rgb_to_int32(255, 255, 0, 255);
-		// color = color_value();
+		// ft_mlx_put_pixel(data, line.x1, line.y1, LIGHT_CORAL);
 		ft_mlx_put_pixel(data, line.x1, line.y1, color);
 		if (line.x1 == line.x2 && line.y1 == line.y2)
 			break ;
