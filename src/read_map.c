@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:12:36 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/24 15:29:13 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/25 18:18:14 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,8 +183,13 @@ bool	read_map(t_fdf *data, char *filename)
 		i++;
 	}
 	// data->height = get_height(filename);
-	// printf("\nheigth = %d\n", data->height);
-	// printf("width = %d\n\n\n", data->width);
+	printf("\nheigth = %d\n", data->height);
+	printf("width = %d\n\n\n", data->width);
+	if (data->height > 500 || data->width > 500)
+	{
+		printf("Maximum map size is 500 x 500");
+		exit(EXIT_FAILURE);
+	}
 
 
 	// print_maps(data);

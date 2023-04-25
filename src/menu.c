@@ -6,7 +6,7 @@
 /*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:02:01 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/20 02:19:49 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/25 16:54:13 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	menu_scale(t_fdf **d, int x_offset, int y_offset)
 	char str[64];
 	ft_mlx_put_string(data, "Scale", 0 + x_offset, 0 + y_offset);
 	sprintf(str, "[	]	%.2f", data->scale);
-	if (data->scale != 500)
+	if (data->scale != 1000)
 		sprintf(str, "[R]	%.2f", data->scale);
 	else
 		sprintf(str, "[	]	%.2f", data->scale);

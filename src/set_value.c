@@ -6,7 +6,7 @@
 /*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/25 03:53:14 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/25 17:31:39 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	set_data_value(t_fdf **d)
 	data->rotation.z = 0;
 	data->camera.x = 0;
 	data->camera.y = 0;
-	data->camera.z = 500;
+	data->camera.z = data->width;
 	data->scale = 1000.00f;
 	// printf("%d\n", data->width);
 	data->origin.x = (float)(data->width - 1) / 2.00f;
@@ -55,9 +55,9 @@ void	set_data_value(t_fdf **d)
 
 	data->color_picker[0].active = false;
 
-	data->perspective = true;
+	data->perspective = false;
 	data->parallel = false;
-	data->isometric = false;
+	data->isometric = true;
 
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/24 16:41:46 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/25 16:53:53 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 	{
 		if (is_menu_button_clicked(data, x, y, 10) == true)
 		{
-			data->scale = 500;
+			data->scale = 1000;
 		}
 		if (is_menu_button_clicked(data, x, y, 11) == true)
 		{
