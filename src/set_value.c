@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_value.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/25 17:31:39 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/26 14:18:44 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	set_data_value(t_fdf **d)
 	t_fdf	*data;
 
 	data = *d;
+	data->menu_button[0].x = 0;
+	data->menu_button[0].y = 0;
+	data->menu_button[0].width = 270;
+	data->menu_button[0].height = HEIGHT;
+	
 	data->menu.x = 0;
 	data->menu.y = 0;
 	data->menu.width = 270;
@@ -42,9 +47,11 @@ void	set_data_value(t_fdf **d)
 	data->rotation.x = 0;
 	data->rotation.y = 0;
 	data->rotation.z = 0;
+	
 	data->camera.x = 0;
 	data->camera.y = 0;
 	data->camera.z = data->width;
+	
 	data->scale = 1000.00f;
 	// printf("%d\n", data->width);
 	data->origin.x = (float)(data->width - 1) / 2.00f;

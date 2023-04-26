@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+         #
+#    By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 00:51:40 by ichiro            #+#    #+#              #
-#    Updated: 2023/04/24 20:19:27 by ichiro           ###   ########.fr        #
+#    Updated: 2023/04/26 13:29:10 by imisumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,18 @@ HEADER = includes/fdf.h
 
 CFLAGS = -g -I include
 
-LFLAGS = -lglfw -framework Cocoa -framework OpenGl -framework IOKit
+LFLAGS = -lglfw3 -framework Cocoa -framework OpenGl -framework IOKit
 
 cc = gcc 
 # -Wall -Werror -Wextra
+
+UNAME := $(shell uname -m)
+
+ifeq ($(UNAME), x86_64)
+	LFLAGS = -lglfw3 -framework Cocoa -framework OpenGl -framework IOKit
+else
+	LFLAGS = -lglfw -framework Cocoa -framework OpenGl -framework IOKit
+endif
 
 MLX = lib/MLX42/build/libmlx42.a
 LIBFT = lib/libft/libft.a
@@ -45,7 +53,7 @@ SRCS = main.c \
  
 OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 
-all:  $(LIBFT) $(MLX) $(NAME)
+all: $(LIBFT) $(MLX) $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)

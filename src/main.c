@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/25 16:53:53 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/26 14:38:18 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,77 +39,34 @@ void	vec3_to_vec2(t_fdf **d)
 // draw_rect(data, 23, 539, 24, 15, -13421569);
 void	set_button_pos(t_fdf **d)
 {
+	int		i;
+	int		y;
+	int		mod;
 	t_fdf	*data;
 
 	data = *d;
-	// temp menu color
-	data->menu_button[0].x = 0;
-	data->menu_button[0].y = 0;
-	data->menu_button[0].width = 270;
-	data->menu_button[0].height = HEIGHT;
-
-
-
-
-
-	
-	data->menu_button[10].x = 43;
-	data->menu_button[10].y = 449;
-	data->menu_button[10].width = 24;
-	data->menu_button[10].height = 15;
-	
-	data->menu_button[11].x = 43;
-	data->menu_button[11].y = 509;
-	data->menu_button[11].width = 24;
-	data->menu_button[11].height = 15;
-
-	data->menu_button[12].x = 43;
-	data->menu_button[12].y = 529;
-	data->menu_button[12].width = 24;
-	data->menu_button[12].height = 15;
-
-	data->menu_button[13].x = 43;
-	data->menu_button[13].y = 549;
-	data->menu_button[13].width = 24;
-	data->menu_button[13].height = 15;
-
-	// menu color picker
-	data->menu_button[14].x = 43;
-	data->menu_button[14].y = 609;
-	data->menu_button[14].width = 24;
-	data->menu_button[14].height = 15;
-
-	data->menu_button[15].x = 43;
-	data->menu_button[15].y = 629;
-	data->menu_button[15].width = 24;
-	data->menu_button[15].height = 15;
-
+	mod = 0;
+	i = 1;
+	y = 149;
+	while (i < 19)
+	{
+		data->menu_button[i].x = 43;
+		data->menu_button[i].y = y;
+		data->menu_button[i].width = 24;
+		data->menu_button[i].height = 15;
+		if (i == 10)
+			mod = 1;
+		if (i % 3 == mod)
+			y += 40;
+		y += 20;
+		i++;
+	}
 	data->menu_button[16].x = 83;
 	data->menu_button[16].y = 629;
-	data->menu_button[16].width = 24;
-	data->menu_button[16].height = 15;
-
-	data->menu_button[17].x = 43;
 	data->menu_button[17].y = 649;
-	data->menu_button[17].width = 24;
-	data->menu_button[17].height = 15;
-
 	data->menu_button[18].x = 83;
 	data->menu_button[18].y = 649;
-	data->menu_button[18].width = 24;
-	data->menu_button[18].height = 15;
 }
-
-// bool	is_button_clicked(t_fdf *data, int x, int y, int i)
-// {
-// 	if (x >= data->menu_button[i].x && \
-// 		x <= data->menu_button[i].x + data->menu_button[i].width \
-// 		&& y >= data->menu_button[i].y && \
-// 		y <= data->menu_button[i].y + data->menu_button[i].height
-// 		);
-// 		return (true);
-// 	return (false);
-// }
 
 bool	is_menu_button_clicked(t_fdf *data, int x, int y, int i)
 {
@@ -146,10 +103,26 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 	}
 	if (action == 0)
 	{
+		if (is_menu_button_clicked(data, x, y, 1) == true)
+			data->camera.x = 0;
+		if (is_menu_button_clicked(data, x, y, 2) == true)
+			data->camera.y = 0;
+		if (is_menu_button_clicked(data, x, y, 3) == true)
+			data->camera.z = data->width;;
+		if (is_menu_button_clicked(data, x, y, 4) == true)
+			data->rotation.x = 0;
+		if (is_menu_button_clicked(data, x, y, 5) == true)
+			data->rotation.y = 0;
+		if (is_menu_button_clicked(data, x, y, 6) == true)
+			data->rotation.z = 0;
+		if (is_menu_button_clicked(data, x, y, 7) == true)
+			data->origin.x = (float)(data->width - 1) / 2.00f;
+		if (is_menu_button_clicked(data, x, y, 8) == true)
+			data->origin.y = (float)(data->height - 1) / 2.00f;
+		if (is_menu_button_clicked(data, x, y, 9) == true)
+			data->origin.z = 0;
 		if (is_menu_button_clicked(data, x, y, 10) == true)
-		{
 			data->scale = 1000;
-		}
 		if (is_menu_button_clicked(data, x, y, 11) == true)
 		{
 			data->perspective = true;
@@ -171,13 +144,6 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 			data->isometric = true;
 			printf("Isometric\n");
 		}
-		// if (is_menu_button_clicked(data, x, y, 13) == true)
-		// {
-		// 	data->perspective = false;
-		// 	data->parallel = false;
-		// 	data->isometric = true;
-		// 	printf("Isometric\n");
-		// }
 		// menu color
 		if (is_menu_button_clicked(data, x, y, 14) == true)
 		{
@@ -231,6 +197,11 @@ void	key_hook(mlx_key_data_t key, void *param)
 	data = param;
 
 	// printf("%d\n", key);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
+	{
+		mlx_close_window(data->mlx);
+		exit(EXIT_SUCCESS); 
+	}
 
 	// Rotate X
 	if (mlx_is_key_down(data->mlx, MLX_KEY_UP) && mlx_is_key_down(data->mlx, MLX_KEY_X))
@@ -344,8 +315,8 @@ void	ft_loop_hook(void *param)
 
 	data = param;
 	
-	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(data->mlx);
+	// if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
+	// 	mlx_close_window(data->mlx);
 
 
 
