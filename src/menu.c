@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:02:01 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/26 14:34:25 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/26 16:26:21 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,20 @@ void	menu_colors(t_fdf **d, int x_offset, int y_offset)
 	ft_mlx_put_string(data, "[	]	[	]	Background", 0 + x_offset, 65 + y_offset);
 }
 
+void	menu_flatten(t_fdf **d, int x_offset, int y_offset)
+{
+	t_fdf	*data;
+
+	data = *d;
+	char str[64];
+	ft_mlx_put_string(data, "Flatten", 0 + x_offset, 0 + y_offset);
+	if (data->flatten != 1)
+		sprintf(str, "[R]	%.2f", data->flatten);
+	else
+		sprintf(str, "[	]	%.2f", data->flatten);
+	ft_mlx_put_string(data, str, 0 + x_offset, 25 + y_offset);
+}
+
 void	draw_menu(t_fdf **d)
 {
 	t_fdf	*data;
@@ -148,8 +162,9 @@ void	draw_menu(t_fdf **d)
 	menu_rotation(&data, 40, 220);
 	menu_origin(&data, 40, 320);
 	menu_scale(&data, 40, 420);
-	menu_view(&data, 40, 480);
-	menu_colors(&data, 40, 580);
+	menu_flatten(&data,40, 480);
+	menu_view(&data, 40, 540);
+	menu_colors(&data, 40, 640);
 }
 
 	// int startColor[] = {205, 92, 92};

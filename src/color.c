@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 16:51:36 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/20 19:10:52 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/26 17:06:08 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	fill_background(t_fdf *data)
 
 	// p[0] = ft_pixel_2(CHARCOAL);
 	// p[1] = ft_pixel_2(OCEAN_BLUE);
-	p[0] = int32_to_rgb(data->menu_button[17].color);
-	p[1] = int32_to_rgb(data->menu_button[18].color);
+	p[0] = int32_to_rgb(data->menu_button[18].color);
+	p[1] = int32_to_rgb(data->menu_button[19].color);
 	diff[0] = p[1].r - p[0].r;
 	diff[1] = p[1].g - p[0].g;
 	diff[2] = p[1].b - p[0].b;

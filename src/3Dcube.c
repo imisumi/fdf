@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3Dcube.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:26:32 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/25 18:42:07 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/04/26 17:08:45 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ void	draw_map(t_fdf **d)
 		{
 			t_vec3 point = transformed_map[y][x];
 			point = vec3_sub(point, data->origin);
+			// point.z *= .1;
+			point.z *= data->flatten;
 			transformed_map[y][x] = point;
 			// printf("%-5.1f ", transformed_map[y][x].y);
 			x++;

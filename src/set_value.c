@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/26 14:18:44 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/26 17:06:35 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ void	set_data_value(t_fdf **d)
 	data->menu.height = HEIGHT;
 	data->menu.color = OCEAN_BLUE;
 	data->menu_button[0].color = OCEAN_BLUE;
-	data->menu_button[14].color = data->menu_button[0].color;
+	data->menu_button[15].color = data->menu_button[0].color;
 	data->text = ORANGE;
 
-	data->menu_button[17].color = SKY_BLUE;
-	data->menu_button[18].color = NAVY_BLUE;
+	data->menu_button[18].color = SKY_BLUE;
+	data->menu_button[19].color = LIGHT_CORAL;
 	// data->menu_button[18].color = hex_to_int32(0xFF0000);
+
+	data->flatten = 1.00f;
 
 	data->angle = 0;
 	data->move.x = 0;

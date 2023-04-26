@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/26 14:38:18 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/04/26 17:08:15 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,29 @@ void	set_button_pos(t_fdf **d)
 	mod = 0;
 	i = 1;
 	y = 149;
-	while (i < 19)
+	while (i < 20)
 	{
 		data->menu_button[i].x = 43;
 		data->menu_button[i].y = y;
 		data->menu_button[i].width = 24;
 		data->menu_button[i].height = 15;
-		if (i == 10)
-			mod = 1;
+		if (i == 10 || i == 11)
+			mod = i - 9;
 		if (i % 3 == mod)
 			y += 40;
 		y += 20;
 		i++;
 	}
-	data->menu_button[16].x = 83;
-	data->menu_button[16].y = 629;
-	data->menu_button[17].y = 649;
-	data->menu_button[18].x = 83;
-	data->menu_button[18].y = 649;
+	// data->menu_button[16].x = 83;
+	// data->menu_button[16].y = 629;
+	// data->menu_button[17].y = 649;
+	// data->menu_button[18].x = 83;
+	// data->menu_button[18].y = 649;
+	data->menu_button[17].x = 83;
+	data->menu_button[17].y = 689;
+	data->menu_button[18].y = 709;
+	data->menu_button[19].x = 83;
+	data->menu_button[19].y = 709;
 }
 
 bool	is_menu_button_clicked(t_fdf *data, int x, int y, int i)
@@ -124,20 +129,22 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 		if (is_menu_button_clicked(data, x, y, 10) == true)
 			data->scale = 1000;
 		if (is_menu_button_clicked(data, x, y, 11) == true)
+			data->flatten = 1.00f;
+		if (is_menu_button_clicked(data, x, y, 12) == true)
 		{
 			data->perspective = true;
 			data->parallel = false;
 			data->isometric = false;
 			printf("Perspective\n");
 		}
-		if (is_menu_button_clicked(data, x, y, 12) == true)
+		if (is_menu_button_clicked(data, x, y, 13) == true)
 		{
 			data->perspective = false;
 			data->parallel = true;
 			data->isometric = false;
 			printf("Parallel\n");
 		}
-		if (is_menu_button_clicked(data, x, y, 13) == true)
+		if (is_menu_button_clicked(data, x, y, 14) == true)
 		{
 			data->perspective = false;
 			data->parallel = false;
@@ -145,20 +152,13 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 			printf("Isometric\n");
 		}
 		// menu color
-		if (is_menu_button_clicked(data, x, y, 14) == true)
+		if (is_menu_button_clicked(data, x, y, 15) == true)
 		{
 			init_color_picker(&data, x, y);
 			data->color_picker[0].active = true;
 			data->button = 0;
 		}
 		// grid colors
-		if (is_menu_button_clicked(data, x, y, 15) == true)
-		{
-			init_color_picker(&data, x, y);
-			data->color_picker[0].active = true;
-			data->button = 15;
-			
-		}
 		if (is_menu_button_clicked(data, x, y, 16) == true)
 		{
 			init_color_picker(&data, x, y);
@@ -166,7 +166,6 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 			data->button = 16;
 			
 		}
-		// background colors
 		if (is_menu_button_clicked(data, x, y, 17) == true)
 		{
 			init_color_picker(&data, x, y);
@@ -174,11 +173,19 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 			data->button = 17;
 			
 		}
+		// background colors
 		if (is_menu_button_clicked(data, x, y, 18) == true)
 		{
 			init_color_picker(&data, x, y);
 			data->color_picker[0].active = true;
 			data->button = 18;
+			
+		}
+		if (is_menu_button_clicked(data, x, y, 19) == true)
+		{
+			init_color_picker(&data, x, y);
+			data->color_picker[0].active = true;
+			data->button = 19;
 			
 		}
 	}
@@ -187,7 +194,7 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 	// Perspective mode
 	
 	
-	printf("%d\n", action);
+	// printf("%d\n", action);
 }
 
 void	key_hook(mlx_key_data_t key, void *param)
@@ -196,7 +203,7 @@ void	key_hook(mlx_key_data_t key, void *param)
 
 	data = param;
 
-	// printf("%d\n", key);
+	printf("%d\n", key);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(data->mlx);
@@ -267,7 +274,14 @@ void	key_hook(mlx_key_data_t key, void *param)
 	if (mlx_is_key_down(data->mlx, 61) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
 		data->origin.z -= 1.0f;
 
-
+	if (mlx_is_key_down(data->mlx, 44))
+	{
+		data->flatten -= 0.10f;
+	}
+	if (mlx_is_key_down(data->mlx, 46))
+	{
+		data->flatten += 0.10f;
+	}
 
 
 
@@ -277,8 +291,8 @@ void	key_hook(mlx_key_data_t key, void *param)
 
 void	draw_menu_color_select(t_fdf *data)
 {
-	draw_rect_2(data, data->menu_button[14]);
-	draw_rect_outline(data, data->menu_button[14], 2, BLACK);
+	// draw_rect_2(data, data->menu_button[14]);
+	// draw_rect_outline(data, data->menu_button[14], 2, BLACK);
 
 	draw_rect_2(data, data->menu_button[15]);
 	draw_rect_outline(data, data->menu_button[15], 2, BLACK);
@@ -291,6 +305,12 @@ void	draw_menu_color_select(t_fdf *data)
 
 	draw_rect_2(data, data->menu_button[18]);
 	draw_rect_outline(data, data->menu_button[18], 2, BLACK);
+
+
+
+
+	draw_rect_2(data, data->menu_button[19]);
+	draw_rect_outline(data, data->menu_button[19], 2, BLACK);
 
 
 	// temp
@@ -327,7 +347,7 @@ void	ft_loop_hook(void *param)
 
 	draw_menu(&data);
 
-	data->menu_button[13].color = data->menu.color;
+	data->menu_button[14].color = data->menu.color;
 	
 	draw_menu_color_select(data);
 
