@@ -6,7 +6,7 @@
 #    By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 00:51:40 by ichiro            #+#    #+#              #
-#    Updated: 2023/04/26 13:29:10 by imisumi          ###   ########.fr        #
+#    Updated: 2023/05/01 16:27:29 by imisumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ run: all
 	
 git:
 	git add .
-	git commit -m "update"
+	git commit -m "added grid gradient support"
 	git push
 
 mlx:

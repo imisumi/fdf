@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/26 17:06:35 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/01 16:20:17 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ void	set_data_value(t_fdf **d)
 	data->menu_button[15].color = data->menu_button[0].color;
 	data->text = ORANGE;
 
+	data->color_switch = false;
+
+	data->menu_button[16].color = OCEAN_BLUE;
+	data->menu_button[17].color = OCEAN_BLUE;
 	data->menu_button[18].color = SKY_BLUE;
 	data->menu_button[19].color = LIGHT_CORAL;
 	// data->menu_button[18].color = hex_to_int32(0xFF0000);
@@ -52,7 +56,10 @@ void	set_data_value(t_fdf **d)
 	
 	data->camera.x = 0;
 	data->camera.y = 0;
-	data->camera.z = data->width;
+	if (data->width > data->height)
+		data->camera.z = data->width;
+	else
+		data->camera.z = data->height;
 	
 	data->scale = 1000.00f;
 	// printf("%d\n", data->width);

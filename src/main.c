@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/26 17:08:15 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/01 16:22:32 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,13 +164,15 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 			init_color_picker(&data, x, y);
 			data->color_picker[0].active = true;
 			data->button = 16;
-			
+			data->color_switch = true;
+			// set_grid_colors(data, )
 		}
 		if (is_menu_button_clicked(data, x, y, 17) == true)
 		{
 			init_color_picker(&data, x, y);
 			data->color_picker[0].active = true;
 			data->button = 17;
+			data->color_switch = true;
 			
 		}
 		// background colors
@@ -338,8 +340,8 @@ void	ft_loop_hook(void *param)
 	// if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 	// 	mlx_close_window(data->mlx);
 
-
-
+	if (data->color_switch == true)
+		set_grid_colors(&data);
 	fill_background(data);
 	draw_map(&data);
 	
@@ -371,7 +373,13 @@ int32_t	main(int32_t argc, char *argv[])
 	set_data_value(&data);
 
 	set_button_pos(&data);
+	// set_grid_colors(&data);
 
+	for (int y = 0; y < data->height; y++)
+	{
+		for (int x = 0; x < data->height; x++)
+			printf("col = %d\n", data->map_colors[y][x]);
+	}
 	data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!data->mlx)
 		return (EXIT_FAILURE);

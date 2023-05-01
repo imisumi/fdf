@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/26 16:22:51 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/01 16:19:37 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_fdf
 
 	int			**map;
 	uint32_t	**map_colors;
+	bool		color_switch;
 
 	t_vec3		rotation;
 	t_vec2		**projected_point;

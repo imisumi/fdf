@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/24 17:31:08 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/01 15:50:55 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	fill_background(t_fdf *data);
 t_rgb	hex_to_rgb(int hex);
 
 
-
+void	set_grid_colors(t_fdf **d);
 
 
 void	set_data_value(t_fdf **d);

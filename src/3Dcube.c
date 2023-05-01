@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:26:32 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/26 17:08:45 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/01 15:37:23 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ t_vec2	project_cube(t_fdf *data, t_vec3 point)
 
 t_vec2	perspective_projection(t_fdf *data, t_vec3 point)
 {
-	// printf("%f\n", point.z);
 	t_vec2	projected_point = {
 		.x = (data->scale * point.x) / point.z,
 		.y = (data->scale * point.y) / point.z
 		};
 	return (projected_point);
 }
+
 
 t_vec2	parallel_projection(t_fdf *data, t_vec3 point)
 {
@@ -164,6 +164,9 @@ void	draw_map(t_fdf **d)
 	// return ;
 	//	Aply rotation to matrix
 	t_vec2	**projected_points;
+	t_vec3	transformed_point;
+	t_vec3	point;
+	t_vec2	projected_point;
 	projected_points = ft_calloc(sizeof(t_vec2 *), data->height + 1);
 	y = 0;
 	// printf("%f\n", data->rotation.x);
@@ -173,19 +176,17 @@ void	draw_map(t_fdf **d)
 		projected_points[y] = ft_calloc(sizeof(t_vec2), data->width + 1);
 		while (x < data->width)
 		{
-			t_vec3	point = transformed_map[y][x];
+			point = transformed_map[y][x];
 
-			t_vec3	transformed_point = vec3_rotate_x(point, data->rotation.x);
+			transformed_point = vec3_rotate_x(point, data->rotation.x);
 			transformed_point = vec3_rotate_y(transformed_point, data->rotation.y);
 			transformed_point = vec3_rotate_z(transformed_point, data->rotation.z);
 
 			transformed_point.z += data->camera.z;
-
 			transformed_point.x += data->camera.x;
 			transformed_point.y += data->camera.y;
+			// printf("%f,	%f\n", transformed_point.z, data->camera.z);
 
-
-			t_vec2	projected_point;
 			if (data->perspective == true)
 				projected_point = perspective_projection(data, transformed_point);
 			else if (data->parallel == true)
@@ -198,28 +199,6 @@ void	draw_map(t_fdf **d)
 		y++;
 	}
 
-
-	// Draws little squares on each point
-	// y = 0;
-	// while (y < data->height)
-	// {
-	// 	x = 0;
-	// 	while (x < data->width)
-	// 	{
-	// 		draw_rect(
-	// 			data,
-	// 			projected_points[y][x].x + (WIDTH / 2),
-	// 			projected_points[y][x].y + (HEIGHT / 2),
-	// 			2,
-	// 			2,
-	// 			0xFFFFFF00
-	// 		);
-	// 		// printf("%-5.1f ", projected_points[y][x].y);
-	// 		x++;
-	// 	}
-	// 	y++;
-	// }
-
 	t_line	line;
 	y = 0;
 	while (y < data->height)
@@ -227,8 +206,8 @@ void	draw_map(t_fdf **d)
 		x = 0;
 		while (x < data->width)
 		{
-			line.y1_c = y;
-			line.y2_c = y;
+			// line.y1_c = y;
+			// line.y2_c = y;
 			if (x < data->width - 1)
 			{
 				line.x1 = projected_points[y][x].x + (WIDTH / 2) + data->menu.width / 2;
@@ -243,7 +222,7 @@ void	draw_map(t_fdf **d)
 				line.y1 = projected_points[y][x].y + (HEIGHT / 2);
 				line.x2 = projected_points[y + 1][x].x + (WIDTH / 2) + data->menu.width / 2;
 				line.y2 = projected_points[y + 1][x].y + (HEIGHT / 2);
-				line.y2_c = y + 1;
+				// line.y2_c = y + 1;
 				drawline(data, line, data->map_colors[y][x], data->map_colors[y + 1][x]);
 			}
 			x++;
