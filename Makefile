@@ -6,7 +6,7 @@
 #    By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 00:51:40 by ichiro            #+#    #+#              #
-#    Updated: 2023/05/01 16:27:29 by imisumi          ###   ########.fr        #
+#    Updated: 2023/05/02 16:16:12 by imisumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ SRCS = main.c \
 		color.c \
 		check_map.c \
 		convert_color.c \
-		set_value.c
+		set_value.c \
+		key_hook.c \
  
 OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 
@@ -70,7 +71,7 @@ run: all
 	
 git:
 	git add .
-	git commit -m "added grid gradient support"
+	git commit -m "update"
 	git push
 
 mlx:

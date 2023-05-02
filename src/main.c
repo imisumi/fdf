@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/01 16:22:32 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/02 15:05:20 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,6 @@ bool	is_menu_button_clicked(t_fdf *data, int x, int y, int i)
 	{
 		return (true);
 	}
-	// printf("hey\n");
-	// printf("x = %d, y = %d\n", data->menu_button[i].x, data->menu_button[i].y);
-	// printf("x = %d, y = %d\n", data->menu_button[i].x + data->menu_button[i].width, data->menu_button[i].y + data->menu_button[i].height);
 	return (false);
 }
 
@@ -99,7 +96,9 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 	mlx_get_mouse_pos(data->mlx, &x, &y);
 	if (action == 0 && data->color_picker[0].active == true)
 	{
-		if (x < data->color_picker[0].x || x > data->color_picker[0].x + data->color_picker[0].width || y < data->color_picker[0].y || y > data->color_picker[0].y + data->color_picker[0].height)
+		if (x < data->color_picker[0].x || x > data->color_picker[0].x + \
+		data->color_picker[0].width || y < data->color_picker[0].y || \
+		y > data->color_picker[0].y + data->color_picker[0].height)
 		{
 			data->color_picker[0].active = false;
 		}
@@ -199,98 +198,6 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, vo
 	// printf("%d\n", action);
 }
 
-void	key_hook(mlx_key_data_t key, void *param)
-{
-	t_fdf	*data;
-
-	data = param;
-
-	printf("%d\n", key);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
-	{
-		mlx_close_window(data->mlx);
-		exit(EXIT_SUCCESS); 
-	}
-
-	// Rotate X
-	if (mlx_is_key_down(data->mlx, MLX_KEY_UP) && mlx_is_key_down(data->mlx, MLX_KEY_X))
-		data->rotation.x += 5.0f;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN) && mlx_is_key_down(data->mlx, MLX_KEY_X))
-		data->rotation.x -= 5.0f;
-	// Rotate Y
-	if (mlx_is_key_down(data->mlx, MLX_KEY_UP) && mlx_is_key_down(data->mlx, MLX_KEY_Y))
-		data->rotation.y += 5.0f;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN) && mlx_is_key_down(data->mlx, MLX_KEY_Y))
-		data->rotation.y -= 5.0f;
-	// Rotate Z
-	if (mlx_is_key_down(data->mlx, MLX_KEY_UP) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
-		data->rotation.z += 5.0f;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
-		data->rotation.z -= 5.0f;
-		
-	// Camera x
-	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) && mlx_is_key_down(data->mlx, MLX_KEY_X))
-		data->camera.x += 1.0f;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT) && mlx_is_key_down(data->mlx, MLX_KEY_X))
-		data->camera.x -= 1.0f;
-	// Rotate Y
-	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) && mlx_is_key_down(data->mlx, MLX_KEY_Y))
-		data->camera.y += 1.0f;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT) && mlx_is_key_down(data->mlx, MLX_KEY_Y))
-		data->camera.y -= 1.0f;
-	// Rotate Z
-	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
-		data->camera.z += 1.0f;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
-		data->camera.z -= 1.0f;
-
-	// Scale
-	if (mlx_is_key_down(data->mlx, 61))
-	{
-		if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
-			data->scale += 50.0f;
-		else
-			data->scale += 10.0f;
-	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_MINUS))
-	{
-		if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
-			data->scale -= 50.0f;
-		else
-			data->scale -= 10.0f;
-	}
-
-	// origin
-	if (mlx_is_key_down(data->mlx, MLX_KEY_MINUS) && mlx_is_key_down(data->mlx, MLX_KEY_X))
-		data->origin.x += 1.0f;
-	if (mlx_is_key_down(data->mlx, 61) && mlx_is_key_down(data->mlx, MLX_KEY_X))
-		data->origin.x -= 1.0f;
-	// Rotate Y
-	if (mlx_is_key_down(data->mlx, MLX_KEY_MINUS) && mlx_is_key_down(data->mlx, MLX_KEY_Y))
-		data->origin.y += 1.0f;
-	if (mlx_is_key_down(data->mlx, 61) && mlx_is_key_down(data->mlx, MLX_KEY_Y))
-		data->origin.y -= 1.0f;
-	// Rotate Z
-	if (mlx_is_key_down(data->mlx, MLX_KEY_MINUS) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
-		data->origin.z += 1.0f;
-	if (mlx_is_key_down(data->mlx, 61) && mlx_is_key_down(data->mlx, MLX_KEY_Z))
-		data->origin.z -= 1.0f;
-
-	if (mlx_is_key_down(data->mlx, 44))
-	{
-		data->flatten -= 0.10f;
-	}
-	if (mlx_is_key_down(data->mlx, 46))
-	{
-		data->flatten += 0.10f;
-	}
-
-
-
-	// color_picker(&data, 300, 300);
-	return ;
-}
-
 void	draw_menu_color_select(t_fdf *data)
 {
 	// draw_rect_2(data, data->menu_button[14]);
@@ -375,11 +282,11 @@ int32_t	main(int32_t argc, char *argv[])
 	set_button_pos(&data);
 	// set_grid_colors(&data);
 
-	for (int y = 0; y < data->height; y++)
-	{
-		for (int x = 0; x < data->height; x++)
-			printf("col = %d\n", data->map_colors[y][x]);
-	}
+	// for (int y = 0; y < data->height; y++)
+	// {
+	// 	for (int x = 0; x < data->height; x++)
+	// 		printf("col = %d\n", data->map_colors[y][x]);
+	// }
 	data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!data->mlx)
 		return (EXIT_FAILURE);
@@ -395,13 +302,6 @@ int32_t	main(int32_t argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	
-	// t_line line;
-	// line.x1 = 50;
-	// line.y1 = 50;
-	// line.x2 = 800;
-	// line.y2 = 500;
-	// drawline(data, line, 1, 1);
-
 	mlx_key_hook(data->mlx, key_hook, data);
 	mlx_mouse_hook(data->mlx, ft_cursor_hook, data);
 	mlx_loop_hook(data->mlx, ft_loop_hook, data);

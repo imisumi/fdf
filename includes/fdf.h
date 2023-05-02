@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/05/01 15:50:55 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/02 13:15:59 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,8 @@ void	set_grid_colors(t_fdf **d);
 
 void	set_data_value(t_fdf **d);
 uint32_t	hexstr_to_int32(char *str);
+
+void	key_hook(mlx_key_data_t key, void *param);
+int	heighest_y(t_fdf *data);
 
 #endif

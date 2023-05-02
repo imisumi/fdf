@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:12:36 by imisumi           #+#    #+#             */
-/*   Updated: 2023/04/25 18:18:14 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/05/02 15:15:16 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,12 +150,6 @@ bool	read_map(t_fdf *data, char *filename)
 	int		width;
 	char	*line;
 
-	// t_rgb rgb = hex_to_rgb(0xFF0000);
-	// printf("%d\n", rgb_to_int32(rgb.r, rgb.g, rgb.b, rgb.a));
-	// printf("%d, %d, %d, %d\n", rgb.r, rgb.g, rgb.b, rgb.a);
-	// int	hex = hexstr_to_int32("0xFF0000");
-	// printf("%d\n", hex);
-	// exit (1);
 	data->height = get_height(filename);
 	data->map = ft_calloc(sizeof(int *), data->height);
 	data->map_colors = ft_calloc(sizeof(uint32_t *), data->height);
@@ -174,24 +168,20 @@ bool	read_map(t_fdf *data, char *filename)
 			width = data->width;
 		if (width != data->width || data->width == 0)
 		{
-			printf("Invalid map\n");
+			write(STDERR_FILENO, "Invalid map\n", 13);
 			exit (EXIT_FAILURE);
 		}
 		fill_map(data, line, i);
-		// printf("hey\n");
 		free(line);
 		i++;
 	}
 	// data->height = get_height(filename);
-	printf("\nheigth = %d\n", data->height);
-	printf("width = %d\n\n\n", data->width);
+	// printf("\nheigth = %d\n", data->height);
+	// printf("width = %d\n\n\n", data->width);
 	if (data->height > 500 || data->width > 500)
 	{
-		printf("Maximum map size is 500 x 500");
+		write(STDERR_FILENO, "Maximum map size is 500 x 500", 29);
 		exit(EXIT_FAILURE);
 	}
-
-
-	// print_maps(data);
 	return (true);
 }

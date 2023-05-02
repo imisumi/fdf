@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 16:51:36 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/01 16:26:12 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/02 13:15:47 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,28 @@ int	*lowest_heighest_y(t_fdf *data)
 				y_level[1] = data->map[y][x];
 			if (data->map[y][x] < y_level[0])
 				y_level[0] = data->map[y][x];
+			x++;
+		}
+		y++;
+	}
+	return (y_level);
+}
+
+int	heighest_y(t_fdf *data)
+{
+	int	y_level;
+	int	x;
+	int	y;
+
+	y_level = data->map[0][0];
+	y = 0;
+	while (y < data->height)
+	{
+		x = 0;
+		while (x < data->width)
+		{
+			if (data->map[y][x] > y_level)
+				y_level = data->map[y][x];
 			x++;
 		}
 		y++;

@@ -6,31 +6,28 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard          #+#    #+#             */
-/*   Updated: 2023/04/19 16:29:47 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/02 14:53:34 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/font.h"
 
-static void ft_mlx_draw_char(t_fdf *data, int32_t texoffset, int32_t imgoffset, int32_t x_ofset, int32_t yy)
+static void	ft_mlx_draw_char(t_fdf *data, int32_t texoffset, int32_t imgoffset, int32_t x_ofset, int32_t yy)
 {
+	char	*pixelx;
+	uint8_t	*pixeli;
+
 	if (texoffset < 0)
 		return;
-
-	char* pixelx;
-	uint8_t* pixeli;
 	for (uint32_t y = 0; y < FONT_HEIGHT; y++)
 	{
 		pixelx = &font_atlas.pixels[(y * font_atlas.width + texoffset) * BPP];
 		pixeli = data->image->pixels + ((y * data->image->width + imgoffset) * BPP);
-		// memcpy(pixeli, pixelx, FONT_WIDTH * BPP);
 		for (uint32_t x = 0; x < FONT_WIDTH; x++)
 		{
 			uint32_t pixel_offset = x * BPP;
 			uint32_t x_pos = imgoffset + x;
 			uint32_t y_pos = y;
-			
-			// access individual color channels
 			uint8_t red = *(pixelx + pixel_offset);
 			uint8_t green = *(pixelx + pixel_offset + 1);
 			uint8_t blue = *(pixelx + pixel_offset + 2);
@@ -42,31 +39,34 @@ static void ft_mlx_draw_char(t_fdf *data, int32_t texoffset, int32_t imgoffset, 
 	}
 }
 
-//= Public =//
-
-const mlx_texture_t* ft_mlx_get_font(void)
+const mlx_texture_t	*ft_mlx_get_font(void)
 {
-    return ((const mlx_texture_t*)&font_atlas);
+	return ((const mlx_texture_t*)&font_atlas);
 }
 
-int32_t ft_mlx_get_texoffset(char c)
+int32_t	ft_mlx_get_texoffset(char c)
 {
-    const bool _isprint = isprint(c);
+	bool	_isprint;
 
-    // NOTE: Cheesy branchless operation :D
-    // +2 To skip line separator in texture
-    return (-1 * !_isprint + ((FONT_WIDTH + 2) * (c - 32)) * _isprint);
+	_isprint = isprint(c);
+	return (-1 * !_isprint + ((FONT_WIDTH + 2) * (c - 32)) * _isprint);
 }
 
-void ft_mlx_put_string(t_fdf *data, const char* str, int x, int y)
+void	ft_mlx_put_string(t_fdf *data, const char *str, int x, int y)
 {
-	int32_t imgoffset;
+	int32_t	imgoffset;
+	size_t	i;
+	size_t	len;
 
 	imgoffset = 0;
-	const size_t len = strlen(str);
+	len = ft_strlen(str);
 	if (len > MLX_MAX_STRING)
 		return ;
-	// Draw the text itself
-	for (size_t i = 0; i < len; i++, imgoffset += FONT_WIDTH)
+	i = 0;
+	while (i < len)
+	{
 		ft_mlx_draw_char(data, ft_mlx_get_texoffset(str[i]), imgoffset, x, y);
+		i++;
+		imgoffset += FONT_WIDTH;
+	}
 }
