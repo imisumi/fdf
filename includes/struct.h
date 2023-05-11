@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/05/01 16:19:37 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/11 15:18:49 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ typedef struct s_fdf
 
 	t_vec3		rotation;
 	t_vec2		**projected_point;
+	t_vec3		**transformed_map;
+	t_vec2		**projected_points;
 	t_vec3		**grid;
 	t_vec3		camera;
 	t_move		move;

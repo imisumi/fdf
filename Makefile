@@ -6,7 +6,7 @@
 #    By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 00:51:40 by ichiro            #+#    #+#              #
-#    Updated: 2023/05/02 16:16:12 by imisumi          ###   ########.fr        #
+#    Updated: 2023/05/11 17:15:43 by imisumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,10 +47,11 @@ SRCS = main.c \
 		transform.c \
 		color_picker.c \
 		color.c \
-		check_map.c \
 		convert_color.c \
 		set_value.c \
 		key_hook.c \
+		projection.c \
+		vec_utils.c
  
 OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 
@@ -63,6 +64,9 @@ $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c
 $(LIBFT):
 	@$(MAKE) -C lib/libft
 
+$(MLX):
+	cd ./lib/MLX42 && cmake -DBUILD_TESTS=ON -B build && cmake --build build --parallel
+
 $(NAME): $(MLX) $(LIBFT) $(OBJS)
 	@$(cc) $(CFLAGS) $(INC) -I $^ -o $(NAME) $(LFLAGS)
 
@@ -73,9 +77,6 @@ git:
 	git add .
 	git commit -m "update"
 	git push
-
-mlx:
-	cd ./lib/MLX42 && cmake -DBUILD_TESTS=ON -B build && cmake --build build --parallel
 
 clean:
 	@rm -rf $(OBJS_DIR)

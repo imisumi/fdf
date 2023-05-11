@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/05/02 13:15:59 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/11 17:15:26 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,19 @@ uint32_t	hexstr_to_int32(char *str);
 
 void	key_hook(mlx_key_data_t key, void *param);
 int	heighest_y(t_fdf *data);
+
+// Projection.c
+t_vec2	project_cube(t_fdf *data, t_vec3 point);
+t_vec2	perspective_projection(t_fdf *data, t_vec3 point);
+t_vec2	parallel_projection(t_fdf *data, t_vec3 point);
+t_vec2	isometric_projection(t_fdf *data, t_vec3 point);
+
+
+// Vec_utils.c
+void	copy_vec3_2d(t_fdf **d);
+void	free_2d_vec2(t_vec2 **map);
+void	free_2d_vec3(t_vec3 **map);
+
+
 
 #endif

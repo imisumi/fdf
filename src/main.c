@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/02 15:05:20 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/11 15:20:03 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,17 +265,33 @@ void	ft_loop_hook(void *param)
 	return ;
 }
 
+void	setup(t_fdf **d)
+{
+	t_fdf	*data;
+	int	i;
+
+	i = 0;
+	data = *d;
+	data->transformed_map = ft_calloc(sizeof(t_vec3 *), data->height + 1);
+	data->projected_points = ft_calloc(sizeof(t_vec2 *), data->height + 1);
+	while (i < data->height)
+	{
+		data->transformed_map[i] = ft_calloc(sizeof(t_vec3), data->width + 1);
+		data->projected_points[i] = ft_calloc(sizeof(t_vec2), data->width + 1);
+		i++;
+	}
+}
+
 int32_t	main(int32_t argc, char *argv[])
 {
 	t_fdf	*data;
 
 	data = ft_calloc(sizeof(t_fdf), 1);
 	if (read_map(data, argv[1]) == false)
-	{
 		exit (EXIT_FAILURE);
-	}
-	// system("leaks fdf");
-	// exit(EXIT_SUCCESS);
+
+	setup(&data);
+
 	map_to_vec3(&data);
 	set_data_value(&data);
 

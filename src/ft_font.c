@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard          #+#    #+#             */
-/*   Updated: 2023/05/02 14:53:34 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/11 17:05:14 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,13 @@ static void	ft_mlx_draw_char(t_fdf *data, int32_t texoffset, int32_t imgoffset, 
 			uint8_t blue = *(pixelx + pixel_offset + 2);
 			
 			uint8_t alpha = *(pixelx + pixel_offset + 3);
+			// printf("%d\n", rgb_to_int32(123, green, blue, alpha));
 			if (alpha > 155)
-				mlx_put_pixel(data->image, x_pos + x_ofset, y_pos + yy, ((123 << 24) | (green << 16) | (blue << 8) | alpha));
+			{
+				// printf("%d\n", rgb_to_int32(123, green, blue, alpha));
+				mlx_put_pixel(data->image, x_pos + x_ofset, y_pos + yy, ((255 << 24) | (green << 16) | (blue << 8) | alpha));
+				// mlx_put_pixel(data->image, x_pos + x_ofset, y_pos + yy, 0xFFFFFF);
+			}
 		}
 	}
 }
