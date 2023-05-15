@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl.c                                              :+:      :+:    :+:   */
+/*   ft_font_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/31 12:58:15 by imisumi           #+#    #+#             */
-/*   Updated: 2023/01/31 13:41:48 by imisumi          ###   ########.fr       */
+/*   Created: 2022/02/22 12:01:37 by W2Wizard          #+#    #+#             */
+/*   Updated: 2023/05/15 16:26:59 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "../includes/font.h"
 
-int	main(void)
+void	set_font_pos(uint32_t pos[3], int32_t imgof, int xy[2])
 {
-	int		fd;
-	char	*line;
-	int		i;
+	pos[0] = xy[0] * BPP;
+	pos[1] = imgof + xy[0];
+	pos[2] = xy[1];
+}
 
-	i = 0;
-	printf("BUFFER = %i\n", BUFFER_SIZE);
-	fd = open("test.txt", O_RDONLY);
-	printf("%d\n", fd);
-	while (i < 15)
-	{
-		line = get_next_line(fd);
-		printf("%s", line);
-		free(line);
-		i++;
-	}
-	close(fd);
-	return (0);
+void	set_font_rgb(uint32_t pos[3], t_rgb *rgb, char *pixelx)
+{
+	rgb->r = *(pixelx + pos[0]);
+	rgb->g = *(pixelx + pos[0] + 1);
+	rgb->b = *(pixelx + pos[0] + 2);
+	rgb->a = *(pixelx + pos[0] + 3);
 }

@@ -6,117 +6,11 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:12:36 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/02 15:15:16 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/15 17:29:24 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-// uint32_t hex2int(char *hex)
-// {
-// 	uint32_t val;
-// 	uint8_t		
-
-// 	val = 0;
-// 	while (*hex)
-// 	{
-// 		// get current character then increment
-// 		uint8_t byte = *hex++; 
-// 		// transform hex character to the 4bit equivalent number, using the ascii table indexes
-// 		if (byte >= '0' && byte <= '9')
-// 			byte -= '0';
-// 		else if (byte >= 'a' && byte <='f')
-// 			byte -= 'a' + 10;
-// 		else if (byte >= 'A' && byte <='F')
-// 			byte -= 'A' + 10;
-// 		// shift 4 to make space for new digit, and add the 4 bits of the new digit 
-// 		val = (val << 4) | (byte & 0xF);
-// 	}
-// 	return val;
-// }
-
-void	print_maps(t_fdf *data)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < data->height)
-	{
-		x = 0;
-		while (x < data->width)
-		{
-			// printf("%d	", data->map_colors[y][x]);
-			x++;
-		}
-		// printf("\n");
-		y++;
-	}
-}
-
-int	get_height(char *filename)
-{
-	int		i;
-	int		fd;
-	int		height;
-	char	*line;
-
-	height = 0;
-	fd = open(filename, O_RDONLY);
-	while (true)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		i = 0;
-		while (line [i] == ' ' || line [i] == '\n')
-			i++;
-		if (line[i] != '\0')
-			height++;
-		free(line);
-	}
-	close(fd);
-	return (height);
-}
-
-int	ft_wordcount(char *line, char c)
-{
-	int	i;
-	int	count;
-
-	count = 0;
-	i = 0;
-	if (line[0] == '\0' || line[0] == '\n')
-		return (0);
-	if (line[0] != c)
-			count++;
-	while (line[i])
-	{
-		if (line[i] == c && line[i + 1] != c && line[i + 1] != '\0' && \
-			line[i + 1] != '\n')
-		{
-			count++;
-		}
-		i++;
-	}
-	return (count);
-}
-
-void	free_double(char **str)
-{
-	int	i;
-
-	i = 0;
-	if (str)
-	{
-		while (str[i])
-		{
-			free(str[i]);
-			i++;
-		}
-		free(str);
-	}
-}
 
 void	fill_map(t_fdf *data, char *line, int i)
 {
@@ -124,7 +18,7 @@ void	fill_map(t_fdf *data, char *line, int i)
 	char		**nums;
 	char		**num_col;
 	uint32_t	colors;
-	
+
 	data->map[i] = ft_calloc(sizeof(int), data->width);
 	data->map_colors[i] = ft_calloc(sizeof(uint32_t), data->width);
 	nums = ft_split(line, ' ');
@@ -132,7 +26,6 @@ void	fill_map(t_fdf *data, char *line, int i)
 	while (nums[j] && j < data->width)
 	{
 		num_col = ft_split(nums[j], ',');
-		// printf("%s %s\n", num_col[0], num_col[1]);
 		data->map[i][j] = ft_atoi(num_col[0]);
 		data->map_colors[i][j] = WHITE;
 		if (num_col[1] != NULL)
@@ -143,20 +36,14 @@ void	fill_map(t_fdf *data, char *line, int i)
 	free_double(nums);
 }
 
-bool	read_map(t_fdf *data, char *filename)
+void	parse_map(t_fdf *data, char *filename, int fd, int width)
 {
 	int		i;
-	int		fd;
-	int		width;
 	char	*line;
 
-	data->height = get_height(filename);
-	data->map = ft_calloc(sizeof(int *), data->height);
-	data->map_colors = ft_calloc(sizeof(uint32_t *), data->height);
 	fd = open(filename, O_RDONLY);
 	if (!fd)
 		exit (EXIT_FAILURE);
-	width = -1;
 	i = 0;
 	while (i < data->height)
 	{
@@ -175,9 +62,21 @@ bool	read_map(t_fdf *data, char *filename)
 		free(line);
 		i++;
 	}
-	// data->height = get_height(filename);
-	// printf("\nheigth = %d\n", data->height);
-	// printf("width = %d\n\n\n", data->width);
+	close(fd);
+}
+
+bool	read_map(t_fdf *data, char *filename)
+{
+	int		i;
+	int		fd;
+	int		width;
+	char	*line;
+
+	data->height = get_height(filename);
+	data->map = ft_calloc(sizeof(int *), data->height);
+	data->map_colors = ft_calloc(sizeof(uint32_t *), data->height);
+	width = -1;
+	parse_map(data, filename, fd, width);
 	if (data->height > 500 || data->width > 500)
 	{
 		write(STDERR_FILENO, "Maximum map size is 500 x 500", 29);

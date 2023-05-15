@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   font.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:42:53 by W2Wizard          #+#    #+#             */
-/*   Updated: 2023/04/14 18:17:58 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/05/15 16:28:18 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 # define MLX_MAX_STRING 512 /* Arbitrary string limit */
 # include <stdint.h>
 #include "../includes/fdf.h"
+
+// ft_font.c
+void	ft_mlx_put_string(t_fdf *data, const char *str, int x, int y);
+int32_t	ft_mlx_get_texoffset(char c);
+const mlx_texture_t	*ft_mlx_get_font(void);
+void	ft_mlx_draw_char(t_fdf *d, int32_t txtof, int32_t imgof, int xy_of[2]);
+
+// ft_font_utils.c
+void	set_font_pos(uint32_t pos[3], int32_t imgof, int xy[2]);
+void	set_font_rgb(uint32_t pos[3], t_rgb *rgb, char *pixelx);
 
 // GIMP RGBA C-Source image dump (font.c)
 static struct s_font

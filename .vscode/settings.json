@@ -18,6 +18,7 @@
 		"map": "c",
 		"ratio": "c",
 		"__locale": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"algorithm": "c"
 	}
 }

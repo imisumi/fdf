@@ -6,7 +6,7 @@
 #    By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 00:51:40 by ichiro            #+#    #+#              #
-#    Updated: 2023/05/11 17:15:43 by imisumi          ###   ########.fr        #
+#    Updated: 2023/05/15 17:42:06 by imisumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,18 +40,25 @@ INC := -I $(INCLUDE_DIR)
 SRCS = main.c \
 		print.c \
 		read_map.c \
-		draw.c vector.c \
-		3Dcube.c \
+		read_map_utils.c \
+		draw.c \
+		vector.c \
+		transform_grid_1.c \
+		transform_grid_2.c \
 		ft_font.c \
-		menu.c \
+		ft_font_utils.c \
+		menu_1.c \
+		menu_2.c \
 		transform.c \
 		color_picker.c \
 		color.c \
+		color_utils.c \
 		convert_color.c \
 		set_value.c \
 		key_hook.c \
 		projection.c \
-		vec_utils.c
+		vec_utils.c \
+		draw_line.c 
  
 OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 
@@ -75,7 +82,7 @@ run: all
 	
 git:
 	git add .
-	git commit -m "update"
+	git commit -m "$(m)"
 	git push
 
 clean:

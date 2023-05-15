@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/21 17:26:18 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/15 16:44:24 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,15 @@ void	init_color_picker(t_fdf **d, int x_offset, int y_offset);
 int32_t		rgb_to_int32(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 t_rgb		int32_to_rgb(uint32_t pixel_value);
 int	hexstr_to_hex(char *str);
+
+// color.c
+void		set_grid_colors(t_fdf **d);
+void		fill_background(t_fdf *data);
+uint32_t	*get_gradient(int steps, uint32_t c1, uint32_t c2);
+int			heighest_y(t_fdf *data);
+int			*lowest_heighest_y(t_fdf *data);
+
+// color_utils.c
+int	dif_num(int one, int two);
 
 #endif
