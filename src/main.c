@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/15 17:04:56 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/16 13:42:18 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,27 @@ mlx_image_t	*temp_img;
 // float	fov_factor = 640;
 // t_vec3	camera_position = {0, 0, -5};
 
-void	vec3_to_vec2(t_fdf **d)
-{
-	t_fdf	*data;
 
-	data = *d;
-	int	x = 0;
-	int	y = 0;
-	while (y < data->height)
-	{
-		x = 0;
-		while (x < data->width)
-		{
-			data->projected_point[y][x].x = data->grid[y][x].x;
-			data->projected_point[y][x].y = data->grid[y][x].y;
-			x++;
-		}
-		y++;
-	}
-}
+
+// void	vec3_to_vec2(t_fdf **d)
+// {
+// 	t_fdf	*data;
+
+// 	data = *d;
+// 	int	x = 0;
+// 	int	y = 0;
+// 	while (y < data->height)
+// 	{
+// 		x = 0;
+// 		while (x < data->width)
+// 		{
+// 			data->projected_point[y][x].x = data->grid[y][x].x;
+// 			data->projected_point[y][x].y = data->grid[y][x].y;
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
 
 // draw_rect(data, 23, 539, 24, 15, -13421569);
 void	set_button_pos(t_fdf **d)
@@ -242,26 +244,17 @@ void	ft_loop_hook(void *param)
 	t_fdf	*data;
 
 	data = param;
-	
-	// if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
-	// 	mlx_close_window(data->mlx);
-
 	if (data->color_switch == true)
 		set_grid_colors(&data);
 	fill_background(data);
 	draw_map(&data);
 	
 	draw_rect_2(data, data->menu_button[0]);
-
 	draw_menu(&data);
-
 	data->menu_button[14].color = data->menu.color;
-	
 	draw_menu_color_select(data);
-
 	if (data->color_picker[0].active == true)
 		render_color_picker(data);
-	return ;
 }
 
 void	setup(t_fdf **d)
@@ -295,13 +288,7 @@ int32_t	main(int32_t argc, char *argv[])
 	set_data_value(&data);
 
 	set_button_pos(&data);
-	// set_grid_colors(&data);
 
-	// for (int y = 0; y < data->height; y++)
-	// {
-	// 	for (int x = 0; x < data->height; x++)
-	// 		printf("col = %d\n", data->map_colors[y][x]);
-	// }
 	data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!data->mlx)
 		return (EXIT_FAILURE);
