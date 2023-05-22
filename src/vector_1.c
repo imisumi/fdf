@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:21:45 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/16 13:41:47 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/22 14:57:28 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ t_vec3	vec3_sub(t_vec3 a, t_vec3 b)
 	return (result);
 }
 
-t_vec3 vec3_add(t_vec3 a, t_vec3 b)
+t_vec3	vec3_add(t_vec3 a, t_vec3 b)
 {
-	t_vec3 result;
+	t_vec3	result;
+
 	result.x = a.x + b.x;
 	result.y = a.y + b.y;
 	result.z = a.z + b.z;
-	return result;
+	return (result);
 }
 
 t_vec3	vec3_rotate_x(t_vec3 v, float angle)
@@ -63,4 +64,3 @@ t_vec3	vec3_rotate_z(t_vec3 v, float angle)
 	rotate_vector.z = v.z;
 	return (rotate_vector);
 }
-

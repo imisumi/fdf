@@ -6,66 +6,11 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 00:44:47 by ichiro            #+#    #+#             */
-/*   Updated: 2023/04/26 17:03:55 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/22 15:55:36 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-bool	is_color_clicked(t_fdf *data, int x, int y, int i)
-{
-	if (x >= data->color_picker[i].x && x <= data->color_picker[i].x + data->color_picker[i].width && y >= data->color_picker[i].y && y <= data->color_picker[i].y + data->color_picker[i].height)
-	{
-		return (true);
-	}
-	// printf("hey\n");
-	// printf("x = %d, y = %d\n", data->menu_button[i].x, data->menu_button[i].y);
-	// printf("x = %d, y = %d\n", data->menu_button[i].x + data->menu_button[i].width, data->menu_button[i].y + data->menu_button[i].height);
-	return (false);
-}
-
-void	what_collor_is_clicked(t_fdf **d, int x, int y, int button)
-{
-	t_fdf	*data;
-
-	data = *d;
-	// printf("%d\n", button);
-
-	if (is_color_clicked(data, x, y, 1) == true)
-		data->menu_button[button].color = data->color_picker[1].color;
-	if (is_color_clicked(data, x, y, 2) == true)
-		data->menu_button[button].color = data->color_picker[2].color;
-	if (is_color_clicked(data, x, y, 3) == true)
-		data->menu_button[button].color = data->color_picker[3].color;
-	if (is_color_clicked(data, x, y, 4) == true)
-		data->menu_button[button].color = data->color_picker[4].color;
-	if (is_color_clicked(data, x, y, 5) == true)
-		data->menu_button[button].color = data->color_picker[5].color;
-	if (is_color_clicked(data, x, y, 6) == true)
-		data->menu_button[button].color = data->color_picker[6].color;
-	if (is_color_clicked(data, x, y, 7) == true)
-		data->menu_button[button].color = data->color_picker[7].color;
-	if (is_color_clicked(data, x, y, 8) == true)
-		data->menu_button[button].color = data->color_picker[8].color;
-	if (is_color_clicked(data, x, y, 9) == true)
-		data->menu_button[button].color = data->color_picker[9].color;
-	if (is_color_clicked(data, x, y, 10) == true)
-		data->menu_button[button].color = data->color_picker[10].color;
-	if (is_color_clicked(data, x, y, 11) == true)
-		data->menu_button[button].color = data->color_picker[11].color;
-	if (is_color_clicked(data, x, y, 12) == true)
-		data->menu_button[button].color = data->color_picker[12].color;
-	if (is_color_clicked(data, x, y, 13) == true)
-		data->menu_button[button].color = data->color_picker[13].color;
-	if (is_color_clicked(data, x, y, 14) == true)
-		data->menu_button[button].color = data->color_picker[14].color;
-	if (is_color_clicked(data, x, y, 15) == true)
-		data->menu_button[button].color = data->color_picker[15].color;
-	if (is_color_clicked(data, x, y, 16) == true)
-		data->menu_button[button].color = data->color_picker[16].color;
-	data->menu_button[15].color = data->menu_button[0].color;
-	data->color_picker[0].active = false;
-}
 
 uint32_t	current_color(int i)
 {
@@ -92,33 +37,21 @@ uint32_t	current_color(int i)
 
 void	render_color_picker(t_fdf *data)
 {
-	int	i;
+	int		i;
+	t_rect	rect;
 
 	i = 0;
 	while (i < 17)
 	{
-		draw_rect(data,
-			data->color_picker[i].x,
-			data->color_picker[i].y,
-			data->color_picker[i].width,
-			data->color_picker[i].height,
-			data->color_picker[i].color
-			);
+		rect.x = data->color_picker[i].x;
+		rect.y = data->color_picker[i].y;
+		rect.width = data->color_picker[i].width;
+		rect.height = data->color_picker[i].height;
+		rect.color = data->color_picker[i].color;
+		draw_rect(data, rect);
 		i++;
 	}
 }
-
-// t_rect	set_rect_value(int x, int y, int w, int h, uint32_t c)
-// {
-// 	t_rect	rect;
-
-// 	rect.x = x;
-// 	rect.y = y;
-// 	rect.width = w;
-// 	rect.height = h;
-// 	rect.color = c;
-// 	return (rect);
-// }
 
 t_rect	set_rect_value(t_picker p, int x_offset, int y_offset, int first)
 {

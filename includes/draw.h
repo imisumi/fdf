@@ -6,14 +6,14 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 00:44:47 by ichiro            #+#    #+#             */
-/*   Updated: 2023/05/15 16:47:00 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/22 15:55:15 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
 void	ft_mlx_put_pixel(t_fdf *data, int x, int y, uint32_t color);
-void	draw_rect_2(t_fdf *data, t_rect rect);
+void	draw_rect(t_fdf *data, t_rect rect);
 
 
 // draw_line.c

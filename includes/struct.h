@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/05/11 15:18:49 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/22 15:05:58 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,6 @@ typedef struct s_fdf
 	int			button;
 	int			width;
 	int			height;
-	int			xshift;
-	int			yshift;
-	double		angle1;
-	double		angle2;
 	float		angle;
 
 	int			**map;
@@ -103,7 +99,6 @@ typedef struct s_fdf
 	t_vec2		**projected_points;
 	t_vec3		**grid;
 	t_vec3		camera;
-	t_move		move;
 	t_vec3		origin;
 	float		scale;
 	float		flatten;

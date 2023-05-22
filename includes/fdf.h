@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/05/16 14:56:27 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/22 16:07:57 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,6 @@
 
 bool	read_map(t_fdf *data, char *filename);
 
-void	print_map(t_fdf *data);
-void	draw_grid(t_fdf *data);
-
-void draw_line(t_fdf *data, t_line line);
-
-void	fill_image(t_fdf *data);
-void	draw_point_grid(t_fdf *data);
-void	draw_rect(t_fdf *data, int x, int y, int width, int height, uint32_t color);
-
 // Vector.c
 void	move_vec3_map(t_fdf **d, float move_x, float move_y);
 void	scale_vec3_map(t_fdf **d, float scale);
@@ -56,7 +47,6 @@ void	map_to_vec3(t_fdf **d);
 t_vec3	vec3_rotate_x(t_vec3 v, float angle);
 t_vec3	vec3_rotate_y(t_vec3 v, float angle);
 t_vec3	vec3_rotate_z(t_vec3 v, float angle);
-void	adjust_vec3(t_fdf **d, float move_x, float move_y);
 t_vec3	vec3_sub(t_vec3 a, t_vec3 b);
 t_vec3	vec3_add(t_vec3 a, t_vec3 b);
 
@@ -68,13 +58,15 @@ void	transform_3(t_fdf **d);
 
 // Menu.c
 
+
+void	set_button_pos(t_fdf **d, int i, int y);
+
 // transform.c
 void	move_map(t_fdf **d, float num, char side);
 
 
 void	what_collor_is_clicked(t_fdf **d, int x, int y, int button);
 void	draw_rect_outline(t_fdf *data, t_rect rect, int thickness, uint32_t color);
-uint8_t	*int_32_to_8(uint32_t color);
 void	fill_background(t_fdf *data);
 
 
@@ -138,5 +130,22 @@ void	vec3_to_vec2(t_fdf **d);
 void	p2_float_to_string(char str[64], char *string, float f);
 void	input_int(char str[64], int i, int num);
 void	input_decimal(char str[64], int i, int num);
+
+
+// key_hook.c
+
+// cursor_hook.c
+void	ft_cursor_hook(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
+
+// colorpicker.c
+uint32_t	current_color(int i);
+void		render_color_picker(t_fdf *data);
+t_rect		set_rect_value(t_picker p, int x_offset, int y_offset, int first);
+void		init_color_picker(t_fdf **d, int x_offset, int y_offset);
+
+// color_picker_2.c
+bool	is_color_clicked(t_fdf *data, int x, int y, int i);
+void	what_collor_is_clicked_2(t_fdf *data, int x, int y, int button);
+void	what_collor_is_clicked(t_fdf **d, int x, int y, int button);
 
 #endif
