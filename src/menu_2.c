@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:02:01 by ichiro            #+#    #+#             */
-/*   Updated: 2023/05/15 16:55:00 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/23 16:32:10 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,18 @@ void	menu_flatten(t_fdf **d, int x_offset, int y_offset)
 	else
 		sprintf(str, "[	]	%.2f", data->flatten);
 	ft_mlx_put_string(data, str, 0 + x_offset, 25 + y_offset);
+}
+
+void	draw_menu_color_select(t_fdf *data)
+{
+	draw_rect(data, data->menu_button[15]);
+	draw_rect_outline(data, data->menu_button[15], 2, BLACK);
+	draw_rect(data, data->menu_button[16]);
+	draw_rect_outline(data, data->menu_button[16], 2, BLACK);
+	draw_rect(data, data->menu_button[17]);
+	draw_rect_outline(data, data->menu_button[17], 2, BLACK);
+	draw_rect(data, data->menu_button[18]);
+	draw_rect_outline(data, data->menu_button[18], 2, BLACK);
+	draw_rect(data, data->menu_button[19]);
+	draw_rect_outline(data, data->menu_button[19], 2, BLACK);
 }

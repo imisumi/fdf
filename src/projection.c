@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:38:21 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/15 17:00:39 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/23 15:59:49 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_vec2	perspective_projection(t_fdf *data, t_vec3 point)
 {
 	t_vec2	projected_point;
 
+	if (point.z < 1)
+		point.z = 1;
 	projected_point.x = (data->scale * point.x) / point.z;
 	projected_point.y = (data->scale * point.y) / point.z;
 	return (projected_point);

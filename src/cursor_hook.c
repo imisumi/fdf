@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:10:54 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/22 14:38:27 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/23 16:01:33 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,6 @@ void	is_background_clicked(t_fdf *data, int x, int y)
 	}
 }
 
-// menu color
-// grid colors
-void	is_mg_clicked(t_fdf *data, int x, int y)
-{
-	if (is_menu_button_clicked(data, x, y, 15) == true)
-	{
-		init_color_picker(&data, x, y);
-		data->color_picker[0].active = true;
-		data->button = 0;
-	}
-	if (is_menu_button_clicked(data, x, y, 16) == true)
-	{
-		init_color_picker(&data, x, y);
-		data->color_picker[0].active = true;
-		data->button = 16;
-		data->color_switch = true;
-	}
-	if (is_menu_button_clicked(data, x, y, 17) == true)
-	{
-		init_color_picker(&data, x, y);
-		data->color_picker[0].active = true;
-		data->button = 17;
-		data->color_switch = true;
-	}
-}
-
 void	is_cros_clicked(t_fdf *data, int x, int y)
 {
 	if (is_menu_button_clicked(data, x, y, 1) == true)
@@ -89,28 +63,6 @@ void	is_cros_clicked(t_fdf *data, int x, int y)
 		data->scale = 1000;
 	if (is_menu_button_clicked(data, x, y, 11) == true)
 		data->flatten = 1.00f;
-}
-
-void	is_projection_clicked(t_fdf *data, int x, int y)
-{
-	if (is_menu_button_clicked(data, x, y, 12) == true)
-	{
-		data->perspective = true;
-		data->parallel = false;
-		data->isometric = false;
-	}
-	if (is_menu_button_clicked(data, x, y, 13) == true)
-	{
-		data->perspective = false;
-		data->parallel = true;
-		data->isometric = false;
-	}
-	if (is_menu_button_clicked(data, x, y, 14) == true)
-	{
-		data->perspective = false;
-		data->parallel = false;
-		data->isometric = true;
-	}
 }
 
 void	ft_cursor_hook(mouse_key_t button, action_t action, \

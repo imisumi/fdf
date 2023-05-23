@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/22 12:42:53 by W2Wizard          #+#    #+#             */
-/*   Updated: 2023/05/15 16:28:18 by imisumi          ###   ########.fr       */
+/*   Created: 2023/05/11 15:38:21 by imisumi           #+#    #+#             */
+/*   Updated: 2023/05/23 16:23:25 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 # define FONT_H
 # define FONT_WIDTH 10
 # define FONT_HEIGHT 20
-# define BPP sizeof(int32_t) /* Only support RGBA */
+# define BPP 4 /*sizeof(int32_t) = 4 - Only support RGBA */
 # define MLX_MAX_STRING 512 /* Arbitrary string limit */
-# include <stdint.h>
-#include "../includes/fdf.h"
+# include "../includes/fdf.h"
 
 // ft_font.c
-void	ft_mlx_put_string(t_fdf *data, const char *str, int x, int y);
-int32_t	ft_mlx_get_texoffset(char c);
+void				ft_mlx_put_string(t_fdf *data, const char *str, \
+						int x, int y);
+int32_t				ft_mlx_get_texoffset(char c);
 const mlx_texture_t	*ft_mlx_get_font(void);
-void	ft_mlx_draw_char(t_fdf *d, int32_t txtof, int32_t imgof, int xy_of[2]);
+void				ft_mlx_draw_char(t_fdf *d, int32_t txtof, int32_t imgof, \
+						int xy_of[2]);
 
 // ft_font_utils.c
-void	set_font_pos(uint32_t pos[3], int32_t imgof, int xy[2]);
-void	set_font_rgb(uint32_t pos[3], t_rgb *rgb, char *pixelx);
+void				set_font_pos(uint32_t pos[3], int32_t imgof, int xy[2]);
+void				set_font_rgb(uint32_t pos[3], t_rgb *rgb, char *pixelx);
 
 // GIMP RGBA C-Source image dump (font.c)
 static struct s_font
@@ -35,7 +36,7 @@ static struct s_font
 	uint32_t		width;
 	uint32_t		height;
 	uint32_t		bpp;
-	char*			pixels;
+	char			*pixels;
 }	font_atlas = {
 	1140, 20, 4,
 	"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
@@ -3553,10 +3554,5 @@ static struct s_font
 	"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\377\377\377\377"
 	"\377\377\377\377",
 };
-
-// static void ft_mlx_draw_char(t_fdf *data, int32_t texoffset, int32_t imgoffset);
-// const mlx_texture_t* ft_mlx_get_font(void);
-// int32_t ft_mlx_get_texoffset(char c);
-// void	t_mlx_put_string(t_fdf *data, const char* str, int32_t x, int32_t y);
 
 #endif

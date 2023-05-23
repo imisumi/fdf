@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/05/15 16:44:24 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/23 16:19:02 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,35 +33,31 @@
 # define CHARCOAL		858993663
 # define WHITE			-1
 
-typedef struct s_picker
-{
-	int	i;
-	int	j;
-	int	size;
-	int	spacing;
-	int	x_start;
-	int	y_start;
-	int	border;
-	int	outline;
-	
-}	t_picker;
+// colorpicker.c
+uint32_t	current_color(int i);
+void		render_color_picker(t_fdf *data);
+t_rect		set_rect_value(t_picker p, int x_offset, int y_offset, int first);
+void		init_color_picker(t_fdf **d, int x_offset, int y_offset);
 
-void	render_color_picker(t_fdf *data);
-void	init_color_picker(t_fdf **d, int x_offset, int y_offset);
+// color_picker_2.c
+bool		is_color_clicked(t_fdf *data, int x, int y, int i);
+void		what_collor_is_clicked_2(t_fdf *data, int x, int y, int button);
+void		what_collor_is_clicked(t_fdf **d, int x, int y, int button);
+
+// color_utils.c
+int			dif_num(int one, int two);
+
+// color.c
+void		fill_background(t_fdf *data);
+uint32_t	*get_gradient(int steps, uint32_t c1, uint32_t c2);
+int			*lowest_heighest_y(t_fdf *data);
+int			heighest_y(t_fdf *data);
+void		set_grid_colors(t_fdf **d);
 
 // convert_color.c
 int32_t		rgb_to_int32(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+uint32_t	hexstr_to_int32(char *str);
+t_rgb		hex_to_rgb(int hex);
 t_rgb		int32_to_rgb(uint32_t pixel_value);
-int	hexstr_to_hex(char *str);
-
-// color.c
-void		set_grid_colors(t_fdf **d);
-void		fill_background(t_fdf *data);
-uint32_t	*get_gradient(int steps, uint32_t c1, uint32_t c2);
-int			heighest_y(t_fdf *data);
-int			*lowest_heighest_y(t_fdf *data);
-
-// color_utils.c
-int	dif_num(int one, int two);
 
 #endif

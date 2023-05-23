@@ -6,7 +6,7 @@
 #    By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 00:51:40 by ichiro            #+#    #+#              #
-#    Updated: 2023/05/22 15:28:30 by imisumi          ###   ########.fr        #
+#    Updated: 2023/05/23 16:38:26 by imisumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,11 +45,11 @@ SRCS = main.c \
 		ft_font.c ft_font_utils.c \
 		menu_1.c menu_2.c \
 		transform.c \
-		color_picker.c color_picker_2.c\
+		color_picker.c color_picker_2.c \
 		color.c color_utils.c \
 		convert_color.c \
 		set_value.c \
-		key_hook.c cursor_hook.c \
+		key_hook.c cursor_hook.c cursor_hook_2.c \
 		projection.c \
 		draw_line.c \
 		p2_float_to_string.c

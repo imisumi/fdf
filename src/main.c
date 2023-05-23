@@ -6,25 +6,11 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/22 16:07:30 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/23 16:33:26 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-void	draw_menu_color_select(t_fdf *data)
-{
-	draw_rect(data, data->menu_button[15]);
-	draw_rect_outline(data, data->menu_button[15], 2, BLACK);
-	draw_rect(data, data->menu_button[16]);
-	draw_rect_outline(data, data->menu_button[16], 2, BLACK);
-	draw_rect(data, data->menu_button[17]);
-	draw_rect_outline(data, data->menu_button[17], 2, BLACK);
-	draw_rect(data, data->menu_button[18]);
-	draw_rect_outline(data, data->menu_button[18], 2, BLACK);
-	draw_rect(data, data->menu_button[19]);
-	draw_rect_outline(data, data->menu_button[19], 2, BLACK);
-}
 
 void	ft_loop_hook(void *param)
 {

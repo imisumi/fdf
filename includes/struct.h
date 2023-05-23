@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/05/22 15:05:58 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/23 16:19:05 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdbool.h>
+
+typedef struct s_picker
+{
+	int	i;
+	int	j;
+	int	size;
+	int	spacing;
+	int	x_start;
+	int	y_start;
+	int	border;
+	int	outline;
+}	t_picker;
 
 typedef struct s_rect
 {
@@ -104,8 +116,6 @@ typedef struct s_fdf
 	float		flatten;
 
 	t_rgb		*y_color;
-	
-	uint32_t	text;
 
 	t_rect		menu;
 	t_rect		menu_button[32];
@@ -116,8 +126,6 @@ typedef struct s_fdf
 	bool		isometric;
 
 	mlx_t		*mlx;
-	mlx_image_t	*string;
-	mlx_image_t	*g_img;
 	mlx_image_t	*image;
 }	t_fdf;
 
