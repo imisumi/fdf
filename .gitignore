@@ -54,3 +54,4 @@ dkms.conf
 # 
 *.IZoneIdentifier
 *.DS_Store
+.vscode
