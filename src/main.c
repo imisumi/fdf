@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/23 16:33:26 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/24 16:42:26 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void	setup(t_fdf **d)
 		data->projected_points[i] = ft_calloc(sizeof(t_vec2), data->width + 1);
 		i++;
 	}
+	map_to_vec3(d);
+	set_data_value(d);
+	set_button_pos(d, 1, 149);
 }
 
 void	mlx_actions(t_fdf *data)
@@ -56,17 +59,43 @@ void	mlx_actions(t_fdf *data)
 	exit(EXIT_SUCCESS);
 }
 
+void	check_file_extension(char *filename, char *extension)
+{
+	int	len;
+	int	ext_len;
+
+	if (open(filename, O_RDONLY) < 0)
+	{
+		write(STDERR_FILENO, "File not found\n", 15);
+		exit(EXIT_FAILURE);
+	}
+	len = ft_strlen(filename);
+	ext_len = ft_strlen(extension);
+	while (ext_len != 0)
+	{
+		if (filename[len - 1] != extension[ext_len - 1])
+		{
+			write(STDERR_FILENO, "Wrong file extension, expected: ", 32);
+			write(STDERR_FILENO, extension, ft_strlen(extension));
+			write(STDERR_FILENO, "\n", 1);
+			exit(EXIT_FAILURE);
+		}
+		len--;
+		ext_len--;
+	}
+}
+
 int32_t	main(int32_t argc, char *argv[])
 {
 	t_fdf	*data;
 
+	if (argc != 2)
+		exit(EXIT_FAILURE);
+	check_file_extension(argv[1], ".fdf");
 	data = ft_calloc(sizeof(t_fdf), 1);
 	if (read_map(data, argv[1]) == false)
 		exit (EXIT_FAILURE);
 	setup(&data);
-	map_to_vec3(&data);
-	set_data_value(&data);
-	set_button_pos(&data, 1, 149);
 	data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!data->mlx)
 		exit(EXIT_FAILURE);
