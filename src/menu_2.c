@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:02:01 by ichiro            #+#    #+#             */
-/*   Updated: 2023/05/23 16:32:10 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/24 17:13:55 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	menu_colors(t_fdf **d, int x_offset, int y_offset)
 
 	data = *d;
 	ft_mlx_put_string(data, "Colors", 0 + x_offset, 0 + y_offset);
-	sprintf(str, "[	]	%.2f", data->scale);
+	p2_float_to_string(str, "[	]	%.2f", data->scale);
 	ft_mlx_put_string(data, "[	]	Menu", 0 + x_offset, 25 + y_offset);
 	ft_mlx_put_string(data, "[	]	[	]	Grid", 0 + x_offset, 45 + y_offset);
 	ft_mlx_put_string(data, "[	]	[	]	Background", 0 + x_offset, \
@@ -54,9 +54,9 @@ void	menu_flatten(t_fdf **d, int x_offset, int y_offset)
 	data = *d;
 	ft_mlx_put_string(data, "Flatten", 0 + x_offset, 0 + y_offset);
 	if (data->flatten != 1)
-		sprintf(str, "[R]	%.2f", data->flatten);
+		p2_float_to_string(str, "[R]	%.2f", data->flatten);
 	else
-		sprintf(str, "[	]	%.2f", data->flatten);
+		p2_float_to_string(str, "[	]	%.2f", data->flatten);
 	ft_mlx_put_string(data, str, 0 + x_offset, 25 + y_offset);
 }
 

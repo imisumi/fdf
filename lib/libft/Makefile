@@ -6,7 +6,7 @@
 #    By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/06 12:43:01 by imisumi           #+#    #+#              #
-#    Updated: 2023/01/31 12:56:02 by imisumi          ###   ########.fr        #
+#    Updated: 2023/05/24 17:44:08 by imisumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,12 @@ CFLAGS = -Wall -Werror -Wextra
 
 OBJS_DIR = objs
 SRC_DIR = src
+
+GREEN := \033[1;32m
+RED := \033[1;31m
+BLUE := \033[1;34m
+PINK := \033[1;38;5;206m
+NC := \033[0m
 
 INCLUDES = -I includes
 
@@ -38,20 +44,25 @@ SRCS =	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 
 all: $(NAME)
+	@echo "$(GREEN)[Completed libft]$(NC)"
 
 $(NAME): $(OBJS)
-	ar -r $(NAME) $(OBJS)
+	@echo "$(PINK)[Creating libary: libft]$(NC)"
+	@ar -r $(NAME) $(OBJS) >/dev/null 2>&1
 
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@echo "$(BLUE)[Compiling $<]$(NC)"
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJS_DIR)
+	@echo "$(RED)[Deleted libft objects]$(NC)"
 
 fclean: clean
 	@rm -rf $(OBJS_DIR)
 	@rm -rf $(NAME)
+	@echo "$(RED)[Deleted libft.a]$(NC)"
 
 re: fclean all
 

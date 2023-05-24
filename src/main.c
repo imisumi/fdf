@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/24 16:42:26 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/24 17:19:58 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int32_t	main(int32_t argc, char *argv[])
 	if (read_map(data, argv[1]) == false)
 		exit (EXIT_FAILURE);
 	setup(&data);
-	data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", false);
 	if (!data->mlx)
 		exit(EXIT_FAILURE);
 	data->image = mlx_new_image(data->mlx, WIDTH, HEIGHT);

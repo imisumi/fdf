@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:10:54 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/23 15:54:13 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/24 17:12:33 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	key_hook(mlx_key_data_t key, void *param)
 {
 	t_fdf	*data;
 
-	printf("%d\n", key);
 	data = param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 	{
