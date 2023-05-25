@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:10:54 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/23 16:01:33 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:05:20 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ void	ft_cursor_hook(mouse_key_t button, action_t action, \
 	int32_t	y;
 
 	data = param;
+	button = 0;
+	mods = 0;
 	mlx_get_mouse_pos(data->mlx, &x, &y);
 	if (action == 0 && data->color_picker[0].active == true)
 	{
 		if (x < data->color_picker[0].x || x > data->color_picker[0].x + \
-		data->color_picker[0].width || y < data->color_picker[0].y || \
-		y > data->color_picker[0].y + data->color_picker[0].height)
-		{
+			data->color_picker[0].width || y < data->color_picker[0].y || \
+			y > data->color_picker[0].y + data->color_picker[0].height)
 			data->color_picker[0].active = false;
-		}
 		what_collor_is_clicked(&data, x, y, data->button);
 		return ;
 	}

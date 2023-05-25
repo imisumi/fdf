@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:02:01 by ichiro            #+#    #+#             */
-/*   Updated: 2023/05/16 15:08:36 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:03:04 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	input_decimal(char str[64], int i, int num)
 {
-	int		digit;
-	char	temp[64];
-
 	while (str[i])
 		i++;
 	str[i++] = '.';

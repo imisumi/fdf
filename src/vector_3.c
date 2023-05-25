@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:21:45 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/22 14:58:23 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/25 15:49:13 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	move_vec3_map(t_fdf **d, float move_x, float move_y)
 	t_fdf	*data;
 	int		x;
 	int		y;
-	int		z;
 
 	data = *d;
 	y = 0;

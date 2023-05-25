@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/24 17:19:58 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:03:40 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,32 @@ void	ft_loop_hook(void *param)
 		render_color_picker(data);
 }
 
-void	setup(t_fdf **d)
+void	setup(t_fdf **d, int i)
 {
 	t_fdf	*data;
-	int		i;
 
-	i = 0;
 	data = *d;
 	data->transformed_map = ft_calloc(sizeof(t_vec3 *), data->height + 1);
 	data->projected_points = ft_calloc(sizeof(t_vec2 *), data->height + 1);
+	data->grid = ft_calloc(sizeof(t_vec3 *), data->height + 1);
+	data->projected_point = ft_calloc(sizeof(t_vec2 *), data->height + 1);
+	if (!data->projected_points || !data->transformed_map || \
+		!data->grid || !data->projected_point)
+		exit(EXIT_FAILURE);
 	while (i < data->height)
 	{
 		data->transformed_map[i] = ft_calloc(sizeof(t_vec3), data->width + 1);
 		data->projected_points[i] = ft_calloc(sizeof(t_vec2), data->width + 1);
+		data->grid[i] = ft_calloc(sizeof(t_vec3), data->width + 1);
+		data->projected_point[i] = ft_calloc(sizeof(t_vec2), data->width + 1);
+		if (!data->projected_points[i] || !data->transformed_map[i] || \
+			!data->grid[i] || !data->projected_point[i])
+			exit(EXIT_FAILURE);
 		i++;
 	}
 	map_to_vec3(d);
 	set_data_value(d);
 	set_button_pos(d, 1, 149);
-}
-
-void	mlx_actions(t_fdf *data)
-{
-	mlx_key_hook(data->mlx, key_hook, data);
-	mlx_mouse_hook(data->mlx, ft_cursor_hook, data);
-	mlx_loop_hook(data->mlx, ft_loop_hook, data);
-	mlx_loop(data->mlx);
-	mlx_terminate(data->mlx);
-	exit(EXIT_SUCCESS);
 }
 
 void	check_file_extension(char *filename, char *extension)
@@ -85,6 +83,16 @@ void	check_file_extension(char *filename, char *extension)
 	}
 }
 
+void	mlx_actions(t_fdf *data)
+{
+	mlx_key_hook(data->mlx, key_hook, data);
+	mlx_mouse_hook(data->mlx, ft_cursor_hook, data);
+	mlx_loop_hook(data->mlx, ft_loop_hook, data);
+	mlx_loop(data->mlx);
+	mlx_terminate(data->mlx);
+	exit(EXIT_SUCCESS);
+}
+
 int32_t	main(int32_t argc, char *argv[])
 {
 	t_fdf	*data;
@@ -95,7 +103,7 @@ int32_t	main(int32_t argc, char *argv[])
 	data = ft_calloc(sizeof(t_fdf), 1);
 	if (read_map(data, argv[1]) == false)
 		exit (EXIT_FAILURE);
-	setup(&data);
+	setup(&data, 0);
 	data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", false);
 	if (!data->mlx)
 		exit(EXIT_FAILURE);
@@ -105,7 +113,7 @@ int32_t	main(int32_t argc, char *argv[])
 		mlx_close_window(data->mlx);
 		exit(EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(data->mlx, data->image, 0, 0 == -1))
+	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
 	{
 		mlx_close_window(data->mlx);
 		exit(EXIT_FAILURE);

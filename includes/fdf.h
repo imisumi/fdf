@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:06:12 by ichiro            #+#    #+#             */
-/*   Updated: 2023/05/23 16:33:03 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/25 15:54:16 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	input_int(char str[64], int i, int num);
 void	input_decimal(char str[64], int i, int num);
 
 // key_hook.c
-void	set_rotation(t_fdf *data, mlx_key_data_t key);
-void	set_origin(t_fdf *data, mlx_key_data_t key);
-void	set_position(t_fdf *data, mlx_key_data_t key);
-void	set_scale(t_fdf *data, mlx_key_data_t key);
+void	set_rotation(t_fdf *data);
+void	set_origin(t_fdf *data);
+void	set_position(t_fdf *data);
+void	set_scale(t_fdf *data);
 void	key_hook(mlx_key_data_t key, void *param);
 
 // cursor_hook.c

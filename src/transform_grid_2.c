@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:26:32 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/16 12:15:33 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/25 15:49:41 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	point_to_line_x1(t_fdf **d, int x, int y)
 void	transform_3(t_fdf **d)
 {
 	t_fdf	*data;
-	t_line	line;
 	int		x;
 	int		y;
 
