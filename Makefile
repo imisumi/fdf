@@ -6,7 +6,7 @@
 #    By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 00:51:40 by ichiro            #+#    #+#              #
-#    Updated: 2023/05/25 16:30:44 by imisumi          ###   ########.fr        #
+#    Updated: 2023/05/25 17:11:00 by imisumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,16 +18,16 @@ CFLAGS = -g -I include
 
 LEAKS = -fsanitize=address
 
-LFLAGS = -lglfw3 -framework Cocoa -framework OpenGl -framework IOKit -lm
 
 cc = gcc -Wall -Werror -Wextra
 
 UNAME := $(shell uname -m)
+LFLAGS = -framework Cocoa -framework OpenGl -framework IOKit -lm
 
 ifeq ($(UNAME), x86_64)
-	LFLAGS = -lglfw3 -framework Cocoa -framework OpenGl -framework IOKit -lm
+	LFLAGS += -lglfw3
 else
-	LFLAGS = -lglfw -framework Cocoa -framework OpenGl -framework IOKit -lm
+	LFLAGS += -lglfw
 endif
 
 MLX = lib/MLX42/build/libmlx42.a
