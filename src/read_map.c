@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:12:36 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/29 14:42:07 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/06/04 18:56:54 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+void	exit_msg(char *msg)
+{
+	write(STDERR_FILENO, msg, ft_strlen(msg));
+	exit(EXIT_FAILURE);
+}
 
 void	fill_map(t_fdf *data, char *line, int i)
 {
@@ -28,6 +34,8 @@ void	fill_map(t_fdf *data, char *line, int i)
 	{
 		num_col = ft_split(nums[j], ',');
 		data->map[i][j] = ft_atoi(num_col[0]);
+		if (data->map[i][j] > 500)
+			exit_msg("Maximum height is 500\n");
 		data->map_colors[i][j] = WHITE;
 		if (num_col[1] != NULL)
 			data->map_colors[i][j] = hexstr_to_int32(num_col[1]);
@@ -55,10 +63,7 @@ void	parse_map(t_fdf *data, char *filename, int fd, int width)
 		if (width == -1)
 			width = data->width;
 		if (width != data->width || data->width == 0)
-		{
-			write(STDERR_FILENO, "Invalid map\n", 13);
-			exit (EXIT_FAILURE);
-		}
+			exit_msg("Invalid map\n");
 		fill_map(data, line, i);
 		free(line);
 		i++;
@@ -80,9 +85,6 @@ bool	read_map(t_fdf *data, char *filename)
 	fd = 0;
 	parse_map(data, filename, fd, width);
 	if (data->height > 500 || data->width > 500)
-	{
-		write(STDERR_FILENO, "Maximum map size is 500 x 500", 29);
-		exit(EXIT_FAILURE);
-	}
+		exit_msg("Maximum map size is 500 x 500\n");
 	return (true);
 }
