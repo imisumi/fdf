@@ -6,7 +6,7 @@
 #    By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 00:51:40 by ichiro            #+#    #+#              #
-#    Updated: 2023/05/25 17:11:00 by imisumi          ###   ########.fr        #
+#    Updated: 2023/05/29 14:37:14 by imisumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ HEADER = includes/fdf.h
 CFLAGS = -g -I include
 
 LEAKS = -fsanitize=address
-
 
 cc = gcc -Wall -Werror -Wextra
 
@@ -83,7 +82,7 @@ $(NAME): $(MLX) $(LIBFT) $(OBJS)
 	@$(cc) $(CFLAGS) $(INC) -I $^ -o $(NAME) $(LFLAGS)
 
 run: all
-	./fdf test.txt
+	./fdf ./maps/42.fdf
 	
 git:
 	git add .

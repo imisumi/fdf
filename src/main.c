@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:16:03 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/25 16:03:40 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/29 14:38:45 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int32_t	main(int32_t argc, char *argv[])
 		exit(EXIT_FAILURE);
 	check_file_extension(argv[1], ".fdf");
 	data = ft_calloc(sizeof(t_fdf), 1);
-	if (read_map(data, argv[1]) == false)
+	if (data == NULL || read_map(data, argv[1]) == false)
 		exit (EXIT_FAILURE);
 	setup(&data, 0);
 	data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", false);

@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:12:36 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/25 15:48:35 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/29 14:42:07 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	fill_map(t_fdf *data, char *line, int i)
 
 	data->map[i] = ft_calloc(sizeof(int), data->width);
 	data->map_colors[i] = ft_calloc(sizeof(uint32_t), data->width);
+	if (!data->map[i] || !data->map_colors[i])
+		exit(EXIT_FAILURE);
 	nums = ft_split(line, ' ');
 	j = 0;
 	while (nums[j] && j < data->width)
@@ -72,6 +74,8 @@ bool	read_map(t_fdf *data, char *filename)
 	data->height = get_height(filename);
 	data->map = ft_calloc(sizeof(int *), data->height);
 	data->map_colors = ft_calloc(sizeof(uint32_t *), data->height);
+	if (!data->map || !data->map_colors)
+		exit(EXIT_FAILURE);
 	width = -1;
 	fd = 0;
 	parse_map(data, filename, fd, width);

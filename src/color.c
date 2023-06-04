@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 16:51:36 by imisumi           #+#    #+#             */
-/*   Updated: 2023/05/15 16:48:16 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/05/29 14:43:55 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ uint32_t	*get_gradient(int steps, uint32_t c1, uint32_t c2)
 	uint32_t	*color;
 
 	color = malloc(sizeof(uint32_t) * steps);
+	if (!color)
+		exit(EXIT_FAILURE);
 	col[0] = int32_to_rgb(c1);
 	col[1] = int32_to_rgb(c2);
 	diff[0] = col[1].r - col[0].r;
@@ -72,6 +74,8 @@ int	*lowest_heighest_y(t_fdf *data)
 	int	y;
 
 	y_level = malloc(sizeof(int) * 2);
+	if (!y_level)
+		exit(EXIT_FAILURE);
 	y_level[0] = data->map[0][0];
 	y_level[1] = data->map[0][0];
 	y = 0;
