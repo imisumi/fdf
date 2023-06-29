@@ -6,6 +6,11 @@ This repository contains the FDF (Fil De Fer) project for 42, a simple wireframe
 
 FDF is a 42 project that takes a map file as input and generates a wireframe representation of it. It uses basic graphical algorithms to create a 3D effect by connecting points in space.
 
+![alt text](/images/4.png)
+![alt text](/images/3.png)
+![alt text](/images/2.png)
+![alt text](/images/1.png)
+
 ## Installation
 
 ```bash 
